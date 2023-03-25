@@ -9,6 +9,11 @@ const LoginScreen = ({navigation}) => {
 
   const handleLogin = () => {
     // Aquí puedes implementar la lógica de inicio de sesión con tu backend
+    if (email !== '' && password.length >= 8) {
+      navigation.navigate('BlankScreen');
+    } else {
+      // Mostrar algún mensaje de error si es necesario
+    }
     console.log('Email:', email);
     console.log('Password:', password);
   };
