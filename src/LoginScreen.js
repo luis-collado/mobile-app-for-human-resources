@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, StyleSheet, Image} from 'react-native';
 import {TextInput, Button, HelperText, Title} from 'react-native-paper';
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -10,6 +10,10 @@ const LoginScreen = () => {
     // Aquí puedes implementar la lógica de inicio de sesión con tu backend
     console.log('Email:', email);
     console.log('Password:', password);
+  };
+
+  const handleRegister = () => {
+    navigation.navigate('RegisterScreen');
   };
 
   return (
@@ -50,6 +54,14 @@ const LoginScreen = () => {
         >
           Iniciar sesión
         </Button>
+        <Button
+          mode="outlined"
+          onPress={handleRegister}
+          style={styles.registerButton}
+          labelStyle={styles.registerButtonLabel}
+        >
+          Registrarse
+        </Button>
       </View>
     </View>
   );
@@ -89,6 +101,14 @@ const styles = StyleSheet.create({
   },
   buttonLabel: {
     fontSize: 18,
+  },
+  registerButton: {
+    marginTop: 10,
+    borderColor: '#d5bf19',
+  },
+  registerButtonLabel: {
+    fontSize: 18,
+    color: '#d5bf19',
   },
 });
 
