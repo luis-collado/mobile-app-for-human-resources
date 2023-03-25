@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, Image} from 'react-native';
 import {TextInput, Button, HelperText, Title} from 'react-native-paper';
-import {NavigationContainer} from '@react-navigation/native';
 
 const RegisterScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
@@ -61,6 +60,14 @@ const RegisterScreen = ({navigation}) => {
         >
           Registrarse
         </Button>
+        <Button
+          mode="text"
+          onPress={() => navigation.goBack()}
+          style={styles.backButton}
+          labelStyle={styles.backButtonLabel}
+        >
+          Volver al inicio de sesión
+        </Button>
       </View>
     </View>
   );
@@ -100,6 +107,13 @@ const styles = StyleSheet.create({
   },
   buttonLabel: {
     fontSize: 18,
+  },
+  backButton: {
+    marginTop: 10,
+  },
+  backButtonLabel: {
+    fontSize: 16,
+    color: '#d5bf19',
   },
 });
 
