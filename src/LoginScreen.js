@@ -7,10 +7,15 @@ const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleLogin = () => {
     // Aquí puedes implementar la lógica de inicio de sesión con tu backend
     if (email !== '' && password.length >= 8) {
-      navigation.navigate('BlankScreen');
+      navigation.navigate('BlankScreen', {email: email});
     } else {
       // Mostrar algún mensaje de error si es necesario
     }
@@ -57,6 +62,7 @@ const LoginScreen = ({navigation}) => {
           onPress={handleLogin}
           style={styles.button}
           labelStyle={styles.buttonLabel}
+          disabled={!isValidEmail(email)}
         >
           Iniciar sesión
         </Button>
