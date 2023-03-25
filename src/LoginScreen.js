@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, Image} from 'react-native';
 import {TextInput, Button, HelperText, Title} from 'react-native-paper';
+import {NavigationContainer} from '@react-navigation/native';
 
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');

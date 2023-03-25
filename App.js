@@ -1,21 +1,30 @@
-import React from 'react';
-import {SafeAreaView, StyleSheet, StatusBar} from 'react-native';
-import {Provider as PaperProvider} from 'react-native-paper';
+// App.js
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 import LoginScreen from './src/LoginScreen';
+import RegisterScreen from './src/RegisterScreen';
 
-export default function App() {
+const Stack = createStackNavigator();
+
+function App() {
   return (
-    <PaperProvider>
-      <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="dark-content" />
-        <LoginScreen />
-      </SafeAreaView>
-    </PaperProvider>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="LoginScreen">
+        <Stack.Screen
+          name="LoginScreen"
+          component={LoginScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="RegisterScreen"
+          component={RegisterScreen}
+          options={{headerShown: false}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-});
+export default App;
