@@ -14,6 +14,11 @@ const RegisterScreen = ({navigation}) => {
     console.log('Contraseña:', password);
   };
 
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
@@ -49,7 +54,12 @@ const RegisterScreen = ({navigation}) => {
           secureTextEntry
           mode="outlined"
         />
-        <HelperText type="error" visible={password.length < 8}>
+
+        <HelperText type="error" visible={!isValidEmail(email) && email!== ""}>
+          Correo no válido
+        </HelperText>
+
+        <HelperText type="error" visible={password.length < 8 && password!== ""}>
           La contraseña debe tener al menos 8 caracteres
         </HelperText>
         <Button
@@ -57,6 +67,7 @@ const RegisterScreen = ({navigation}) => {
           onPress={handleRegister}
           style={styles.button}
           labelStyle={styles.buttonLabel}
+          disabled={!isValidEmail(email) || password.length < 8}
         >
           Registrarse
         </Button>

@@ -7,11 +7,7 @@ const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const isValidEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
+ 
   const handleLogin = () => {
     // Aquí puedes implementar la lógica de inicio de sesión con tu backend
     if (email !== '' && password.length >= 8) {
@@ -54,15 +50,11 @@ const LoginScreen = ({navigation}) => {
           secureTextEntry
           mode="outlined"
         />
-        <HelperText type="error" visible={password.length < 8}>
-          La contraseña debe tener al menos 8 caracteres
-        </HelperText>
         <Button
           mode="contained"
           onPress={handleLogin}
           style={styles.button}
           labelStyle={styles.buttonLabel}
-          disabled={!isValidEmail(email)}
         >
           Iniciar sesión
         </Button>
