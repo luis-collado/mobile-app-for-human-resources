@@ -7,10 +7,11 @@ const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+ 
   const handleLogin = () => {
     // Aquí puedes implementar la lógica de inicio de sesión con tu backend
     if (email !== '' && password.length >= 8) {
-      navigation.navigate('BlankScreen');
+      navigation.navigate('BlankScreen', {email: email});
     } else {
       // Mostrar algún mensaje de error si es necesario
     }
@@ -49,9 +50,6 @@ const LoginScreen = ({navigation}) => {
           secureTextEntry
           mode="outlined"
         />
-        <HelperText type="error" visible={password.length < 8}>
-          La contraseña debe tener al menos 8 caracteres
-        </HelperText>
         <Button
           mode="contained"
           onPress={handleLogin}
