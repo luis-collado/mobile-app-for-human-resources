@@ -106,18 +106,18 @@ const RegisterScreen = ({navigation}) => {
 };
 
 //API que guarda usuarios al registrarse en GCP
-const saveUserDataToMySQL = async (nombre, apellidos, email, contraseña_hash) => {
+const saveUserDataToMySQL = async (nombre, apellidos, email, contraseña) => {
   try {
     const response = await fetch('https://saveuserdata-2b2k6woktq-nw.a.run.app', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({email, nombre, apellidos, contraseña_hash}),
+      body: JSON.stringify({email, nombre, apellidos, contraseña}),
     });
 
     if (!response.ok) {
-      throw new Error('Failed to save user data to MySQL' + JSON.stringify({email, nombre, apellidos, contraseña_hash}));
+      throw new Error('Failed to save user data to MySQL' + JSON.stringify({email, nombre, apellidos, contraseña}));
     }
 
     console.log('User data saved to MySQL successfully');
