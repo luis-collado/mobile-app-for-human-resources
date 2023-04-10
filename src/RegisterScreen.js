@@ -5,13 +5,17 @@ import {TextInput, Button, HelperText, Title} from 'react-native-paper';
 const RegisterScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [fullName, setFullName] = useState('');
+  const [name, setName] = useState('');
+  const [lastName, setLastName] = useState('');
 
-  const handleRegister = () => {
+
+   const handleRegister = async () => {
     // Aquí puedes implementar la lógica de registro con tu backend
-    console.log('Nombre completo:', fullName);
+    console.log('Nombre ', name);
+
     console.log('Correo electrónico:', email);
     console.log('Contraseña:', password);
+    await saveUserDataToMySQL( name, email, lastName, password);
   };
 
   const isValidEmail = (email) => {
@@ -31,12 +35,21 @@ const RegisterScreen = ({navigation}) => {
       <View style={styles.formContainer}>
         <TextInput
           label="Nombre completo"
-          value={fullName}
-          onChangeText={setFullName}
+          value={name}
+          onChangeText={setName}
           style={styles.input}
           autoCapitalize="words"
           mode="outlined"
         />
+        <TextInput
+        label="Apellidos"
+        value={lastName}
+        onChangeText={setLastName}
+        style={styles.input}
+        autoCapitalize="words"
+         mode="outlined"
+        />
+
         <TextInput
           label="Correo electrónico"
           value={email}
@@ -83,6 +96,29 @@ const RegisterScreen = ({navigation}) => {
     </View>
   );
 };
+
+//API que guarda usuarios al registrarse en GCP
+const saveUserDataToMySQL = async (id, nombre, apellidos, email, contraseña_hash) => {
+  try {
+    const response = await fetch('https://saveuserdata-2b2k6woktq-nw.a.run.app', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    
+    body: JSON.stringify({email, nombre, apellidos, contraseña_hash}),
+    });
+  
+    if (!response.ok) {
+    throw new Error('Failed to save user data to MySQL'+JSON.stringify({email, nombre, apellidos, contraseña_hash}));
+    }
+  
+    console.log('User data saved to MySQL successfully');
+  } catch (error) {
+    console.error('Error saving user data to MySQL:', error);
+  }
+  };
+
 
 const styles = StyleSheet.create({
   container: {

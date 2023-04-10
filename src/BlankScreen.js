@@ -80,11 +80,11 @@ const styles = StyleSheet.create({
     borderBottomColor: '#eee',
   },
   offerTitle: {
-    fontSize: 16,
+    fontSize: 12,
     fontWeight: 'bold',
   },
   offerDescription: {
-    fontSize: 14,
+    fontSize: 12,
     color: '#888',
   },
   logoutButtonContainer: {
