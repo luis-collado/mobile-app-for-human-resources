@@ -98,7 +98,7 @@ const RegisterScreen = ({navigation}) => {
 };
 
 //API que guarda usuarios al registrarse en GCP
-const saveUserDataToMySQL = async (id, nombre, apellidos, email, contraseña_hash) => {
+const saveUserDataToMySQL = async ( nombre, apellidos, email, contraseña_hash) => {
   try {
     const response = await fetch('https://saveuserdata-2b2k6woktq-nw.a.run.app', {
     method: 'POST',
