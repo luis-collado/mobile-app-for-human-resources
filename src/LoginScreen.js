@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, Image} from 'react-native';
 import {TextInput, Button, HelperText, Title} from 'react-native-paper';
-import {NavigationContainer} from '@react-navigation/native';
-import WelcomeScreen from './WelcomeScreen';
+//import {NavigationContainer} from '@react-navigation/native';
+//import WelcomeScreen from './WelcomeScreen';
 
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
@@ -34,7 +34,16 @@ const LoginScreen = ({navigation}) => {
       if (response.ok) {
         const data = await response.text();
         console.log("Inicio de sesión exitoso:", data);
-        navigation.navigate('WelcomeScreen', {email: email});
+
+        //navigation.reset({
+        //  index: 0,
+        //  routes: [{name: 'Welcome', params: {email: email}}],
+       // });
+       navigation.navigate('Welcome', {email: email});
+       //navigation.navigate('Welcome');
+     
+
+        
         
       } else {
         console.error("Error al iniciar sesión:", response.statusText);
@@ -42,7 +51,7 @@ const LoginScreen = ({navigation}) => {
     } catch (error) {
       console.error("Error al iniciar sesión:", error);
     }
-    navigation.navigate('WelcomeScreen', {email: email});
+    //navigation.navigate('WelcomeScreen', {email: email});
 
   }
   
@@ -50,7 +59,7 @@ const LoginScreen = ({navigation}) => {
   
 
   const handleRegister = () => {
-    navigation.navigate('RegisterScreen');
+    navigation.navigate('Welcome');
   };
 
   return (

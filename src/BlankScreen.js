@@ -5,7 +5,7 @@ import Papa from 'papaparse';
 import csvData from './ofertas.csv.js';
 
 const BlankScreen = ({route, navigation}) => {
-  const {email} = route.params;
+  //const {email} = route.params;
   const [offers, setOffers] = useState([]);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const BlankScreen = ({route, navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.welcomeText}>Bienvenido, {email}</Text>
+      
       <ScrollView style={styles.offersContainer}>
       {offers.map((offer, index) => (
   offer.Oferta && ( // Asegúrate de que 'Oferta' esté presente en el objeto 'offer'
