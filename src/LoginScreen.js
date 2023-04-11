@@ -8,16 +8,44 @@ const LoginScreen = ({navigation}) => {
   const [password, setPassword] = useState('');
 
  
-  const handleLogin = () => {
+  const handleLogin = async () => {
     // Aquí puedes implementar la lógica de inicio de sesión con tu backend
     if (email !== '' && password.length >= 8) {
-      navigation.navigate('BlankScreen', {email: email});
+      
     } else {
       // Mostrar algún mensaje de error si es necesario
     }
     console.log('Email:', email);
     console.log('Password:', password);
-  };
+
+    try {
+      const response = await fetch("https://loginuser-2b2k6woktq-nw.a.run.app/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.text();
+        console.log("Inicio de sesión exitoso:", data);
+        navigation.navigate('BlankScreen', {email: email});
+        
+      } else {
+        console.error("Error al iniciar sesión:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error);
+    }
+
+  }
+  
+
+  
 
   const handleRegister = () => {
     navigation.navigate('RegisterScreen');
