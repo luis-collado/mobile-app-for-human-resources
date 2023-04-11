@@ -3,7 +3,7 @@ import {View, StyleSheet, Image, Alert} from 'react-native';
 import {TextInput, Button, HelperText, Title} from 'react-native-paper';
 
 
-const RegisterScreen = ({navigation}) => {
+const RegisterScreen = ({route,navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
