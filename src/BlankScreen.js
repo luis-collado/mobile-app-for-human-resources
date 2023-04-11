@@ -5,7 +5,7 @@ import Papa from 'papaparse';
 import csvData from './ofertas.csv.js';
 
 const BlankScreen = ({route, navigation}) => {
-  const {email} = route.params;
+  //const {email} = route.params;
   const [offers, setOffers] = useState([]);
 
   useEffect(() => {
@@ -22,13 +22,9 @@ const BlankScreen = ({route, navigation}) => {
     parseCSV();
   }, []);
 
-  const handleLogout = () => {
-    navigation.navigate('LoginScreen');
-  };
-
   return (
     <View style={styles.container}>
-      <Text style={styles.welcomeText}>Bienvenido, {email}</Text>
+      
       <ScrollView style={styles.offersContainer}>
       {offers.map((offer, index) => (
   offer.Oferta && ( // Asegúrate de que 'Oferta' esté presente en el objeto 'offer'
@@ -43,15 +39,6 @@ const BlankScreen = ({route, navigation}) => {
 ))}
 
       </ScrollView>
-      <View style={styles.logoutButtonContainer}>
-        <Button
-          mode="contained"
-          onPress={handleLogout}
-          style={styles.logoutButton}
-          labelStyle={styles.logoutButtonLabel}>
-          Cerrar sesión
-        </Button>
-      </View>
     </View>
   );
 };
@@ -62,7 +49,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    paddingTop: 50,
+    paddingTop: 60,
   },
   welcomeText: {
     fontSize: 18,
@@ -86,18 +73,6 @@ const styles = StyleSheet.create({
   offerDescription: {
     fontSize: 12,
     color: '#888',
-  },
-  logoutButtonContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    marginBottom: 20,
-  },
-  logoutButton: {
-    backgroundColor: '#d5bf19',
-    paddingHorizontal: 25,
-  },
-  logoutButtonLabel: {
-    fontSize: 18,
   },
 });
 

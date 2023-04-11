@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Image} from 'react-native';
+import {View, StyleSheet, Image, Alert} from 'react-native';
 import {TextInput, Button, HelperText, Title} from 'react-native-paper';
+
 
 const RegisterScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
@@ -9,13 +10,20 @@ const RegisterScreen = ({navigation}) => {
   const [lastName, setLastName] = useState('');
 
 
+
    const handleRegister = async () => {
     // Aquí puedes implementar la lógica de registro con tu backend
     console.log('Nombre ', name);
-
     console.log('Correo electrónico:', email);
     console.log('Contraseña:', password);
-    await saveUserDataToMySQL( name, email, lastName, password);
+    const result = await saveUserDataToMySQL(name, lastName, email, password);
+    if (result.success) {
+      navigation.navigate('LoginScreen');
+    } else {
+      if (result.error.includes('Failed to save user data to MySQL')) {
+        Alert.alert('Error', 'El email ya está siendo utilizado');
+      }
+    }
   };
 
   const isValidEmail = (email) => {
@@ -98,26 +106,27 @@ const RegisterScreen = ({navigation}) => {
 };
 
 //API que guarda usuarios al registrarse en GCP
-const saveUserDataToMySQL = async ( nombre, apellidos, email, contraseña_hash) => {
+const saveUserDataToMySQL = async (nombre, apellidos, email, contraseña) => {
   try {
     const response = await fetch('https://saveuserdata-2b2k6woktq-nw.a.run.app', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    
-    body: JSON.stringify({email, nombre, apellidos, contraseña_hash}),
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({email, nombre, apellidos, contraseña}),
     });
-  
+
     if (!response.ok) {
-    throw new Error('Failed to save user data to MySQL'+JSON.stringify({email, nombre, apellidos, contraseña_hash}));
+      throw new Error('Failed to save user data to MySQL' + JSON.stringify({email, nombre, apellidos, contraseña}));
     }
-  
+
     console.log('User data saved to MySQL successfully');
+    return {success: true};
   } catch (error) {
     console.error('Error saving user data to MySQL:', error);
+    return {success: false, error: error.message};
   }
-  };
+};
 
 
 const styles = StyleSheet.create({
