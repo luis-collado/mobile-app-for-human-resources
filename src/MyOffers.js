@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'flex-start',
-        paddingTop: 20,
+        paddingTop: 60,
     },
     welcomeText: {
         fontSize: 20,
