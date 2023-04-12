@@ -119,13 +119,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20, // Aumentar el margen inferior
-    alignSelf: 'flex-start',
+    alignItems: 'flex-start',
     textAlign: 'left', // Cambiar a 'left' para alinear a la izquierda
   },
   info: {
     fontSize: 18,
     marginBottom: 15, // Aumentar el margen inferior para mayor separación entre campos
-    alignSelf: 'flex-start', // Alinear a la izquierda
+    alignItems: 'flex-start', // Alinear a la izquierda
     textAlign: 'left', // Alinear a la izquierda
   },
   fab: {
@@ -142,9 +142,9 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#d5bf19', // Color del borde (cámbialo según tus necesidades)
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     marginBottom: 20,
-    marginLeft: 0, // establecer marginLeft en 0 desplazará el contenedor a la izquierda
+    alignItems: 'flex-start',
   },
   profileImage: {
     width: 100,
