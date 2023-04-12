@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
-    alignSelf: 'left',
+    marginLeft: 0, // establecer marginLeft en 0 desplazará el contenedor a la izquierda
   },
   profileImage: {
     width: 100,
