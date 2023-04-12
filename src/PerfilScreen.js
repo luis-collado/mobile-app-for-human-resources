@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {View, Text, StyleSheet, ScrollView} from 'react-native';
+import {View, Text, StyleSheet, ScrollView,Image} from 'react-native';
 import { FAB } from 'react-native-paper';
 
 const MiPerfilScreen = ({route, navigation}) => {
@@ -48,6 +48,16 @@ const MiPerfilScreen = ({route, navigation}) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Mi Perfil</Text>
+      <View style={styles.profileImageContainer}>
+        <Image
+        style={styles.profileImage}
+        source={
+          userData && userData.foto_perfil
+            ? { uri: userData.foto_perfil }
+            : require('./logo.png') // Reemplaza con la ruta de la imagen predeterminada
+        }
+        />
+      </View>
       {loading && <Text>Cargando datos del usuario...</Text>}
       {error && <Text>Error al cargar los datos del usuario: {error}</Text>}
       {userData && (
@@ -124,6 +134,22 @@ const styles = StyleSheet.create({
     right: 0,
     top: 20,
     backgroundColor: '#d5bf19',
+  },
+  profileImageContainer: {
+    width: 104,
+    height: 104,
+    borderRadius: 52,
+    borderWidth: 2,
+    borderColor: '#d5bf19', // Color del borde (cámbialo según tus necesidades)
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+    alignSelf: 'left',
+  },
+  profileImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
   },
 });
 
