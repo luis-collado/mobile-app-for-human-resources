@@ -97,23 +97,26 @@ const MiPerfilScreen = ({route, navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    alignItems: 'center',
+    alignItems: 'flex-start', // Cambiar a 'flex-start' para alinear a la izquierda
     justifyContent: 'flex-start',
     backgroundColor: '#fff',
     paddingTop: 60,
     flexDirection: 'column',
     paddingBottom: 80, // Agrega un espacio adicional al final del contenido
+    paddingHorizontal: 20, // Agregar espacio horizontal
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: 20, // Aumentar el margen inferior
     alignSelf: 'flex-start',
-    textAlign: 'center',
+    textAlign: 'left', // Cambiar a 'left' para alinear a la izquierda
   },
   info: {
     fontSize: 18,
-    marginBottom: 10,
+    marginBottom: 15, // Aumentar el margen inferior para mayor separación entre campos
+    alignSelf: 'flex-start', // Alinear a la izquierda
+    textAlign: 'left', // Alinear a la izquierda
   },
   fab: {
     position: 'absolute',
