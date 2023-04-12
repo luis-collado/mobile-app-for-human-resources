@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import {View, Text, StyleSheet, ScrollView,Image} from 'react-native';
-import { FAB } from 'react-native-paper';
+import {View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Linking} from 'react-native';
+import { FAB, Button } from 'react-native-paper';
+import { WebView } from 'react-native-webview'; // Importa el paquete
+
+
 
 const MiPerfilScreen = ({route, navigation}) => {
   const {email} = route.params;
@@ -44,7 +47,6 @@ const MiPerfilScreen = ({route, navigation}) => {
       routes: [{name: 'LoginScreen'}],
     });
   };
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Mi Perfil</Text>
@@ -58,6 +60,14 @@ const MiPerfilScreen = ({route, navigation}) => {
         }
         />
       </View>
+      {userData && userData.CV && (
+        <Button style={styles.botonCV}
+          mode="contained"
+          onPress={() => Linking.openURL(userData.CV)}
+        >
+          Ver CV
+        </Button>
+      )}
       {loading && <Text>Cargando datos del usuario...</Text>}
       {error && <Text>Error al cargar los datos del usuario: {error}</Text>}
       {userData && (
@@ -135,6 +145,11 @@ const styles = StyleSheet.create({
     top: 20,
     backgroundColor: '#d5bf19',
   },
+  botonCV: {
+    alignSelf: 'flex-start',
+    backgroundColor: '#d5bf19',
+    marginBottom: 20,
+  },
   profileImageContainer: {
     width: 104,
     height: 104,
@@ -150,6 +165,11 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
+  },
+  pdfWebView: {
+    width: '100%',
+    height: 400, // Ajusta la altura según tus necesidades
+    marginBottom: 20,
   },
 });
 

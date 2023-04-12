@@ -8,6 +8,7 @@ import BlankScreen from './src/BlankScreen';
 import OfferDetailsScreen from './src/OfferDetailsScreen';
 import WelcomeScreen from './src/WelcomeScreen'; // Asegúrate de importar correctamente el archivo WelcomeScreen
 
+
 const Stack = createStackNavigator();
 
 function App() {
