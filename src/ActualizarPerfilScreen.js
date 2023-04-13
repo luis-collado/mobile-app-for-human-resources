@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-paper';
+import MiPerfil from './PerfilScreen';
 
 const ActualizarPerfilScreen = ({ route, navigation }) => {
   const { email, userData: initialUserData } = route.params;
@@ -33,7 +34,7 @@ const ActualizarPerfilScreen = ({ route, navigation }) => {
         throw new Error(`Error en la solicitud: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data = await response;
       console.log('Datos actualizados:', data);
       navigation.navigate('MiPerfilScreen', { email });
     } catch (error) {
