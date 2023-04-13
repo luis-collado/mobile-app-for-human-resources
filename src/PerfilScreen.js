@@ -65,7 +65,7 @@ const MiPerfilScreen = ({route, navigation}) => {
                 ? { uri: userData.foto_perfil}
                 : require('./logo.png') // Reemplaza con la ruta de la imagen predeterminada
             }
-            onError={(error) => console.log('Error al cargar la imagen:', error)}
+            //onError={(error) => console.log('Error al cargar la imagen:', error)}
           />
         </TouchableOpacity>
       </View>
@@ -76,7 +76,16 @@ const MiPerfilScreen = ({route, navigation}) => {
         >
           Ver CV
         </Button>
+
+        
       )}
+      <Button
+        style={styles.actualizarPerfilButton}
+        mode="contained"
+        onPress={() => navigation.navigate('ActualizarPerfilScreen', { email, userData })}
+      >
+        Actualizar perfil
+      </Button>
       {loading && <Text>Cargando datos del usuario...</Text>}
       {error && <Text>Error al cargar los datos del usuario: {error}</Text>}
       {userData && (
@@ -112,6 +121,8 @@ const MiPerfilScreen = ({route, navigation}) => {
           {/* Agrega aquí otros campos que desees mostrar */}
         </>
       )}
+      
+ 
       <FAB
         style={styles.fab}
         icon="logout"
@@ -179,6 +190,13 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 400, // Ajusta la altura según tus necesidades
     marginBottom: 20,
+  },
+  actualizarPerfilButton: {
+    alignSelf: 'flex-start',
+    backgroundColor: '#d5bf19',
+    marginBottom: 20,
+    right: -190,
+    top: -59,
   },
 });
 

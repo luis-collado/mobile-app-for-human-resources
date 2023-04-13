@@ -8,6 +8,8 @@ import BlankScreen from './src/BlankScreen';
 import OfferDetailsScreen from './src/OfferDetailsScreen';
 import WelcomeScreen from './src/WelcomeScreen'; // Asegúrate de importar correctamente el archivo WelcomeScreen
 import ImageZoomScreen from './src/ImageZoomScreen';
+import ActualizarPerfilScreen from './src/ActualizarPerfilScreen'; // Importa la pantalla creada
+
 
 
 const Stack = createStackNavigator();
@@ -44,7 +46,12 @@ function App() {
           options={{headerShown: false}}
         />
         <Stack.Screen name="ImageZoomScreen" 
-        component={ImageZoomScreen} 
+          component={ImageZoomScreen} 
+        />
+        <Stack.Screen
+          name="ActualizarPerfilScreen"
+          component={ActualizarPerfilScreen}
+          options={{ title: 'Actualizar Perfil' }}
         />
       </Stack.Navigator>
     </NavigationContainer>
