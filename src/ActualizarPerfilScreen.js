@@ -13,13 +13,20 @@ const ActualizarPerfilScreen = ({ route, navigation }) => {
   const actualizarPerfil = async () => {
     setError(null);
 
+    const requestBody = {
+      email: email,
+      userData: userData,
+    };
+  
+    console.log('JSON enviado:', JSON.stringify(requestBody, null, 2)); 
+
     try {
       const response = await fetch('https://updateuserdata-2b2k6woktq-nw.a.run.app/updateUserData', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: email, userData: userData }),
+        body: JSON.stringify(requestBody,null,2),
       });
 
       if (!response.ok) {
