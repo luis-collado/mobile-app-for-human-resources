@@ -11,6 +11,12 @@ const MiPerfilScreen = ({route, navigation}) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const handleImagePress = () => {
+    navigation.navigate('ImageZoomScreen', {
+      imageUrl: userData && userData.foto_perfil ? userData.foto_perfil : 'Ruta de la imagen predeterminada',
+    });
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -51,14 +57,17 @@ const MiPerfilScreen = ({route, navigation}) => {
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Mi Perfil</Text>
       <View style={styles.profileImageContainer}>
-        <Image
-        style={styles.profileImage}
-        source={
-          userData && userData.foto_perfil
-            ? { uri: userData.foto_perfil}
-            : require('./logo.png') // Reemplaza con la ruta de la imagen predeterminada
-        }
-        />
+        <TouchableOpacity onPress={handleImagePress}>
+          <Image
+            style={styles.profileImage}
+            source={
+              userData && userData.foto_perfil
+                ? { uri: userData.foto_perfil}
+                : require('./logo.png') // Reemplaza con la ruta de la imagen predeterminada
+            }
+            onError={(error) => console.log('Error al cargar la imagen:', error)}
+          />
+        </TouchableOpacity>
       </View>
       {userData && userData.CV && (
         <Button style={styles.botonCV}

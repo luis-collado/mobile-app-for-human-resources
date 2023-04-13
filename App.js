@@ -7,6 +7,7 @@ import RegisterScreen from './src/RegisterScreen';
 import BlankScreen from './src/BlankScreen';
 import OfferDetailsScreen from './src/OfferDetailsScreen';
 import WelcomeScreen from './src/WelcomeScreen'; // Asegúrate de importar correctamente el archivo WelcomeScreen
+import ImageZoomScreen from './src/ImageZoomScreen';
 
 
 const Stack = createStackNavigator();
@@ -41,6 +42,9 @@ function App() {
           name="Welcome"
           component={WelcomeScreen}
           options={{headerShown: false}}
+        />
+        <Stack.Screen name="ImageZoomScreen" 
+        component={ImageZoomScreen} 
         />
       </Stack.Navigator>
     </NavigationContainer>
