@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-paper';
-import MiPerfil from './PerfilScreen';
+
 
 const ActualizarPerfilScreen = ({ route, navigation }) => {
   const { email, userData: initialUserData } = route.params;
