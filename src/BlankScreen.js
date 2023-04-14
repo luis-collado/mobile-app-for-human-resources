@@ -5,7 +5,6 @@ import {Button} from 'react-native-paper';
 const BlankScreen = ({navigation}) => {
   const [offers, setOffers] = useState([]);
   const [selectedOffer, setSelectedOffer] = useState(null);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -31,7 +30,7 @@ const BlankScreen = ({navigation}) => {
   };
 
   if (selectedOffer) {
-    return (
+    return (     
       <View style={styles.container}>
       <ScrollView>
         {/* Detalles de la oferta seleccionada */}
@@ -85,7 +84,7 @@ const styles = StyleSheet.create({
     paddingTop: 60,
   },
   offerContainer: {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#b5b3b3',
     borderRadius: 10,
     padding: 10,
     marginBottom: 10,
@@ -97,7 +96,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   title: {
-    fontSize: 24,
+    fontSize: 14,
     fontWeight: 'bold',
     color: '#000000',
   },
