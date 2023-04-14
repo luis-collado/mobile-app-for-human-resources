@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, FlatList, TouchableOpacity,ScrollView} from 'react-native';
 import {Button} from 'react-native-paper';
 
 const BlankScreen = ({navigation}) => {
@@ -33,6 +33,7 @@ const BlankScreen = ({navigation}) => {
   if (selectedOffer) {
     return (
       <View style={styles.container}>
+      <ScrollView>
         {/* Detalles de la oferta seleccionada */}
         <Text style={styles.title}>{selectedOffer.Oferta}</Text>
         <Text style={styles.description}>{selectedOffer.Empresa}</Text>
@@ -42,27 +43,36 @@ const BlankScreen = ({navigation}) => {
         <Text style={styles.info}>Duración: {selectedOffer.Duración}</Text>
         <Text style={styles.info}>Puestos: {selectedOffer.Puestos}</Text>
         {/* Muestra más información de la oferta aquí */}
+        {Object.entries(selectedOffer).map(([key, value]) => (
+          key !== 'Oferta' && key !== 'Empresa' && key !== 'Fecha' && key !== 'Estado' &&
+          key !== 'Tipo contrato' && key !== 'Duración' && key !== 'Puestos' ? (
+            <Text style={styles.info} key={key}>
+              {key}: {value}
+            </Text>
+          ) : null
+        ))}
         <Button onPress={handleGoBack} style={styles.button}>
           Volver
         </Button>
-      </View>
+      </ScrollView>
+    </View>
     );
   } else {
     return (
       <View style={styles.container}>
-        <FlatList
-          data={offers}
-          renderItem={({item}) => (
-            <TouchableOpacity
-              onPress={() => handleSelectOffer(item)}
-              style={styles.offerContainer}
-            >
-              <Text style={styles.title}>{item.Oferta}</Text>
-            </TouchableOpacity>
-          )}
-          keyExtractor={(item, index) => index.toString()}
-        />
-      </View>
+      <FlatList
+        data={offers}
+        renderItem={({item}) => (
+          <TouchableOpacity
+            onPress={() => handleSelectOffer(item)}
+            style={styles.offerContainer}
+          >
+            <Text style={styles.title}>{item.Oferta}</Text>
+          </TouchableOpacity>
+        )}
+        keyExtractor={(item, index) => index.toString()}
+      />
+    </View>
     );
   }
 };
