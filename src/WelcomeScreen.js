@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
+    paddingTop: 60,
   },
   welcomeText: {
     fontSize: 15,

@@ -59,7 +59,7 @@ const LoginScreen = ({navigation}) => {
   
 
   const handleRegister = () => {
-    navigation.navigate('Welcome');
+    navigation.navigate('RegisterScreen');
   };
 
   return (
