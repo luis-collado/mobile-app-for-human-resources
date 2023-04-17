@@ -10,6 +10,7 @@ import WelcomeScreen from './src/WelcomeScreen'; // Asegúrate de importar corre
 import ImageZoomScreen from './src/ImageZoomScreen';
 import ActualizarPerfilScreen from './src/ActualizarPerfilScreen'; // Importa la pantalla creada
 import PerfilScreen from './src/PerfilScreen';
+import MyoffersScreen from './src/MyOffers';
 
 
 
@@ -51,6 +52,11 @@ function App() {
           name="ActualizarPerfilScreen"
           component={ActualizarPerfilScreen}
           options={{ title: 'Actualizar Perfil' }}
+        />
+        <Stack.Screen
+          name="MyoffersScreen"
+          component={MyoffersScreen}
+          options={{ title: 'Mis Ofertas' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -161,6 +161,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     marginBottom: 20,
     borderRadius: 10,
+    backgroundColor: '#b5b3b3',
   },
 });
 
