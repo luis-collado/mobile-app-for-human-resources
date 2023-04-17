@@ -5,7 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import LoginScreen from './src/LoginScreen';
 import RegisterScreen from './src/RegisterScreen';
 import BlankScreen from './src/BlankScreen';
-import OfferDetailsScreen from './src/OfferDetailsScreen';
+//import OfferDetailsScreen from './src/OfferDetailsScreen';
 import WelcomeScreen from './src/WelcomeScreen'; // Asegúrate de importar correctamente el archivo WelcomeScreen
 import ImageZoomScreen from './src/ImageZoomScreen';
 import ActualizarPerfilScreen from './src/ActualizarPerfilScreen'; // Importa la pantalla creada
@@ -33,13 +33,6 @@ function App() {
           name="BlankScreen"
           component={BlankScreen}
           options={{headerShown: false}}
-        />
-        
-        
-        <Stack.Screen
-          name="OfferDetailsScreen"
-          component={OfferDetailsScreen}
-          options={{title: 'Detalles de la oferta'}}
         />
         <Stack.Screen
           name="Welcome"
