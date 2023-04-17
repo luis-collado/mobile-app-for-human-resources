@@ -31,33 +31,28 @@ const BlankScreen = ({navigation}) => {
 
   const handleApplyOffer = async (email, offerId) => {
     try {
+      const requestBody = {
+        email: email,
+        ofertaId: offerId,
+      };
+  
+      console.log('Enviando JSON al servidor:', JSON.stringify(requestBody)); // Agrega esta línea
+  
       const response = await fetch('https://applyoffers-2b2k6woktq-nw.a.run.app/applyOffers', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          email: email,
-          ofertaId: offerId,
-        }),
+        body: JSON.stringify(requestBody),
       });
   
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success) {
-          alert('Aplicación realizada con éxito');
-        } else {
-          alert('Error al aplicar a la oferta');
-        }
-      } else {
-        console.error('Error en la respuesta del servidor:', response.status, response.statusText);
-        alert('Error al aplicar a la oferta');
-      }
+      // ...
     } catch (error) {
       console.error(error);
       alert('Error al aplicar a la oferta');
     }
   };
+  
 
   if (selectedOffer) {
     console.log(selectedOffer);
