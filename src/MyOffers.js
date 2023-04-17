@@ -1,25 +1,29 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, FlatList, TouchableOpacity,ScrollView} from 'react-native';
 import {Button} from 'react-native-paper';
+import { useIsFocused } from '@react-navigation/native';
 
 const MyoffersScreen = ({navigation}) => {
   const [offers, setOffers] = useState([]);
   const [selectedOffer, setSelectedOffer] = useState(null);
+  const isFocused = useIsFocused();
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          'https://readmyoffers-2b2k6woktq-nw.a.run.app/readOffers/prueba@gmail.com',
-        );
-        const data = await response.json();
-        setOffers(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+    if (isFocused) {
+      const fetchData = async () => {
+        try {
+          const response = await fetch(
+            'https://readmyoffers-2b2k6woktq-nw.a.run.app/readOffers/prueba@gmail.com',
+          );
+          const data = await response.json();
+          setOffers(data);
+        } catch (error) {
+          console.error(error);
+        }
+      };
 
-    fetchData();
-  }, []);
+      fetchData();
+    }
+  }, [isFocused]);
 
   const handleGoBack = () => {
     setSelectedOffer(null);
