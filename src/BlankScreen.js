@@ -32,7 +32,7 @@ const BlankScreen = ({navigation}) => {
   const handleApplyOffer = async (email, offerId) => {
     try {
       const response = await fetch('https://applyoffers-2b2k6woktq-nw.a.run.app/applyOffers', {
-        method: 'POST',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -42,10 +42,15 @@ const BlankScreen = ({navigation}) => {
         }),
       });
   
-      const data = await response.json();
-      if (data.success) {
-        alert('Aplicación realizada con éxito');
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          alert('Aplicación realizada con éxito');
+        } else {
+          alert('Error al aplicar a la oferta');
+        }
       } else {
+        console.error('Error en la respuesta del servidor:', response.status, response.statusText);
         alert('Error al aplicar a la oferta');
       }
     } catch (error) {
