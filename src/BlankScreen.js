@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, FlatList, TouchableOpacity,ScrollView} from 'react-native';
+import {View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView} from 'react-native';
 import {Button} from 'react-native-paper';
 
 const BlankScreen = ({navigation}) => {
@@ -29,49 +29,83 @@ const BlankScreen = ({navigation}) => {
     setSelectedOffer(offer);
   };
 
+  const handleApplyOffer = async (email, offerId) => {
+    try {
+      const response = await fetch('https://applyoffers-2b2k6woktq-nw.a.run.app/applyOffers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          ofertaId: offerId,
+        }),
+      });
+  
+      const data = await response.json();
+      if (data.success) {
+        alert('Aplicación realizada con éxito');
+      } else {
+        alert('Error al aplicar a la oferta');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Error al aplicar a la oferta');
+    }
+  };
+
   if (selectedOffer) {
-    return (     
-      <View style={styles.container}>
-      <ScrollView>
-        {/* Detalles de la oferta seleccionada */}
-        <Text style={styles.title}>{selectedOffer.Oferta}</Text>
-        <Text style={styles.description}>{selectedOffer.Empresa}</Text>
-        <Text style={styles.info}>Fecha: {selectedOffer.Fecha}</Text>
-        <Text style={styles.info}>Estado: {selectedOffer.Estado}</Text>
-        <Text style={styles.info}>Tipo Contrato: {selectedOffer['Tipo contrato']}</Text>
-        <Text style={styles.info}>Duración: {selectedOffer.Duración}</Text>
-        <Text style={styles.info}>Puestos: {selectedOffer.Puestos}</Text>
-        {/* Muestra más información de la oferta aquí */}
-        {Object.entries(selectedOffer).map(([key, value]) => (
-          key !== 'Oferta' && key !== 'Empresa' && key !== 'Fecha' && key !== 'Estado' &&
-          key !== 'Tipo contrato' && key !== 'Duración' && key !== 'Puestos' ? (
-            <Text style={styles.info} key={key}>
-              {key}: {value}
-            </Text>
-          ) : null
-        ))}
-        <Button onPress={handleGoBack} style={styles.button}>
-          Volver
-        </Button>
-      </ScrollView>
-    </View>
-    );
-  } else {
+    console.log(selectedOffer);
     return (
       <View style={styles.container}>
-      <FlatList
-        data={offers}
-        renderItem={({item}) => (
-          <TouchableOpacity
-            onPress={() => handleSelectOffer(item)}
-            style={styles.offerContainer}
-          >
-            <Text style={styles.title}>{item.Oferta}</Text>
-          </TouchableOpacity>
-        )}
-        keyExtractor={(item, index) => index.toString()}
-      />
-    </View>
+        <ScrollView>
+          <View style={styles.applyButtonContainer}>
+            <Button
+              mode="contained"
+              onPress={() => handleApplyOffer('prueba@gmail.com', selectedOffer.Codigo)}
+            >
+              Aplicar
+            </Button>
+          </View>
+          {/* Detalles de la oferta seleccionada */}
+          <Text style={styles.title}>{selectedOffer.Oferta}</Text>
+          <Text style={styles.description}>{selectedOffer.Empresa}</Text>
+          <Text style={styles.info}>Fecha: {selectedOffer.Fecha}</Text>
+          <Text style={styles.info}>Estado: {selectedOffer.Estado}</Text>
+          <Text style={styles.info}>Tipo Contrato: {selectedOffer['Tipo contrato']}</Text>
+          <Text style={styles.info}>Duración: {selectedOffer.Duración}</Text>
+          <Text style={styles.info}>Puestos: {selectedOffer.Puestos}</Text>
+          {/* Muestra más información de la oferta aquí */}
+          {Object.entries(selectedOffer).map(([key, value]) => (
+            key !== 'Oferta' && key !== 'Empresa' && key !== 'Fecha' && key !== 'Estado' &&
+            key !== 'Tipo contrato' && key !== 'Duración' && key !== 'Puestos' && key !== 'ofertaId' ? (
+              <Text style={styles.info} key={key}>
+                {key}: {value}
+              </Text>
+            ) : null
+          ))}
+          <Button onPress={handleGoBack} style={styles.button}>
+            Volver
+          </Button>
+        </ScrollView>
+      </View>
+    );
+  }else {
+    return (
+      <View style={styles.container}>
+        <FlatList
+          data={offers}
+          renderItem={({item}) => (
+            <TouchableOpacity
+              onPress={() => handleSelectOffer(item)}
+              style={styles.offerContainer}
+            >
+              <Text style={styles.title}>{item.Oferta}</Text>
+            </TouchableOpacity>
+          )}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      </View>
     );
   }
 };
@@ -123,7 +157,11 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 10,
   },
+  applyButtonContainer: {
+    alignSelf: 'stretch',
+    marginBottom: 20,
+    borderRadius: 10,
+  },
 });
 
 export default BlankScreen;
- 
