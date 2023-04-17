@@ -2,9 +2,10 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView} from 'react-native';
 import {Button} from 'react-native-paper';
 
-const BlankScreen = ({navigation}) => {
+const BlankScreen = ({route,navigation}) => {
   const [offers, setOffers] = useState([]);
   const [selectedOffer, setSelectedOffer] = useState(null);
+  const {email} = route.params;
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -62,7 +63,7 @@ const BlankScreen = ({navigation}) => {
           <View style={styles.applyButtonContainer}>
             <Button
               mode="contained"
-              onPress={() => handleApplyOffer('prueba@gmail.com', selectedOffer.Codigo)}
+              onPress={() => handleApplyOffer(email, selectedOffer.Codigo)}
             >
               Aplicar
             </Button>
@@ -93,6 +94,7 @@ const BlankScreen = ({navigation}) => {
   }else {
     return (
       <View style={styles.container}>
+        <Text style={styles.pageTitle}>Ofertas</Text>
         <FlatList
           data={offers}
           renderItem={({item}) => (
@@ -122,6 +124,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     marginBottom: 10,
+  },
+  pageTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
   },
   titleContainer: {
     alignSelf: 'stretch',
@@ -165,4 +173,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BlankScreen;
+export default BlankScreen;      

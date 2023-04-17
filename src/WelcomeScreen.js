@@ -43,6 +43,7 @@ const WelcomeScreen = ({route}) => {
         <Tab.Screen
           name="MisOfertas"
           component={MisOfertas}
+          initialParams={{email: email}}
           options={{
             tabBarLabel: 'Mis Ofertas',
             tabBarIcon: ({color}) => (
@@ -58,6 +59,7 @@ const WelcomeScreen = ({route}) => {
         <Tab.Screen
           name="Ofertas"
           component={Ofertas}
+          initialParams={{email: email}}
           options={{
             tabBarLabel: 'Ofertas',
             tabBarIcon: ({color}) => (

@@ -3,17 +3,20 @@ import {View, Text, StyleSheet, FlatList, TouchableOpacity,ScrollView} from 'rea
 import {Button} from 'react-native-paper';
 import { useIsFocused } from '@react-navigation/native';
 
-const MyoffersScreen = ({navigation}) => {
+const MyoffersScreen = ({route,navigation}) => {
   const [offers, setOffers] = useState([]);
   const [selectedOffer, setSelectedOffer] = useState(null);
   const isFocused = useIsFocused();
+  const {email} = route.params;
+
   useEffect(() => {
     if (isFocused) {
       const fetchData = async () => {
         try {
           const response = await fetch(
-            'https://readmyoffers-2b2k6woktq-nw.a.run.app/readOffers/prueba@gmail.com',
+            `https://readmyoffers-2b2k6woktq-nw.a.run.app/readOffers/${email}`,
           );
+          console.log(`https://readmyoffers-2b2k6woktq-nw.a.run.app/readOffers/${email}`);
           const data = await response.json();
           setOffers(data);
         } catch (error) {
@@ -36,6 +39,7 @@ const MyoffersScreen = ({navigation}) => {
   if (selectedOffer) {
     return (     
       <View style={styles.container}>
+      
       <ScrollView>
         {/* Detalles de la oferta seleccionada */}
         <Text style={styles.title}>{selectedOffer.Oferta}</Text>
@@ -63,6 +67,7 @@ const MyoffersScreen = ({navigation}) => {
   } else {
     return (
       <View style={styles.container}>
+        <Text style={styles.pageTitle}>Mis Ofertas</Text>
       <FlatList
         data={offers}
         renderItem={({item}) => (
@@ -92,6 +97,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     marginBottom: 10,
+  },
+  pageTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
   },
   titleContainer: {
     alignSelf: 'stretch',
