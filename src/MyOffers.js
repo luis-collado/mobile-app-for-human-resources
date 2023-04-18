@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, FlatList, TouchableOpacity,ScrollView} from 'react-native';
+import {View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView} from 'react-native';
 import {Button} from 'react-native-paper';
 import { useIsFocused } from '@react-navigation/native';
 
@@ -8,9 +8,11 @@ const MyoffersScreen = ({route,navigation}) => {
   const [selectedOffer, setSelectedOffer] = useState(null);
   const isFocused = useIsFocused();
   const {email} = route.params;
+  const [refreshOffers, setRefreshOffers] = useState(false);
+
 
   useEffect(() => {
-    if (isFocused) {
+    if (isFocused || refreshOffers) {
       const fetchData = async () => {
         try {
           const response = await fetch(
@@ -26,7 +28,7 @@ const MyoffersScreen = ({route,navigation}) => {
 
       fetchData();
     }
-  }, [isFocused]);
+  }, [isFocused, refreshOffers]);
 
   const handleGoBack = () => {
     setSelectedOffer(null);
@@ -36,11 +38,42 @@ const MyoffersScreen = ({route,navigation}) => {
     setSelectedOffer(offer);
   };
 
+  const handleUnsubscribe = async () => {
+    try {
+      const response = await fetch(
+        `https://unsubscribeoffers-2b2k6woktq-nw.a.run.app/unsubscribeOffers`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: email,
+            ofertaId: selectedOffer.Codigo, // Asegúrate de que el objeto de oferta tenga una propiedad llamada "id"
+          }),
+        },
+      );
+  
+      if (response.ok) {
+        alert('Oferta desaplicada con éxito');
+        setSelectedOffer(null);
+        setRefreshOffers(!refreshOffers); // Agrega esta línea
+      } else {
+        alert('Error al desaplicar la oferta');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Error al desaplicar la oferta');
+    }
+  };
+
   if (selectedOffer) {
-    return (     
+    return (
       <View style={styles.container}>
-      
-      <ScrollView>
+        <Button onPress={handleUnsubscribe} style={styles.unsubscribeButton}>
+          Desaplicar
+        </Button>
+        <ScrollView>
         {/* Detalles de la oferta seleccionada */}
         <Text style={styles.title}>{selectedOffer.Oferta}</Text>
         <Text style={styles.description}>{selectedOffer.Empresa}</Text>
@@ -87,58 +120,62 @@ const MyoffersScreen = ({route,navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingTop: 60,
+  flex: 1,
+  justifyContent: 'space-between',
+  paddingHorizontal: 20,
+  paddingTop: 60,
   },
   offerContainer: {
-    backgroundColor: '#b5b3b3',
-    borderRadius: 10,
-    padding: 10,
-    marginBottom: 10,
+  backgroundColor: '#b5b3b3',
+  borderRadius: 10,
+  padding: 10,
+  marginBottom: 10,
   },
   pageTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
+  fontSize: 24,
+  fontWeight: 'bold',
+  marginBottom: 20,
+  textAlign: 'center',
   },
   titleContainer: {
-    alignSelf: 'stretch',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 10,
+  alignSelf: 'stretch',
+  alignItems: 'center',
+  justifyContent: 'center',
+  paddingVertical: 10,
   },
   title: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#000000',
+  fontSize: 14,
+  fontWeight: 'bold',
+  color: '#000000',
   },
   contentContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    marginTop: 10,
+  flex: 1,
+  justifyContent: 'center',
+  marginTop: 10,
   },
   description: {
-    fontSize: 20,
-    marginBottom: 10,
-    fontWeight: '500',
+  fontSize: 20,
+  marginBottom: 10,
+  fontWeight: '500',
   },
   detailsContainer: {
-    alignSelf: 'flex-start',
-    marginBottom: 10,
+  alignSelf: 'flex-start',
+  marginBottom: 10,
   },
   info: {
-    fontSize: 16,
-    marginBottom: 5,
+  fontSize: 16,
+  marginBottom: 5,
   },
   button: {
-    alignSelf: 'stretch',
-    marginBottom: 20,
-    borderRadius: 10,
+  alignSelf: 'stretch',
+  marginBottom: 20,
+  borderRadius: 10,
   },
-});
-
-export default MyoffersScreen;
- 
+  unsubscribeButton: {
+  alignSelf: 'flex-end',
+  marginBottom: 10,
+  borderRadius: 10,
+  },
+  });
+  
+  export default MyoffersScreen;

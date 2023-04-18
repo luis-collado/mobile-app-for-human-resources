@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Linking} from 'react-native';
 import { FAB, Button } from 'react-native-paper';
 import { WebView } from 'react-native-webview'; // Importa el paquete
-import * as ImagePicker from 'expo-image-picker';
-import * as DocumentPicker from 'expo-document-picker';
 
 
 
@@ -17,37 +15,6 @@ const MiPerfilScreen = ({route, navigation}) => {
     navigation.navigate('ImageZoomScreen', {
       imageUrl: userData && userData.foto_perfil ? userData.foto_perfil : 'Ruta de la imagen predeterminada',
     });
-  };
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-    if (!result.cancelled) {
-      uploadPhoto(result.uri);
-    }
-  };
-
-  // Función para manejar la selección de un nuevo PDF
-  const pickDocument = async () => {
-    let result = await DocumentPicker.getDocumentAsync({
-      type: 'application/pdf',
-    });
-
-    if (result.type !== 'cancel') {
-      uploadPDF(result.uri);
-    }
-  };
-   // Función para subir la foto al servidor
-   const uploadPhoto = async (uri) => {
-    // ... Código para subir la foto usando la API ...
-  };
-
-  // Función para subir el PDF al servidor
-  const uploadPDF = async (uri) => {
-    // ... Código para subir el PDF usando la API ...
   };
 
   useEffect(() => {
@@ -89,31 +56,6 @@ const MiPerfilScreen = ({route, navigation}) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Mi Perfil</Text>
-      <View style={styles.actionButtonsContainer}>
-        <Button
-          style={styles.uploadPhotoButton}
-          mode="contained"
-          onPress={pickImage}
-        >
-          Subir foto
-        </Button>
-        {userData && userData.CV && (
-          <Button
-            style={styles.botonCV}
-            mode="contained"
-            onPress={() => Linking.openURL(userData.CV)}
-          >
-            Ver CV
-          </Button>
-        )}
-        <Button
-          style={styles.uploadPDFButton}
-          mode="contained"
-          onPress={pickDocument}
-        >
-          Subir PDF
-        </Button>
-      </View>
       <View style={styles.profileImageContainer}>
         <TouchableOpacity onPress={handleImagePress}>
           <Image
@@ -255,20 +197,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     right: -190,
     top: -59,
-  },
-  actionButtonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  uploadPhotoButton: {
-    alignSelf: 'flex-start',
-    backgroundColor: '#d5bf19',
-  },
-  uploadPDFButton: {
-    alignSelf: 'flex-start',
-    backgroundColor: '#d5bf19',
   },
 });
 
