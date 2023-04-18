@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Linking} from 'react-native';
 import { FAB, Button } from 'react-native-paper';
 import { WebView } from 'react-native-webview'; // Importa el paquete
-import * as ImagePicker from 'expo-image-picker';
-import * as DocumentPicker from 'expo-document-picker';
 
 
 
@@ -128,31 +126,6 @@ const MiPerfilScreen = ({route, navigation}) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Mi Perfil</Text>
-      <View style={styles.actionButtonsContainer}>
-        <Button
-          style={styles.uploadPhotoButton}
-          mode="contained"
-          onPress={pickImage}
-        >
-          Subir foto
-        </Button>
-        {userData && userData.CV && (
-          <Button
-            style={styles.botonCV}
-            mode="contained"
-            onPress={() => Linking.openURL(userData.CV)}
-          >
-            Ver CV
-          </Button>
-        )}
-        <Button
-          style={styles.uploadPDFButton}
-          mode="contained"
-          onPress={pickDocument}
-        >
-          Subir PDF
-        </Button>
-      </View>
       <View style={styles.profileImageContainer}>
         <TouchableOpacity onPress={handleImagePress}>
           <Image
@@ -294,20 +267,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     right: -190,
     top: -59,
-  },
-  actionButtonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  uploadPhotoButton: {
-    alignSelf: 'flex-start',
-    backgroundColor: '#d5bf19',
-  },
-  uploadPDFButton: {
-    alignSelf: 'flex-start',
-    backgroundColor: '#d5bf19',
   },
 });
 

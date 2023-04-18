@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView} from 'react-native';
+import {View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView,Alert} from 'react-native';
 import {Button} from 'react-native-paper';
 
 const BlankScreen = ({route,navigation}) => {
@@ -46,11 +46,18 @@ const BlankScreen = ({route,navigation}) => {
         },
         body: JSON.stringify(requestBody),
       });
-  
-      // ...
+      if (response.ok) {
+        Alert.alert(
+          '¡Aplicación exitosa!',
+          'Has aplicado correctamente a la oferta',
+          [{ text: 'OK', onPress: () => setSelectedOffer(null) }],
+        );
+      } else {
+        throw new Error('Ya has aplicado a esta oferta');
+      }
     } catch (error) {
       console.error(error);
-      alert('Error al aplicar a la oferta');
+      alert('Ya has aplicado a esta oferta');
     }
   };
   
