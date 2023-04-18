@@ -20,13 +20,13 @@ const MiPerfilScreen = ({route, navigation}) => {
   };
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
     });
-    if (!result.cancelled) {
-      uploadPhoto(result.uri);
+    if (!result.canceled) {
+      uploadPhoto(result.assets[0]);
     }
   };
 
@@ -43,6 +43,45 @@ const MiPerfilScreen = ({route, navigation}) => {
    // Función para subir la foto al servidor
    const uploadPhoto = async (uri) => {
     // ... Código para subir la foto usando la API ...
+    if (!uri) {
+      alert('Por favor, selecciona una foto primero');
+      return;
+    }
+  
+    console.log(uri);
+    const apiUrl = 'https://uploadphotos-2b2k6woktq-nw.a.run.app/uploadPhotos';
+    const email = 'sanchezvelascopabloignacio@gmail.com'; 
+  
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('file', {
+      uri: uri,
+      type: 'image/jpg',
+      name: 'file.jpg',
+    });
+
+    console.log(formData);
+  
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'PUT',
+        body: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+  
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        alert('Foto actualizada correctamente');
+      } else {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error('Error al actualizar la foto:', error);
+      alert(`Error al actualizar la foto: ${error.message}`);
+    }
   };
 
   // Función para subir el PDF al servidor
