@@ -9,7 +9,12 @@ const RegisterScreen = ({route,navigation}) => {
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
 
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
 
+  const checkPasswordsMatch = () => {
+    setPasswordsMatch(password === confirmPassword);
+  }
 
    const handleRegister = async () => {
     // Aquí puedes implementar la lógica de registro con tu backend
@@ -68,13 +73,26 @@ const RegisterScreen = ({route,navigation}) => {
           mode="outlined"
         />
         <TextInput
-          label="Contraseña"
-          value={password}
-          onChangeText={setPassword}
-          style={styles.input}
-          secureTextEntry
-          mode="outlined"
-        />
+        label="Contraseña"
+        value={password}
+        onChangeText={setPassword}
+        onBlur={checkPasswordsMatch}
+        style={styles.input}
+        secureTextEntry
+        mode="outlined"
+      />
+      <TextInput
+        label="Confirmar contraseña"
+        value={confirmPassword}
+        onChangeText={setConfirmPassword}
+        onBlur={checkPasswordsMatch}
+        style={styles.input}
+        secureTextEntry
+        mode="outlined"
+      />
+      <HelperText type="error" visible={!passwordsMatch}>
+        Las contraseñas no coinciden
+      </HelperText>
 
         <HelperText type="error" visible={!isValidEmail(email) && email!== ""}>
           Correo no válido
@@ -88,7 +106,7 @@ const RegisterScreen = ({route,navigation}) => {
           onPress={handleRegister}
           style={styles.button}
           labelStyle={styles.buttonLabel}
-          disabled={!isValidEmail(email) || password.length < 8}
+          disabled={!isValidEmail(email) || password.length < 8 || !passwordsMatch}
         >
           Registrarse
         </Button>
