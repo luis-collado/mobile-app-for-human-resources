@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import {View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Linking} from 'react-native';
+import {View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Linking,RefreshControl} from 'react-native';
 import { FAB, Button } from 'react-native-paper';
 //import ImagePicker from 'react-native-image-picker';
 import * as ImagePicker from 'expo-image-picker';
 import * as DocumentPicker from 'expo-document-picker';
 //import ApiService from "./ApiService";
+import { useIsFocused } from '@react-navigation/native';
 
 
 import { WebView } from 'react-native-webview'; // Importa el paquete
@@ -16,7 +17,15 @@ const MiPerfilScreen = ({route, navigation}) => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
+  const isFocused = useIsFocused();
 
+
+  const onRefresh = React.useCallback(async () => {
+    setRefreshing(true);
+    await fetchData();
+    setRefreshing(false);
+  }, [email]);
 
   const handleImagePress = () => {
     navigation.navigate('ImageZoomScreen', {
@@ -24,35 +33,37 @@ const MiPerfilScreen = ({route, navigation}) => {
     });
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      setError(null);
+  const fetchData = async () => {
+    setLoading(true);
+    setError(null);
 
-      try {
-        const response = await fetch('https://readuserdata-2b2k6woktq-nw.a.run.app/readUserData', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ email: email }),
-        });
+    try {
+      const response = await fetch('https://readuserdata-2b2k6woktq-nw.a.run.app/readUserData', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email }),
+      });
 
-        if (!response.ok) {
-          throw new Error(`Error en la solicitud: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setUserData(data);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
+      if (!response.ok) {
+        throw new Error(`Error en la solicitud: ${response.status}`);
       }
-    };
 
-    fetchData();
-  }, [email]);
+      const data = await response.json();
+      setUserData(data);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isFocused) {
+      fetchData();
+    }
+  }, [email, isFocused]);
 
   const handleLogout = () => {
     navigation.reset({
