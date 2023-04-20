@@ -11,6 +11,7 @@ import ImageZoomScreen from './src/ImageZoomScreen';
 import ActualizarPerfilScreen from './src/ActualizarPerfilScreen'; // Importa la pantalla creada
 import PerfilScreen from './src/PerfilScreen';
 import MyoffersScreen from './src/MyOffers';
+import AdminScreen from './src/AdminScreen';
 
 
 
@@ -57,6 +58,11 @@ function App() {
           name="MyoffersScreen"
           component={MyoffersScreen}
           options={{ title: 'Mis Ofertas' }}
+        />
+        <Stack.Screen
+          name="AdminScreen"
+          component={AdminScreen}
+          options={{ title: 'Pantalla admin' }}
         />
       </Stack.Navigator>
     </NavigationContainer>
