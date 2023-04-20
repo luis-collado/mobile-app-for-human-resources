@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import {View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Linking} from 'react-native';
 import { FAB, Button } from 'react-native-paper';
+//import ImagePicker from 'react-native-image-picker';
+import * as ImagePicker from 'expo-image-picker';
+import * as DocumentPicker from 'expo-document-picker';
+//import ApiService from "./ApiService";
+
+
 import { WebView } from 'react-native-webview'; // Importa el paquete
 
 
@@ -10,6 +16,7 @@ const MiPerfilScreen = ({route, navigation}) => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
 
   const handleImagePress = () => {
     navigation.navigate('ImageZoomScreen', {
@@ -123,6 +130,61 @@ const MiPerfilScreen = ({route, navigation}) => {
       routes: [{name: 'LoginScreen'}],
     });
   };
+
+  
+
+  const handleUpdateProfilePhoto = async () => {
+    //const hasPermission = await requestGalleryPermission();
+  /*
+    if (!hasPermission) {
+      return;
+    }*/
+  
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      quality: 1,
+      base64: true,
+    });
+  
+    if (!result.canceled) {
+      const { base64 } = result.assets[0];
+      const base64Image = `data:image/jpeg;base64,${base64}`;
+  
+      const updateProfilePhoto = async (email, base64Image) => {
+        const response = await fetch(
+          "https://uploadphotos-2b2k6woktq-nw.a.run.app/uploadPhotos",
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: email,
+              photo: base64Image,
+            }),
+          }
+        );
+  
+        if (!response.ok) {
+          throw new Error(
+            `Error al actualizar la foto de perfil: ${response.statusText}`
+          );
+        }
+  
+        const data = await response.json();
+        console.log("Foto de perfil actualizada", data);
+        return data;
+      };
+  
+      try {
+        await updateProfilePhoto(email,base64Image);
+      } catch (error) {
+        console.error("Error updating profile picture:", error);
+      }
+    }
+  };
+  
+  
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Mi Perfil</Text>
@@ -145,10 +207,18 @@ const MiPerfilScreen = ({route, navigation}) => {
           onPress={() => Linking.openURL(userData.CV)}
         >
           Ver CV
+        </Button>        
+      )}
+
+        <Button
+          style={styles.updateProfilePhotoButton}
+          mode="contained"
+          onPress={handleUpdateProfilePhoto}
+        >
+          Actualizar foto
         </Button>
 
-        
-      )}
+
       <Button
         style={styles.actualizarPerfilButton}
         mode="contained"
@@ -268,6 +338,12 @@ const styles = StyleSheet.create({
     right: -190,
     top: -59,
   },
+  updateProfilePhotoButton: {
+    alignSelf: 'flex-start',
+    backgroundColor: '#d5bf19',
+    marginBottom: 20,
+  },
+  
 });
 
 export default MiPerfilScreen;

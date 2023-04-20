@@ -1,29 +1,23 @@
-import React, {useState} from 'react';
-import {View, StyleSheet, Image} from 'react-native';
-import {TextInput, Button, HelperText, Title} from 'react-native-paper';
-//import {NavigationContainer} from '@react-navigation/native';
-//import WelcomeScreen from './WelcomeScreen';
+import React, { useState } from 'react';
+import { View, StyleSheet, Image } from 'react-native';
+import { TextInput, Button, HelperText, Title } from 'react-native-paper';
 
-const LoginScreen = ({navigation}) => {
+const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
- 
   const handleLogin = async () => {
-    // Aquí puedes implementar la lógica de inicio de sesión con tu backend
     if (email !== '' && password.length >= 8) {
-      
     } else {
-      // Mostrar algún mensaje de error si es necesario
     }
     console.log('Email:', email);
     console.log('Password:', password);
 
     try {
-      const response = await fetch("https://loginuser-2b2k6woktq-nw.a.run.app/login", {
-        method: "POST",
+      const response = await fetch('https://loginuser-2b2k6woktq-nw.a.run.app/login', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           email,
@@ -32,31 +26,21 @@ const LoginScreen = ({navigation}) => {
       });
 
       if (response.ok) {
-        const data = await response.text();
-        console.log("Inicio de sesión exitoso:", data);
+        const data = await response.json();
+        console.log('Inicio de sesión exitoso:', data);
 
-        //navigation.reset({
-        //  index: 0,
-        //  routes: [{name: 'Welcome', params: {email: email}}],
-       // });
-       navigation.navigate('Welcome', {email: email});
-       //navigation.navigate('Welcome');
-     
-
-        
-        
+        if (data.rol === 'admin') {
+          navigation.navigate('AdminScreen');
+        } else {
+          navigation.navigate('Welcome', { email: email });
+        }
       } else {
-        console.error("Error al iniciar sesión:", response.statusText);
+        console.error('Error al iniciar sesión:', response.statusText);
       }
     } catch (error) {
-      console.error("Error al iniciar sesión:", error);
+      console.error('Error al iniciar sesión:', error);
     }
-    //navigation.navigate('WelcomeScreen', {email: email});
-
-  }
-  
-
-  
+  };
 
   const handleRegister = () => {
     navigation.navigate('RegisterScreen');
@@ -156,3 +140,4 @@ const styles = StyleSheet.create({
 });
 
 export default LoginScreen;
+
