@@ -117,8 +117,9 @@ const MiPerfilScreen = ({route, navigation}) => {
         return data;
       };
   
-      try {
+      try { 
         await updateProfilePhoto(email,base64Image);
+        await fetchData(); 
       } catch (error) {
         console.error("Error updating profile picture:", error);
       }
