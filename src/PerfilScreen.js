@@ -4,6 +4,7 @@ import { FAB, Button } from 'react-native-paper';
 //import ImagePicker from 'react-native-image-picker';
 import * as ImagePicker from 'expo-image-picker';
 import * as DocumentPicker from 'expo-document-picker';
+import * as FileSystem from 'expo-file-system';
 //import ApiService from "./ApiService";
 import { useIsFocused } from '@react-navigation/native';
 
@@ -73,14 +74,8 @@ const MiPerfilScreen = ({route, navigation}) => {
   };
 
   
-
+  //Actualizar foto
   const handleUpdateProfilePhoto = async () => {
-    //const hasPermission = await requestGalleryPermission();
-  /*
-    if (!hasPermission) {
-      return;
-    }*/
-  
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       quality: 1,
@@ -125,6 +120,52 @@ const MiPerfilScreen = ({route, navigation}) => {
       }
     }
   };
+
+
+ // Actualizar CV
+  const handleUpdateCV = async () => {
+    const result = await DocumentPicker.getDocumentAsync({
+      type: 'application/pdf',
+    });
+
+    if (result.type !== 'cancel') {
+      try {
+        const base64 = await FileSystem.readAsStringAsync(result.uri, {
+          encoding: FileSystem.EncodingType.Base64,
+        });
+        const base64PDF = `data:application/pdf;base64,${base64}`;
+
+        const updateCV = async (email, base64PDF) => {
+          const response = await fetch('https://uploadcv-2b2k6woktq-nw.a.run.app/uploadCV', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              email: email,
+              CV: base64PDF,
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error(`Error al actualizar el CV: ${response.statusText}`);
+          }
+
+          const data = await response.json();
+          console.log('CV actualizado', data);
+          return data;
+        };
+
+        await updateCV(email, base64PDF);
+        await fetchData();
+      } catch (error) {
+        console.error('Error al actualizar el CV:', error);
+        if (error.response) {
+          console.error('Error response:', error.response);
+        }
+      }
+    }
+  };
   
   
   return (
@@ -158,6 +199,14 @@ const MiPerfilScreen = ({route, navigation}) => {
           onPress={handleUpdateProfilePhoto}
         >
           Actualizar foto
+        </Button>
+
+        <Button
+          style={styles.updateCVButton}
+          mode="contained"
+          onPress={handleUpdateCV}
+        >
+          Actualizar CV
         </Button>
 
 
