@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import {View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Linking} from 'react-native';
+import {View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Linking,RefreshControl} from 'react-native';
 import { FAB, Button } from 'react-native-paper';
 //import ImagePicker from 'react-native-image-picker';
 import * as ImagePicker from 'expo-image-picker';
 import * as DocumentPicker from 'expo-document-picker';
+import * as FileSystem from 'expo-file-system';
 //import ApiService from "./ApiService";
+import { useIsFocused } from '@react-navigation/native';
+import * as MediaLibrary from 'expo-media-library';
+//import * as Permissions from 'expo-permissions';
+
+
+
 
 
 import { WebView } from 'react-native-webview'; // Importa el paquete
@@ -16,7 +23,15 @@ const MiPerfilScreen = ({route, navigation}) => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
+  const isFocused = useIsFocused();
 
+
+  const onRefresh = React.useCallback(async () => {
+    setRefreshing(true);
+    await fetchData();
+    setRefreshing(false);
+  }, [email]);
 
   const handleImagePress = () => {
     navigation.navigate('ImageZoomScreen', {
@@ -94,35 +109,37 @@ const MiPerfilScreen = ({route, navigation}) => {
     // ... Código para subir el PDF usando la API ...
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      setError(null);
+  const fetchData = async () => {
+    setLoading(true);
+    setError(null);
 
-      try {
-        const response = await fetch('https://readuserdata-2b2k6woktq-nw.a.run.app/readUserData', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ email: email }),
-        });
+    try {
+      const response = await fetch('https://readuserdata-2b2k6woktq-nw.a.run.app/readUserData', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email }),
+      });
 
-        if (!response.ok) {
-          throw new Error(`Error en la solicitud: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setUserData(data);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
+      if (!response.ok) {
+        throw new Error(`Error en la solicitud: ${response.status}`);
       }
-    };
 
-    fetchData();
-  }, [email]);
+      const data = await response.json();
+      setUserData(data);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isFocused) {
+      fetchData();
+    }
+  }, [email, isFocused]);
 
   const handleLogout = () => {
     navigation.reset({
@@ -132,14 +149,8 @@ const MiPerfilScreen = ({route, navigation}) => {
   };
 
   
-
+  //Actualizar foto
   const handleUpdateProfilePhoto = async () => {
-    //const hasPermission = await requestGalleryPermission();
-  /*
-    if (!hasPermission) {
-      return;
-    }*/
-  
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       quality: 1,
@@ -176,13 +187,91 @@ const MiPerfilScreen = ({route, navigation}) => {
         return data;
       };
   
-      try {
+      try { 
         await updateProfilePhoto(email,base64Image);
+        await fetchData(); 
       } catch (error) {
         console.error("Error updating profile picture:", error);
       }
     }
   };
+
+
+  async function getPermissionAsync() {
+    const { status } = await MediaLibrary.requestPermissionsAsync();
+    if (status !== 'granted') {
+      alert('Se necesitan permisos para acceder a la biblioteca de medios');
+    }
+  }
+  
+
+
+ // Actualizar CV
+ const handleUpdateCV = async () => {
+  await getPermissionAsync();
+  const result = await DocumentPicker.getDocumentAsync({
+    type: 'application/pdf',
+  });
+
+  if (result.type !== 'cancel') {
+    try {
+      if (Platform.OS === 'android') {
+        const { status } = await MediaLibrary.requestPermissionsAsync();
+        if (status !== 'granted') {
+          alert('Se necesitan permisos para leer el almacenamiento externo');
+          return;
+        }
+      }
+
+      const newUri = FileSystem.documentDirectory + result.name;
+      await FileSystem.copyAsync({
+        from: result.uri,
+        to: newUri,
+      });
+      // Leer el archivo PDF como base64
+      const base64 = await FileSystem.readAsStringAsync(newUri, {
+        encoding: FileSystem.EncodingType.Base64,
+      });
+
+      const base64PDF = `data:application/pdf;base64,${base64}`;
+
+      const updateCV = async (email, base64PDF) => {
+        const response = await fetch('https://uploadcv-2b2k6woktq-nw.a.run.app/uploadCV', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: email,
+            CV: base64PDF,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Error al actualizar el CV: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('CV actualizado', data);
+        return data;
+      };
+
+      await updateCV(email, base64PDF);
+      await fetchData();
+
+      // Eliminar el archivo PDF del directorio temporal
+      await FileSystem.deleteAsync(newUri);
+    } catch (error) {
+      console.error('Error al actualizar el CV:', error);
+      if (error.response) {
+        console.error('Error response:', error.response);
+      }
+    }
+  }
+};
+
+
+
   
   
   return (
@@ -216,6 +305,14 @@ const MiPerfilScreen = ({route, navigation}) => {
           onPress={handleUpdateProfilePhoto}
         >
           Actualizar foto
+        </Button>
+
+        <Button
+          style={styles.updateCVButton}
+          mode="contained"
+          onPress={handleUpdateCV}
+        >
+          Actualizar CV
         </Button>
 
 
