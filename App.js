@@ -12,6 +12,8 @@ import ActualizarPerfilScreen from './src/ActualizarPerfilScreen'; // Importa la
 import PerfilScreen from './src/PerfilScreen';
 import MyoffersScreen from './src/MyOffers';
 import AdminScreen from './src/AdminScreen';
+import OfertasAdmin from './src/admin/OfertasAdmin';
+import PerfilesAdmin from './src/admin/PerfilesAdmin';
 
 
 
@@ -62,7 +64,17 @@ function App() {
         <Stack.Screen
           name="AdminScreen"
           component={AdminScreen}
-          options={{ title: 'Pantalla admin' }}
+          options={{ title: 'Pantalla admin' ,headerShown: false}}
+        />
+        <Stack.Screen
+          name="OfertasAdmin"
+          component={OfertasAdmin}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="PerfilesAdmin"
+          component={PerfilesAdmin}
+          options={{headerShown: false}}
         />
       </Stack.Navigator>
     </NavigationContainer>
