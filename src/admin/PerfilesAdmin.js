@@ -70,7 +70,7 @@ const PerfilesAdmin = () => {
               style={styles.userContainer}
               onPress={() => handleSelectUser(user)}
             >
-              <Text style={styles.userName}>{user.Nombre}</Text>
+              <Text style={styles.userName}>{user.Nombre+" "+user.Apellido1 + " " + user.Apellido2}</Text>
             </TouchableOpacity>
           ))}
         </View>
