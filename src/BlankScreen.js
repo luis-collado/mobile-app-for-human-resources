@@ -53,11 +53,12 @@ const BlankScreen = ({route,navigation}) => {
           [{ text: 'OK', onPress: () => setSelectedOffer(null) }],
         );
       } else {
-        throw new Error('Ya has aplicado a esta oferta');
+        const errorText = await response.text();
+        throw new Error(` ${errorText}`);
       }
     } catch (error) {
       console.error(error);
-      alert('Ya has aplicado a esta oferta');
+      alert(`Error: ${error.message}`);
     }
   };
   
