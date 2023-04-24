@@ -7,6 +7,11 @@ import * as DocumentPicker from 'expo-document-picker';
 import * as FileSystem from 'expo-file-system';
 //import ApiService from "./ApiService";
 import { useIsFocused } from '@react-navigation/native';
+import * as MediaLibrary from 'expo-media-library';
+//import * as Permissions from 'expo-permissions';
+
+
+
 
 
 import { WebView } from 'react-native-webview'; // Importa el paquete
@@ -122,50 +127,81 @@ const MiPerfilScreen = ({route, navigation}) => {
   };
 
 
+  async function getPermissionAsync() {
+    const { status } = await MediaLibrary.requestPermissionsAsync();
+    if (status !== 'granted') {
+      alert('Se necesitan permisos para acceder a la biblioteca de medios');
+    }
+  }
+  
+
+
  // Actualizar CV
-  const handleUpdateCV = async () => {
-    const result = await DocumentPicker.getDocumentAsync({
-      type: 'application/pdf',
-    });
+ const handleUpdateCV = async () => {
+  await getPermissionAsync();
+  const result = await DocumentPicker.getDocumentAsync({
+    type: 'application/pdf',
+  });
 
-    if (result.type !== 'cancel') {
-      try {
-        const base64 = await FileSystem.readAsStringAsync(result.uri, {
-          encoding: FileSystem.EncodingType.Base64,
-        });
-        const base64PDF = `data:application/pdf;base64,${base64}`;
-
-        const updateCV = async (email, base64PDF) => {
-          const response = await fetch('https://uploadcv-2b2k6woktq-nw.a.run.app/uploadCV', {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              email: email,
-              CV: base64PDF,
-            }),
-          });
-
-          if (!response.ok) {
-            throw new Error(`Error al actualizar el CV: ${response.statusText}`);
-          }
-
-          const data = await response.json();
-          console.log('CV actualizado', data);
-          return data;
-        };
-
-        await updateCV(email, base64PDF);
-        await fetchData();
-      } catch (error) {
-        console.error('Error al actualizar el CV:', error);
-        if (error.response) {
-          console.error('Error response:', error.response);
+  if (result.type !== 'cancel') {
+    try {
+      if (Platform.OS === 'android') {
+        const { status } = await MediaLibrary.requestPermissionsAsync();
+        if (status !== 'granted') {
+          alert('Se necesitan permisos para leer el almacenamiento externo');
+          return;
         }
       }
+
+      const newUri = FileSystem.documentDirectory + result.name;
+      await FileSystem.copyAsync({
+        from: result.uri,
+        to: newUri,
+      });
+      // Leer el archivo PDF como base64
+      const base64 = await FileSystem.readAsStringAsync(newUri, {
+        encoding: FileSystem.EncodingType.Base64,
+      });
+
+      const base64PDF = `data:application/pdf;base64,${base64}`;
+
+      const updateCV = async (email, base64PDF) => {
+        const response = await fetch('https://uploadcv-2b2k6woktq-nw.a.run.app/uploadCV', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: email,
+            CV: base64PDF,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Error al actualizar el CV: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('CV actualizado', data);
+        return data;
+      };
+
+      await updateCV(email, base64PDF);
+      await fetchData();
+
+      // Eliminar el archivo PDF del directorio temporal
+      await FileSystem.deleteAsync(newUri);
+    } catch (error) {
+      console.error('Error al actualizar el CV:', error);
+      if (error.response) {
+        console.error('Error response:', error.response);
+      }
     }
-  };
+  }
+};
+
+
+
   
   
   return (
