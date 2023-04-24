@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, ScrollView, Image,Linking  } from 'react-native';
 import { Button, FAB } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
@@ -39,6 +39,10 @@ const PerfilesAdmin = () => {
     });
   };
 
+  const handleOpenCv = (CV) => {
+    Linking.openURL(CV);
+  };
+
   if (selectedUser) {
     return (
       <View style={styles.container}>
@@ -46,8 +50,17 @@ const PerfilesAdmin = () => {
           {/* Detalles del usuario seleccionado */}
           <Text style={styles.title}>{selectedUser.nombre}</Text>
           <Text style={styles.description}>{selectedUser.correo}</Text>
+          <View style={styles.profileImageContainer}>
+            <Image
+              style={styles.profileImage}
+              source={{ uri: selectedUser.foto_perfil }}
+            />
+            <Button onPress={() => handleOpenCv(selectedUser.CV)} style={styles.cvButton} color="#d5bf19">
+              Ver CV
+            </Button>
+          </View>
           {Object.entries(selectedUser).map(([key, value]) => (
-            key !== 'nombre' && key !== 'correo' ? (
+            key !== 'nombre' && key !== 'correo' && key !== 'fotoPerfil' ? (
               <Text style={styles.info} key={key}>
                 {key}: {value}
               </Text>
@@ -113,33 +126,51 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
     color: '#000000',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    textAlign: 'center',
-  },
-  description: {
-    fontSize: 16,
-    marginBottom: 10,
-  },
-  info: {
-    fontSize: 16,
-    marginBottom: 5,
-  },
-  button: {
-    alignSelf: 'stretch',
-    marginBottom: 20,
-    borderRadius: 10,
-  },
-  fab: {
-    position: 'absolute',
-    margin: 16,
-    right: 0,
-    bottom: 20,
-    backgroundColor: '#d5bf19',
-  },
-  });
-  
-  export default PerfilesAdmin;
+    },
+    title: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      marginBottom: 10,
+      textAlign: 'center',
+    },
+    description: {
+      fontSize: 16,
+      marginBottom: 10,
+    },
+    info: {
+      fontSize: 16,
+      marginBottom: 5,
+    },
+    button: {
+      alignSelf: 'stretch',
+      marginBottom: 20,
+      borderRadius: 10,
+    },
+    profileImageContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-evenly',
+      marginBottom: 20,
+    },
+    cvButton: {
+      backgroundColor: '#d5bf19',
+      alignSelf: 'center',
+      borderRadius: 10,
+    },
+    fab: {
+      position: 'absolute',
+      margin: 16,
+      right: 0,
+      bottom: 20,
+      backgroundColor: '#d5bf19',
+    },
+    profileImage: {
+      width: 150,
+      height: 150,
+      borderRadius: 75,
+      alignSelf: 'center',
+      marginBottom: 20,
+    },
+    });
+    
+    export default PerfilesAdmin;
