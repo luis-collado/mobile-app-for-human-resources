@@ -1,4 +1,4 @@
-import React, { useState, useRef  } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   View,
   Text,
@@ -7,15 +7,12 @@ import {
   ScrollView,
   TouchableOpacity,
   Platform,
+  Keyboard,
 } from 'react-native';
 import { Button } from 'react-native-paper';
-import DateTimePicker from '@react-native-community/datetimepicker';
-
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 const CrearOfertas = ({ route }) => {
-  //const { email } = route.params;
-  //const {email} = 'admin@gmail.com';
-
   const [offerData, setOfferData] = useState({
     Codigo: '',
     Fecha: '',
@@ -42,38 +39,34 @@ const CrearOfertas = ({ route }) => {
     Email_contacto: '',
   });
 
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
 
   const onSubmitEditing = (nextField) => {
-    if (nextField.current) {
+    if (nextField && nextField.current) {
       nextField.current.focus();
-    }
-  };
-
-  const fieldRefs = useRef(Object.keys(offerData).reduce((acc, key) => {
-    acc[key] = React.createRef();
-    return acc;
-  }, {}));
-  
-
-  const handleDateChange = (event, selectedDate) => {
-    setShowDatePicker(false);
-    if (selectedDate) {
-      setSelectedDate(selectedDate);
-      handleChange('Fecha', selectedDate.toISOString().split('T')[0]);
-    }
-  };
-
-  const openDatePicker = () => {
-    if (Platform.OS === 'ios') {
-      DateTimePicker.present({
-        mode: 'date',
-        onChange: handleDateChange,
-      });
     } else {
-      setShowDatePicker(true);
+      Keyboard.dismiss();
     }
+  };
+
+  const fieldRefs = useRef(
+    Object.keys(offerData).reduce((acc, key) => {
+      acc[key] = React.createRef();
+      return acc;
+    }, {})
+  );
+
+  const handleConfirm = (date) => {
+    handleChange('Fecha', date.toISOString().split('T')[0]);
+    hideDatePicker();
   };
 
   const handleChange = (field, value) => {
@@ -81,7 +74,7 @@ const CrearOfertas = ({ route }) => {
   };
 
   const handleSubmit = async () => {
-    const email='admin@gmail.com';
+    const email = 'admin@gmail.com';
     try {
       const response = await fetch(
         'https://createoffer-2b2k6woktq-nw.a.run.app/createOffer',
@@ -91,7 +84,7 @@ const CrearOfertas = ({ route }) => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ email, offerData }),
-        },
+        }
       );
       const data = JSON.stringify({ email, offerData });
       console.log(email);
@@ -111,12 +104,10 @@ const CrearOfertas = ({ route }) => {
           <View key={key} style={styles.inputContainer}>
             <Text style={styles.label}>{key}</Text>
             {key === 'Fecha' ? (
-              <TouchableOpacity onPress={openDatePicker}>
-                <TextInput
-                  style={styles.input}
-                  editable={false}
-                  value={offerData[key]}
-                />
+              <TouchableOpacity onPress={showDatePicker}>
+                <View style={styles.dateInputContainer}>
+                  <Text style={styles.dateInput}>{offerData[key]}</Text>
+                </View>
               </TouchableOpacity>
             ) : (
               <TextInput
@@ -140,20 +131,26 @@ const CrearOfertas = ({ route }) => {
                 }
                 multiline={key === 'Observaciones_duracion'}
                 ref={fieldRefs.current[key]}
-                returnKeyType={index === arr.length - 1 ? 'done' : 'next'}
-                onSubmitEditing={() => onSubmitEditing(fieldRefs.current[arr[index + 1]])}
+                returnKeyType={
+                  index === arr.length - 1
+                    ? 'done'
+                    : 'next'
+                }
+                onSubmitEditing={() =>
+                  onSubmitEditing(fieldRefs.current[arr[index + 1]])
+                }
+                blurOnSubmit={false}
               />
             )}
           </View>
         ))}
-          {Platform.OS !== 'ios' && showDatePicker && (
-            <DateTimePicker
-              value={selectedDate}
-              mode="date"
-              display="default"
-              onChange={handleDateChange}
-            />
-          )}
+        <DateTimePickerModal
+          isVisible={isDatePickerVisible}
+          mode="date"
+          onConfirm={handleConfirm}
+          onCancel={hideDatePicker}
+          display="default" // Añade esta línea
+        />
         <Button onPress={handleSubmit} style={styles.button}>
           Enviar
         </Button>
@@ -188,14 +185,24 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: '#e8e8e8',
     paddingHorizontal: 10,
-   },
     borderRadius: 5,
     height: 40,
-    button: {
+  },
+  dateInputContainer: {
+    backgroundColor: '#e8e8e8',
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    height: 40,
+    justifyContent: 'center',
+  },
+  dateInput: {
+    fontSize: 16,
+  },
+  button: {
     alignSelf: 'stretch',
     marginBottom: 20,
     borderRadius: 10,
-    },
-    });
-    
-    export default CrearOfertas;
+  },
+});
+
+export default CrearOfertas;
