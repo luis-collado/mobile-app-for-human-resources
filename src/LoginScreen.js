@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image,Alert} from 'react-native';
 import { TextInput, Button, HelperText, Title } from 'react-native-paper';
 
 const LoginScreen = ({ navigation }) => {
@@ -35,6 +35,7 @@ const LoginScreen = ({ navigation }) => {
           navigation.navigate('Welcome', { email: email });
         }
       } else {
+        Alert.alert('Error', 'Error en la contraseña o el email');
         console.error('Error al iniciar sesión:', response.statusText);
       }
     } catch (error) {
