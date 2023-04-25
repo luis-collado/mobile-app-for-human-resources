@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef  } from 'react';
 import {
   View,
   Text,
@@ -6,6 +6,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import { Button } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -14,6 +15,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 const CrearOfertas = ({ route }) => {
   //const { email } = route.params;
   //const {email} = 'admin@gmail.com';
+
   const [offerData, setOfferData] = useState({
     Codigo: '',
     Fecha: '',
@@ -43,6 +45,18 @@ const CrearOfertas = ({ route }) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
 
+  const onSubmitEditing = (nextField) => {
+    if (nextField.current) {
+      nextField.current.focus();
+    }
+  };
+
+  const fieldRefs = useRef(Object.keys(offerData).reduce((acc, key) => {
+    acc[key] = React.createRef();
+    return acc;
+  }, {}));
+  
+
   const handleDateChange = (event, selectedDate) => {
     setShowDatePicker(false);
     if (selectedDate) {
@@ -52,7 +66,14 @@ const CrearOfertas = ({ route }) => {
   };
 
   const openDatePicker = () => {
-    setShowDatePicker(true);
+    if (Platform.OS === 'ios') {
+      DateTimePicker.present({
+        mode: 'date',
+        onChange: handleDateChange,
+      });
+    } else {
+      setShowDatePicker(true);
+    }
   };
 
   const handleChange = (field, value) => {
@@ -86,7 +107,7 @@ const CrearOfertas = ({ route }) => {
     <ScrollView contentContainerStyle={styles.contentContainer}>
       <View style={styles.container}>
         <Text style={styles.pageTitle}>Crear Oferta</Text>
-        {Object.keys(offerData).map((key) => (
+        {Object.keys(offerData).map((key, index, arr) => (
           <View key={key} style={styles.inputContainer}>
             <Text style={styles.label}>{key}</Text>
             {key === 'Fecha' ? (
@@ -118,18 +139,21 @@ const CrearOfertas = ({ route }) => {
                     : 'default'
                 }
                 multiline={key === 'Observaciones_duracion'}
+                ref={fieldRefs.current[key]}
+                returnKeyType={index === arr.length - 1 ? 'done' : 'next'}
+                onSubmitEditing={() => onSubmitEditing(fieldRefs.current[arr[index + 1]])}
               />
             )}
           </View>
         ))}
-        {showDatePicker && (
-          <DateTimePicker
-            value={selectedDate}
-            mode="date"
-            display="default"
-            onChange={handleDateChange}
-          />
-        )}
+          {Platform.OS !== 'ios' && showDatePicker && (
+            <DateTimePicker
+              value={selectedDate}
+              mode="date"
+              display="default"
+              onChange={handleDateChange}
+            />
+          )}
         <Button onPress={handleSubmit} style={styles.button}>
           Enviar
         </Button>
