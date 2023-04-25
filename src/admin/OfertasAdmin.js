@@ -5,6 +5,7 @@ import { Button } from 'react-native-paper';
 const OfertasAdmin = () => {
   const [offers, setOffers] = useState([]);
   const [selectedOffer, setSelectedOffer] = useState(null);
+  const [applicants, setApplicants] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,6 +22,24 @@ const OfertasAdmin = () => {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const fetchApplicants = async () => {
+      if (selectedOffer) {
+        try {
+          const response = await fetch(
+            `https://readapplicantsbyoffer-2b2k6woktq-nw.a.run.app/readApplicantsByOffer?ofertaId=${selectedOffer.Codigo}`,
+          );
+          const data = await response.json();
+          setApplicants(data);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+
+    fetchApplicants();
+  }, [selectedOffer]);
 
   const handleSelectOffer = (offer) => {
     setSelectedOffer(offer);
@@ -43,6 +62,13 @@ const OfertasAdmin = () => {
                 {key}: {value}
               </Text>
             ) : null
+          ))}
+          {/* Lista de nombres de solicitantes */}
+          <Text style={styles.description}>Solicitantes:</Text>
+          {applicants.map((applicant, index) => (
+            <Text style={styles.info} key={index}>
+              {applicant.Nombre}
+            </Text>
           ))}
           <Button onPress={handleGoBack} style={styles.button}>
             Volver
@@ -80,36 +106,36 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: 'center'
   },
-  contentContainer: {
+    contentContainer: {
     paddingBottom: 20,
-  },
-  offerContainer: {
+    },
+    offerContainer: {
     backgroundColor: '#b5b3b3',
     borderRadius: 10,
     padding: 10,
     marginBottom: 10,
-  },
-  title: {
+    },
+    title: {
     fontSize: 14,
     fontWeight: 'bold',
     color: '#000000',
-  },
-  description: {
+    },
+    description: {
     fontSize: 20,
     marginBottom: 10,
     fontWeight: '500',
-  },
-  info: {
+    },
+    info: {
     fontSize: 16,
     marginBottom: 5,
-  },
-  button: {
+    },
+    button: {
     alignSelf: 'stretch',
     marginBottom: 20,
     borderRadius: 10,
-  },
-});
-
-export default OfertasAdmin;
+    },
+    });
+    
+    export default OfertasAdmin;

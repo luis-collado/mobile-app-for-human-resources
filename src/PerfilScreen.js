@@ -70,7 +70,7 @@ const MiPerfilScreen = ({route, navigation}) => {
   
     console.log(uri);
     const apiUrl = 'https://uploadphotos-2b2k6woktq-nw.a.run.app/uploadPhotos';
-    const email = 'sanchezvelascopabloignacio@gmail.com'; 
+    const email = 'test@gmail.com'; 
   
     const formData = new FormData();
     formData.append('email', email);
