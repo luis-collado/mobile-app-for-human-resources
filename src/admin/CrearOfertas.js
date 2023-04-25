@@ -8,10 +8,12 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { Button } from 'react-native-paper';
+import DateTimePicker from '@react-native-community/datetimepicker';
+
 
 const CrearOfertas = ({ route }) => {
   //const { email } = route.params;
-  const {email} = 'admin@gmail.com';
+  //const {email} = 'admin@gmail.com';
   const [offerData, setOfferData] = useState({
     Codigo: '',
     Fecha: '',
@@ -38,11 +40,27 @@ const CrearOfertas = ({ route }) => {
     Email_contacto: '',
   });
 
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const handleDateChange = (event, selectedDate) => {
+    setShowDatePicker(false);
+    if (selectedDate) {
+      setSelectedDate(selectedDate);
+      handleChange('Fecha', selectedDate.toISOString().split('T')[0]);
+    }
+  };
+
+  const openDatePicker = () => {
+    setShowDatePicker(true);
+  };
+
   const handleChange = (field, value) => {
     setOfferData({ ...offerData, [field]: value });
   };
 
   const handleSubmit = async () => {
+    const email='admin@gmail.com';
     try {
       const response = await fetch(
         'https://createoffer-2b2k6woktq-nw.a.run.app/createOffer',
@@ -55,6 +73,7 @@ const CrearOfertas = ({ route }) => {
         },
       );
       const data = JSON.stringify({ email, offerData });
+      console.log(email);
       const responseText = await response.text();
       console.log('Response text:', responseText);
       console.log(data);
@@ -70,19 +89,47 @@ const CrearOfertas = ({ route }) => {
         {Object.keys(offerData).map((key) => (
           <View key={key} style={styles.inputContainer}>
             <Text style={styles.label}>{key}</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={(text) => handleChange(key, text)}
-              value={offerData[key]}
-              keyboardType={
-                ['Puestos', 'Enviados_entrevista', 'Contratados', 'Telefono_contacto'].includes(key)
-                  ? 'numeric'
-                  : 'default'
-              }
-              multiline={key === 'Observaciones_duracion'}
-            />
+            {key === 'Fecha' ? (
+              <TouchableOpacity onPress={openDatePicker}>
+                <TextInput
+                  style={styles.input}
+                  editable={false}
+                  value={offerData[key]}
+                />
+              </TouchableOpacity>
+            ) : (
+              <TextInput
+                style={styles.input}
+                onChangeText={(text) => handleChange(key, text)}
+                value={offerData[key]}
+                keyboardType={
+                  [
+                    'Puestos',
+                    'Enviados_entrevista',
+                    'Contratados',
+                    'Telefono_contacto',
+                    'Expdte_asociados',
+                    'Expdte_asociados_por_sondeo',
+                    'Expdte_asociados_online',
+                    'Enviados_entrevista',
+                    'Contratados',
+                  ].includes(key)
+                    ? 'numeric'
+                    : 'default'
+                }
+                multiline={key === 'Observaciones_duracion'}
+              />
+            )}
           </View>
         ))}
+        {showDatePicker && (
+          <DateTimePicker
+            value={selectedDate}
+            mode="date"
+            display="default"
+            onChange={handleDateChange}
+          />
+        )}
         <Button onPress={handleSubmit} style={styles.button}>
           Enviar
         </Button>
