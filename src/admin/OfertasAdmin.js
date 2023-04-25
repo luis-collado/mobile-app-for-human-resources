@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { Button } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 
 const OfertasAdmin = () => {
   const [offers, setOffers] = useState([]);
   const [selectedOffer, setSelectedOffer] = useState(null);
   const [applicants, setApplicants] = useState([]);
+  //const {email} = route.params;
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -80,7 +84,15 @@ const OfertasAdmin = () => {
     return (
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={styles.container}>
-          <Text style={styles.pageTitle}>Ofertas</Text>
+          <View style={styles.header}>
+            <Text style={styles.pageTitle}>Ofertas</Text>
+            <Button
+              onPress={() => navigation.navigate('CrearOfertas')}
+              style={styles.createButton}
+            >
+              Crear
+            </Button>
+          </View>
           {offers.map((item, index) => (
             <TouchableOpacity
               key={index}
@@ -92,22 +104,29 @@ const OfertasAdmin = () => {
           ))}
         </View>
       </ScrollView>
-    );
-  }
-};
-
-const styles = StyleSheet.create({
-  container: {
+      );
+    }
+    };
+    
+    const styles = StyleSheet.create({
+    container: {
     flex: 1,
     paddingHorizontal: 20,
     paddingTop: 60,
-  },
-  pageTitle: {
+    },
+    header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
+    },
+    pageTitle: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center'
-  },
+    },
+    createButton: {
+    alignSelf: 'flex-end',
+    },
     contentContainer: {
     paddingBottom: 20,
     },

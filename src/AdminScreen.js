@@ -12,13 +12,15 @@ import PerfilesAdmin from './admin/PerfilesAdmin';
 
 const Tab = createMaterialBottomTabNavigator();
 
-const AdminScreen = () => {
+const AdminScreen = (route) => {
+  //const {email} = route.params;
   return (
     <PaperProvider>
       <Tab.Navigator
         initialRouteName="OfertasAdmin"
         activeColor="#fff"
         inactiveColor="#A1A1A1"
+        //initialParams={{email: email}}
         barStyle={{
           backgroundColor: '#d5bf19',
           borderRadius: 20,
@@ -34,6 +36,7 @@ const AdminScreen = () => {
         <Tab.Screen
           name="OfertasAdmin"
           component={OfertasAdmin}
+          //initialParams={{email: email}}
           options={{
             tabBarLabel: 'OfertasAdmin',
             tabBarIcon: ({ color }) => (

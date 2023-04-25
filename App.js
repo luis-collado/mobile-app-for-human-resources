@@ -14,6 +14,7 @@ import MyoffersScreen from './src/MyOffers';
 import AdminScreen from './src/AdminScreen';
 import OfertasAdmin from './src/admin/OfertasAdmin';
 import PerfilesAdmin from './src/admin/PerfilesAdmin';
+import CrearOfertas from './src/admin/CrearOfertas';
 
 
 
@@ -74,6 +75,11 @@ function App() {
         <Stack.Screen
           name="PerfilesAdmin"
           component={PerfilesAdmin}
+          options={{headerShown: false}}
+        />
+         <Stack.Screen
+          name="CrearOfertas"
+          component={CrearOfertas}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
