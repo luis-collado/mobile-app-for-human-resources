@@ -8,11 +8,14 @@ import {
   TouchableOpacity,
   Platform,
   Keyboard,
+  Alert,
 } from 'react-native';
 import { Button } from 'react-native-paper';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { useNavigation } from '@react-navigation/native';
 
 const CrearOfertas = ({ route }) => {
+  const navigation = useNavigation();
   const [offerData, setOfferData] = useState({
     Codigo: '',
     Fecha: '',
@@ -88,11 +91,46 @@ const CrearOfertas = ({ route }) => {
       );
       const data = JSON.stringify({ email, offerData });
       console.log(email);
-      const responseText = await response.text();
-      console.log('Response text:', responseText);
-      console.log(data);
+      const responseJson = await response.json(); // Parse the response text as JSON
+      console.log('Response JSON:', responseJson);
+  
+      if (responseJson.message === "Oferta creada correctamente") {
+        // Muestra un mensaje de alerta y vuelve a la pantalla anterior si la respuesta es exitosa
+        Alert.alert(
+          'Oferta creada',
+          'La oferta se ha creado correctamente',
+          [
+            {
+              text: 'OK',
+              onPress: () => navigation.navigate('OfertasAdmin'),
+            },
+          ]
+        );
+      } else {
+        // Muestra un mensaje de alerta cuando la oferta no se ha creado correctamente
+        Alert.alert(
+          'Error al crear la oferta',
+          responseJson.message || 'La oferta no se ha creado correctamente',
+          [
+            {
+              text: 'OK',
+            },
+          ]
+        );
+      }
     } catch (error) {
       console.error(error);
+  
+      // Muestra un mensaje de alerta cuando hay un error en la solicitud
+      Alert.alert(
+        'Error en la solicitud',
+        'Ha ocurrido un error al realizar la solicitud. Por favor, inténtalo de nuevo.',
+        [
+          {
+            text: 'OK',
+          },
+        ]
+      );
     }
   };
 
@@ -100,6 +138,12 @@ const CrearOfertas = ({ route }) => {
     <ScrollView contentContainerStyle={styles.contentContainer}>
       <View style={styles.container}>
         <Text style={styles.pageTitle}>Crear Oferta</Text>
+        <Button
+          onPress={() => navigation.goBack()}
+          style={[styles.button, { marginTop: 10 }]}
+        >
+          Volver
+        </Button>
         {Object.keys(offerData).map((key, index, arr) => (
           <View key={key} style={styles.inputContainer}>
             <Text style={styles.label}>{key}</Text>
