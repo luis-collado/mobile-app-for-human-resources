@@ -2,16 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 
 const OfertasAdmin = () => {
   const [offers, setOffers] = useState([]);
   const [selectedOffer, setSelectedOffer] = useState(null);
+  const isFocused = useIsFocused();
+  const [refreshOffers, setRefreshOffers] = useState(false);
   const [applicants, setApplicants] = useState([]);
   //const {email} = route.params;
 
   const navigation = useNavigation();
 
   useEffect(() => {
+    if (isFocused || refreshOffers) {
     const fetchData = async () => {
       try {
         const response = await fetch(
@@ -25,7 +29,8 @@ const OfertasAdmin = () => {
     };
 
     fetchData();
-  }, []);
+    }
+  }, [isFocused, refreshOffers]);
 
   useEffect(() => {
     const fetchApplicants = async () => {
