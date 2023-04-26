@@ -34,16 +34,24 @@ const OfertasAdmin = () => {
           const response = await fetch(
             `https://readapplicantsbyoffer-2b2k6woktq-nw.a.run.app/readApplicantsByOffer?ofertaId=${selectedOffer.Codigo}`,
           );
-          const data = await response.json();
-          setApplicants(data);
+  
+          // Verifica el estado de la respuesta antes de procesarla
+          if (response.status === 404) {
+            const message = await response.text();
+            setApplicants(message);
+          } else {
+            const data = await response.json();
+            setApplicants(data);
+          }
         } catch (error) {
           console.error(error);
         }
       }
     };
-
+  
     fetchApplicants();
   }, [selectedOffer]);
+  
 
   const handleSelectOffer = (offer) => {
     setSelectedOffer(offer);
@@ -53,32 +61,56 @@ const OfertasAdmin = () => {
     setSelectedOffer(null);
   };
 
+  function parseJsonOrReturnText(input) {
+    console.log('Input:', input);
+    if (typeof input === 'string' && (input.trim().startsWith('{') || input.trim().startsWith('['))) {
+      try {
+        const parsedJson = JSON.parse(input);
+        return parsedJson;
+      } catch (error) {
+        // Si hay un error en el análisis, devuelve la cadena de texto original
+        return input;
+      }
+    } else {
+      return input;
+    }
+  }
+  
+
   if (selectedOffer) {
+          // Usa la función para analizar el JSON o devolver la cadena de texto original
+      const parsedApplicants = parseJsonOrReturnText(applicants);
+      // Comprueba si los solicitantes son un array
+      const isArray = Array.isArray(parsedApplicants);
     return (
       <View style={styles.container}>
-        <ScrollView>
-          {/* Detalles de la oferta seleccionada */}
-          <Text style={styles.title}>{selectedOffer.Oferta}</Text>
-          <Text style={styles.description}>{selectedOffer.Empresa}</Text>
-          {Object.entries(selectedOffer).map(([key, value]) => (
-            key !== 'Oferta' && key !== 'Empresa' ? (
-              <Text style={styles.info} key={key}>
-                {key}: {value}
-              </Text>
-            ) : null
-          ))}
-          {/* Lista de nombres de solicitantes */}
-          <Text style={styles.description}>Solicitantes:</Text>
-          {applicants.map((applicant, index) => (
+      <ScrollView>
+        {/* Detalles de la oferta seleccionada */}
+        <Text style={styles.title}>{selectedOffer.Oferta}</Text>
+        <Text style={styles.description}>{selectedOffer.Empresa}</Text>
+        {Object.entries(selectedOffer).map(([key, value]) => (
+          key !== 'Oferta' && key !== 'Empresa' ? (
+            <Text style={styles.info} key={key}>
+              {key}: {value}
+            </Text>
+          ) : null
+        ))}
+        {/* Lista de nombres de solicitantes */}
+        <Text style={styles.description}>Solicitantes:</Text>
+        {isArray ? (
+          parsedApplicants.map((applicant, index) => (
             <Text style={styles.info} key={index}>
               {applicant.Nombre}
             </Text>
-          ))}
-          <Button onPress={handleGoBack} style={styles.button}>
-            Volver
-          </Button>
-        </ScrollView>
-      </View>
+          ))
+        ) : (
+          <Text style={styles.info}>{parsedApplicants}</Text>
+        )}
+        <Button onPress={handleGoBack} style={styles.button}>
+          Volver
+        </Button>
+      </ScrollView>
+    </View>
     );
   } else {
     return (
