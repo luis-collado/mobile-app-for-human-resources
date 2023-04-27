@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity,Alert } from 'react-native';
 import { Button } from 'react-native-paper';
 
 const ActualizarPerfilScreen = ({ route, navigation }) => {
@@ -34,10 +34,16 @@ const ActualizarPerfilScreen = ({ route, navigation }) => {
       if (!response.ok) {
         throw new Error(`Error en la solicitud: ${response.status}`);
       }
-
-      //const data = await response;
-      //console.log('Datos actualizados:', data);
-      navigation.navigate('PerfilScreen', { email });
+      Alert.alert(
+        'Perfil Modificado',
+        'El perfil ha sido modificado correctamente',
+        [
+          {
+            text: 'OK',
+            onPress: () => navigation.goBack({email}),
+          },
+        ]
+      );
     } catch (error) {
       setError(error.message);
       console.log('Error al actualizar los datos:', error);
@@ -63,10 +69,17 @@ const ActualizarPerfilScreen = ({ route, navigation }) => {
             />
           </View>
         ))}
+
       {error && <Text>Error al actualizar los datos: {error}</Text>}
       <Button mode="contained" onPress={actualizarPerfil} style={styles.button}>
         Guardar cambios
       </Button>
+       <Button
+          onPress={() => navigation.goBack()}
+          style={[styles.buttonback, { marginTop: 10 }]}
+        >
+          Volver
+        </Button>
     </ScrollView>
   );
 };
@@ -107,6 +120,12 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#d5bf19',
     alignSelf: 'flex-start',
+  },
+  buttonback: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'left',
   },
 });
 
