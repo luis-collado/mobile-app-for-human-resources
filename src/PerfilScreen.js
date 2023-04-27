@@ -50,16 +50,6 @@ const MiPerfilScreen = ({route, navigation}) => {
     }
   };
 
-  // Función para manejar la selección de un nuevo PDF
-  const pickDocument = async () => {
-    let result = await DocumentPicker.getDocumentAsync({
-      type: 'application/pdf',
-    });
-
-    if (result.type !== 'cancel') {
-      uploadPDF(result.uri);
-    }
-  };
    // Función para subir la foto al servidor
    const uploadPhoto = async (uri) => {
     // ... Código para subir la foto usando la API ...
@@ -102,11 +92,6 @@ const MiPerfilScreen = ({route, navigation}) => {
       console.error('Error al actualizar la foto:', error);
       alert(`Error al actualizar la foto: ${error.message}`);
     }
-  };
-
-  // Función para subir el PDF al servidor
-  const uploadPDF = async (uri) => {
-    // ... Código para subir el PDF usando la API ...
   };
 
   const fetchData = async () => {
@@ -207,7 +192,28 @@ const MiPerfilScreen = ({route, navigation}) => {
 
 
  // Actualizar CV
- const handleUpdateCV = async () => {
+ const updateCV = async (email, base64PDF) => {
+  const response = await fetch('https://uploadcv-2b2k6woktq-nw.a.run.app/uploadCV', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: email,
+      CV: base64PDF,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Error al actualizar el CV: ${response.statusText}`);
+  }
+
+  const data = await response.json();
+  console.log('CV actualizado', data);
+  return data;
+};
+
+const handleUpdateCV = async () => {
   await getPermissionAsync();
   const result = await DocumentPicker.getDocumentAsync({
     type: 'application/pdf',
@@ -222,45 +228,32 @@ const MiPerfilScreen = ({route, navigation}) => {
           return;
         }
       }
+        // Reemplazar caracteres especiales y espacios en el nombre del archivo
+        const sanitizedFileName = result.name.replace(/[^a-zA-Z0-9.]/g, '_');
 
-      const newUri = FileSystem.documentDirectory + result.name;
-      await FileSystem.copyAsync({
-        from: result.uri,
-        to: newUri,
-      });
-      // Leer el archivo PDF como base64
+        const newUri = FileSystem.documentDirectory + sanitizedFileName;
+        console.log('Copiando archivo a:', newUri);
+        await FileSystem.copyAsync({
+          from: result.uri,
+          to: newUri,
+        });
+        console.log('Archivo copiado');
+
+
+      console.log('Leyendo archivo como base64');
       const base64 = await FileSystem.readAsStringAsync(newUri, {
         encoding: FileSystem.EncodingType.Base64,
       });
+      console.log('Archivo leído como base64');
 
       const base64PDF = `data:application/pdf;base64,${base64}`;
-
-      const updateCV = async (email, base64PDF) => {
-        const response = await fetch('https://uploadcv-2b2k6woktq-nw.a.run.app/uploadCV', {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: email,
-            CV: base64PDF,
-          }),
-        });
-
-        if (!response.ok) {
-          throw new Error(`Error al actualizar el CV: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        console.log('CV actualizado', data);
-        return data;
-      };
 
       await updateCV(email, base64PDF);
       await fetchData();
 
-      // Eliminar el archivo PDF del directorio temporal
+      console.log('Eliminando archivo PDF del directorio temporal');
       await FileSystem.deleteAsync(newUri);
+      console.log('Archivo PDF eliminado');
     } catch (error) {
       console.error('Error al actualizar el CV:', error);
       if (error.response) {
