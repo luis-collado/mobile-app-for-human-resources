@@ -59,12 +59,12 @@ const PerfilesAdmin = () => {
               Ver CV
             </Button>
           </View>
-          {Object.entries(selectedUser).map(([key, value]) => (
-            key !== 'nombre' && key !== 'correo' && key !== 'fotoPerfil' ? (
+          {Object.entries(selectedUser)
+            .filter(([key]) => key !== 'nombre' && key !== 'correo' && key !== 'foto_perfil' && key !== 'CV' && key !== 'mis_ofertas')
+            .map(([key, value]) => (
               <Text style={styles.info} key={key}>
                 {key}: {value}
               </Text>
-            ) : null
           ))}
           <Button onPress={handleGoBack} style={styles.button}>
             Volver
