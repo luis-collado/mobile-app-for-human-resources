@@ -55,7 +55,7 @@ function App() {
         <Stack.Screen
           name="ActualizarPerfilScreen"
           component={ActualizarPerfilScreen}
-          options={{headerShown: false}}
+          options={{ title: ' Actualizar Perfil Screen' }}
         />
         <Stack.Screen
           name="MyoffersScreen"

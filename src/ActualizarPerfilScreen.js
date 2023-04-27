@@ -58,7 +58,7 @@ const ActualizarPerfilScreen = ({ route, navigation }) => {
             <Text style={styles.label}>{key}:</Text>
             <TextInput
               style={styles.input}
-              value={userData[key].toString()}
+              value={userData[key] ? userData[key].toString() : ''} // Verificación añadida
               onChangeText={(value) => handleChange(key, value)}
             />
           </View>
