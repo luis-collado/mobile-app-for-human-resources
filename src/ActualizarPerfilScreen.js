@@ -35,8 +35,8 @@ const ActualizarPerfilScreen = ({ route, navigation }) => {
         throw new Error(`Error en la solicitud: ${response.status}`);
       }
 
-      const data = await response;
-      console.log('Datos actualizados:', data);
+      //const data = await response;
+      //console.log('Datos actualizados:', data);
       navigation.navigate('PerfilScreen', { email });
     } catch (error) {
       setError(error.message);
