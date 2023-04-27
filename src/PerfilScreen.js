@@ -228,32 +228,35 @@ const handleUpdateCV = async () => {
           return;
         }
       }
-        // Reemplazar caracteres especiales y espacios en el nombre del archivo
-        const sanitizedFileName = result.name.replace(/[^a-zA-Z0-9.]/g, '_');
-
-        const newUri = FileSystem.documentDirectory + sanitizedFileName;
-        console.log('Copiando archivo a:', newUri);
-        await FileSystem.copyAsync({
-          from: result.uri,
-          to: newUri,
-        });
-        console.log('Archivo copiado');
-
 
       console.log('Leyendo archivo como base64');
-      const base64 = await FileSystem.readAsStringAsync(newUri, {
-        encoding: FileSystem.EncodingType.Base64,
-      });
+      let base64;
+
+      if (Platform.OS === 'android') {
+        // Leer el archivo en Android utilizando un Blob y FileReader
+        const response = await fetch(result.uri);
+        const blob = await response.blob();
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        await new Promise((resolve) => {
+          reader.onload = () => {
+            base64 = reader.result.split(',')[1];
+            resolve();
+          };
+        });
+      } else {
+        // Leer el archivo en iOS utilizando expo-file-system
+        base64 = await FileSystem.readAsStringAsync(result.uri, {
+          encoding: FileSystem.EncodingType.Base64,
+        });
+      }
+
       console.log('Archivo leído como base64');
 
       const base64PDF = `data:application/pdf;base64,${base64}`;
 
       await updateCV(email, base64PDF);
       await fetchData();
-
-      console.log('Eliminando archivo PDF del directorio temporal');
-      await FileSystem.deleteAsync(newUri);
-      console.log('Archivo PDF eliminado');
     } catch (error) {
       console.error('Error al actualizar el CV:', error);
       if (error.response) {
@@ -262,6 +265,8 @@ const handleUpdateCV = async () => {
     }
   }
 };
+
+
 
 
 
