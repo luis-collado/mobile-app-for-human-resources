@@ -404,6 +404,12 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     backgroundColor: '#d5bf19',
     marginBottom: 20,
+    width: '45%',
+    marginRight: '5%',
+  },
+  updateCVButton: {
+    backgroundColor: '#d5bf19',
+      width: '45%',
   },
   profileImageContainer: {
     width: 104,
@@ -432,13 +438,14 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     right: -190,
     top: -59,
+    
   },
   updateProfilePhotoButton: {
     alignSelf: 'flex-start',
     backgroundColor: '#d5bf19',
     marginBottom: 20,
+    width: '45%'
   },
-  
 });
 
 export default MiPerfilScreen;
