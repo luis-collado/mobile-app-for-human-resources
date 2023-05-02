@@ -15,6 +15,8 @@ import AdminScreen from './src/AdminScreen';
 import OfertasAdmin from './src/admin/OfertasAdmin';
 import PerfilesAdmin from './src/admin/PerfilesAdmin';
 import CrearOfertas from './src/admin/CrearOfertas';
+import RecuperarContraseñaScreenEmail from './src/RecuperarContraseñaScreenEmail';
+
 
 
 
@@ -80,6 +82,11 @@ function App() {
          <Stack.Screen
           name="CrearOfertas"
           component={CrearOfertas}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="RecuperarContraseñaScreenEmail"
+          component={RecuperarContraseñaScreenEmail}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

@@ -47,6 +47,10 @@ const LoginScreen = ({ navigation }) => {
     navigation.navigate('RegisterScreen');
   };
 
+  const handleForgotPassword = () => {
+    navigation.navigate('RecuperarContraseñaScreenEmail');
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
@@ -89,6 +93,14 @@ const LoginScreen = ({ navigation }) => {
           labelStyle={styles.registerButtonLabel}
         >
           Registrarse
+        </Button>
+        <Button
+          mode="text"
+          onPress={handleForgotPassword}
+          style={styles.forgotPasswordButton}
+          labelStyle={styles.forgotPasswordButtonLabel}
+        >
+          ¿Olvidaste la contraseña?
         </Button>
       </View>
     </View>
@@ -135,6 +147,13 @@ const styles = StyleSheet.create({
     borderColor: '#d5bf19',
   },
   registerButtonLabel: {
+    fontSize: 18,
+    color: '#d5bf19',
+  },
+  forgotPasswordButton: {
+    marginTop: 10,
+  },
+  forgotPasswordButtonLabel: {
     fontSize: 18,
     color: '#d5bf19',
   },
