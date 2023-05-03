@@ -326,33 +326,116 @@ const handleUpdateCV = async () => {
       {userData && (
         <>
           {/* Agrega la información y elementos de perfil aquí */}
-          <Text style={styles.info}>Nombre: {userData.Nombre}</Text>
-          <Text style={styles.info}>Correo electrónico: {email}</Text>
-          <Text style={styles.info}>Referencia: {userData.Referencia}</Text>
-          <Text style={styles.info}>Fecha de alta: {userData.Fecha_alta}</Text>
-          <Text style={styles.info}>Apellidos: {userData.Apellido1 + userData.Apellido2}</Text>
-          <Text style={styles.info}>NIF/NIE: {userData.NIF_NIE}</Text>
-          <Text style={styles.info}>Sexo: {userData.Sexo}</Text>
-          <Text style={styles.info}>Estado civil: {userData.Estado_Civil}</Text>
-          <Text style={styles.info}>Fecha de nacimiento: {userData.Fecha_nacimiento}</Text>
-          <Text style={styles.info}>Edad: {userData.Edad}</Text>
-          <Text style={styles.info}>Provincia de nacimiento: {userData.Provincia_nacimiento}</Text>
-          <Text style={styles.info}>País de nacimiento: {userData.Pais_nacimiento}</Text>
-          <Text style={styles.info}>Dirección: {userData.Direccion}</Text>
-          <Text style={styles.info}>Número: {userData.Numero}</Text>
-          <Text style={styles.info}>Puerta: {userData.Puerta}</Text>
-          <Text style={styles.info}>Código postal: {userData.Codigo_postal}</Text>
-          <Text style={styles.info}>Municipio: {userData.Municipio}</Text>
-          <Text style={styles.info}>Provincia: {userData.Provincia}</Text>
-          <Text style={styles.info}>Teléfono: {userData.Telefono}</Text>
-          <Text style={styles.info}>Teléfono 2: {userData.Telefono2}</Text>
-          <Text style={styles.info}>Correo electrónico: {email}</Text>
-          <Text style={styles.info}>Whatsapp: {userData.Whatsapp}</Text>
-          <Text style={styles.info}>Fecha de inscripción SERVEF: {userData.Fecha_inscripcion_SERVEF}</Text>
-          <Text style={styles.info}>NAF: {userData.NAF}</Text>
-          <Text style={styles.info}>Estado: {userData.Estado}</Text>
-          <Text style={styles.info}>Nivel formativo: {userData.Nivel_formativo}</Text>
-          <Text style={styles.info}>Detalle del nivel formativo: {userData.Detalle_nivel_formativo}</Text>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldLabel}>Nombre:</Text>
+            <Text style={styles.fieldValue}>{userData.Nombre}</Text>
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldLabel}>Correo electrónico:</Text>
+            <Text style={styles.fieldValue}>{email}</Text>
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldLabel}>Referencia:</Text>
+            <Text style={styles.fieldValue}>{userData.Referencia}</Text>
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldLabel}>Fecha de alta:</Text>
+            <Text style={styles.fieldValue}>{userData.Fecha_alta}</Text>
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldLabel}>Apellidos:</Text>
+            <Text style={styles.fieldValue}>{userData.Apellido1} {userData.Apellido2}</Text>
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldLabel}>NIF/NIE:</Text>
+            <Text style={styles.fieldValue}>{userData.NIF_NIE}</Text>
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldLabel}>Sexo:</Text>
+            <Text style={styles.fieldValue}>{userData.Sexo}</Text>
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldLabel}>Estado civil:</Text>
+            <Text style={styles.fieldValue}>{userData.Estado_Civil}</Text>
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldLabel}>Fecha de nacimiento:</Text>
+            <Text style={styles.fieldValue}>{userData.Fecha_nacimiento}</Text>
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldLabel}>Edad:</Text>
+            <Text style={styles.fieldValue}>{userData.Edad}</Text>
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldLabel}>Provincia de nacimiento:</Text>
+            <Text style={styles.fieldValue}>{userData.Provincia_nacimiento}</Text>
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldLabel}>País de nacimiento:</Text>
+            <Text style={styles.fieldValue}>{userData.Pais_nacimiento}</Text>
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldLabel}>Dirección:</Text>
+            <Text style={styles.fieldValue}>{userData.Direccion}</Text>
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldLabel}>Número:</Text>
+            <Text style={styles.fieldValue}>{userData.Numero}</Text>
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldLabel}>Puerta:</Text>
+            <Text style={styles.fieldValue}>{userData.Puerta}</Text>
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldLabel}>Código postal:</Text>
+            <Text style={styles.fieldValue}>{userData.Codigo_postal}</Text>
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldLabel}>Municipio:</Text>
+            <Text style={styles.fieldValue}>{userData.Municipio}</Text>
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldLabel}>Provincia:</Text>
+            <Text style={styles.fieldValue}>{userData.Provincia}</Text>
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldLabel}>Teléfono:</Text>
+            <Text style={styles.fieldValue}>{userData.Telefono}</Text>
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldLabel}>Teléfono 2:</Text>
+            <Text style={styles.fieldValue}>{userData.Telefono2}</Text>
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldLabel}>Correo electrónico:</Text>
+            <Text style={styles.fieldValue}>{email}</Text>
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldLabel}>Whatsapp:</Text>
+            <Text style={styles.fieldValue}>{userData.Whatsapp}</Text>
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldLabel}>Fecha de inscripción SERVEF:</Text>
+            <Text style={styles.fieldValue}>{userData.Fecha_inscripcion_SERVEF}</Text>
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldLabel}>NAF:</Text>
+            <Text style={styles.fieldValue}>{userData.NAF}</Text>
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldLabel}>Estado:</Text>
+            <Text style={styles.fieldValue}>{userData.Estado}</Text>
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldLabel}>Nivel formativo:</Text>
+            <Text style={styles.fieldValue}>{userData.Nivel_formativo}</Text>
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldLabel}>Detalle del nivel formativo:</Text>
+            <Text style={styles.fieldValue}>{userData.Detalle_nivel_formativo}</Text>
+          </View>
+
+
           {/* Agrega aquí otros campos que desees mostrar */}
         </>
       )}
@@ -372,26 +455,36 @@ const handleUpdateCV = async () => {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    alignItems: 'flex-start', // Cambiar a 'flex-start' para alinear a la izquierda
+    alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff',
     paddingTop: 60,
     flexDirection: 'column',
-    paddingBottom: 80, // Agrega un espacio adicional al final del contenido
-    paddingHorizontal: 20, // Agregar espacio horizontal
+    paddingBottom: 80,
+    paddingHorizontal: 20,
   },
   title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    alignItems: 'flex-start',
+    textAlign: 'left',
+  },
+  fieldContainer: {
+    flexDirection: 'column',
+    borderBottomColor: '#d5bf19',
+    borderBottomWidth: 1,
+    marginBottom: 15,
+  },
+  fieldLabel: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: 20, // Aumentar el margen inferior
-    alignItems: 'flex-start',
-    textAlign: 'left', // Cambiar a 'left' para alinear a la izquierda
+    borderBottomColor: '#d5bf19',
+    marginRight: 10,
   },
-  info: {
-    fontSize: 18,
-    marginBottom: 15, // Aumentar el margen inferior para mayor separación entre campos
-    alignItems: 'flex-start', // Alinear a la izquierda
-    textAlign: 'left', // Alinear a la izquierda
+  fieldValue: {
+    fontSize: 20,
+    borderBottomColor: '#d5bf19',
   },
   fab: {
     position: 'absolute',

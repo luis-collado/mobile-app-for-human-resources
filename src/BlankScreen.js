@@ -68,14 +68,12 @@ const BlankScreen = ({route,navigation}) => {
     return (
       <View style={styles.container}>
         <ScrollView>
-          <View style={styles.applyButtonContainer}>
             <Button
-              mode="contained"
+              style={styles.applyButtonColor}
               onPress={() => handleApplyOffer(email, selectedOffer.Codigo)}
             >
               Aplicar
             </Button>
-          </View>
           {/* Detalles de la oferta seleccionada */}
           <Text style={styles.title}>{selectedOffer.Oferta}</Text>
           <Text style={styles.description}>{selectedOffer.Empresa}</Text>
@@ -172,13 +170,15 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     marginBottom: 20,
     borderRadius: 10,
+    
   },
-  applyButtonContainer: {
+  applyButtonColor: {
     alignSelf: 'stretch',
+    backgroundColor: '#d5bf19',
     marginBottom: 20,
     borderRadius: 10,
-    backgroundColor: '#b5b3b3',
-  },
+    color :'#d5bf19',
+  }
 });
 
 export default BlankScreen;      
