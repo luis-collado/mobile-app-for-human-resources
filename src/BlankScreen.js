@@ -174,10 +174,10 @@ const styles = StyleSheet.create({
   },
   applyButtonColor: {
     alignSelf: 'stretch',
-    backgroundColor: '#d5bf19',
+    backgroundColor: '#d5bf19', // Cambiar el color de fondo a verde
     marginBottom: 20,
     borderRadius: 10,
-    color :'#d5bf19',
+    color: 'white', // Cambiar el color del texto a blanco
   }
 });
 
