@@ -81,6 +81,7 @@ const RegisterScreen = ({ route}) => {
               console.log("User data saved to MySQL successfully");
               return { success: true };
             } catch (error) {
+              Alert.alert("Error", "El email ya está siendo utilizado");
               console.error("Error saving user data to MySQL:", error);
               return { success: false, error: error.message };
             }
@@ -91,6 +92,7 @@ const RegisterScreen = ({ route}) => {
           await saveUserDataToMySQL(name, lastName, email, password);
 
         } catch (e) {
+          Alert.alert("Error", "El email ya está siendo utilizado");
           console.error("Error adding document: ", e);
         }
 
@@ -103,9 +105,10 @@ const RegisterScreen = ({ route}) => {
         }
 
         if (error.code === "auth/invalid-email") {
+          Alert.alert("Error", "El email ya está siendo utilizado");
           console.log("That email address is invalid!");
         }
-
+        Alert.alert("Error", "El email ya está siendo utilizado");
         console.error(error);
       });
   };

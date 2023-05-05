@@ -39,10 +39,12 @@ const LoginScreen = ({ navigation }) => {
           navigation.navigate("Welcome", { email: email });
         }
       } else {
+        Alert.alert('Error', 'Error en la contraseña o el email');
         console.log("No such document!");
       }
     })
     .catch((error) => {
+      Alert.alert('Error', 'Error en la contraseña o el email');
       console.log(error);
     });
 
