@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Image,Alert} from 'react-native';
 import { TextInput, Button, HelperText, Title } from 'react-native-paper';
+import { getAuth, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { getFirestore, doc, setDoc, collection, query, where, getDocs } from "firebase/firestore";
+import firebaseApp from "./firebaseConfig"; // Asume que has creado un archivo de configuración de Firebase
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const auth = getAuth(firebaseApp);
 
   const handleLogin = async () => {
     if (email !== '' && password.length >= 8) {
@@ -13,6 +17,20 @@ const LoginScreen = ({ navigation }) => {
     console.log('Email:', email);
     console.log('Password:', password);
 
+		signInWithEmailAndPassword(auth, email, password)
+			.then((userCredential) => {
+				console.log("Signed in!");
+				const user = userCredential.user;
+				//console.log(user);
+				console.log(auth.currentUser.uid);
+				//navigation.navigate("Home");
+        navigation.navigate('Welcome', { email: email });
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+
+    /*
     try {
       const response = await fetch('https://loginuser-2b2k6woktq-nw.a.run.app/login', {
         method: 'POST',
@@ -41,6 +59,7 @@ const LoginScreen = ({ navigation }) => {
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
     }
+    */
   };
 
   const handleRegister = () => {
