@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Image,Alert} from 'react-native';
 import { TextInput, Button, HelperText, Title } from 'react-native-paper';
 import { getAuth, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { getFirestore, doc, setDoc, collection, query, where, getDocs } from "firebase/firestore";
+import { getFirestore, doc, setDoc, collection, query, where, getDoc } from "firebase/firestore";
 import firebaseApp from "./firebaseConfig"; // Asume que has creado un archivo de configuración de Firebase
 
 const LoginScreen = ({ navigation }) => {
@@ -17,18 +17,34 @@ const LoginScreen = ({ navigation }) => {
     console.log('Email:', email);
     console.log('Password:', password);
 
-		signInWithEmailAndPassword(auth, email, password)
-			.then((userCredential) => {
-				console.log("Signed in!");
-				const user = userCredential.user;
-				//console.log(user);
-				console.log(auth.currentUser.uid);
-				//navigation.navigate("Home");
-        navigation.navigate('Welcome', { email: email });
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+    signInWithEmailAndPassword(auth, email, password)
+    .then(async (userCredential) => {
+      console.log("Signed in!");
+      const user = userCredential.user;
+      console.log(auth.currentUser.uid);
+  
+      // Obtén el rol del usuario desde Firestore
+      const db = getFirestore(firebaseApp);
+      const docRef = doc(db, "users", auth.currentUser.uid);
+      const docSnapshot = await getDoc(docRef);
+  
+      if (docSnapshot.exists()) {
+        const userData = docSnapshot.data();
+        const userRole = userData.role; // Asume que el rol está guardado en el campo "role"
+  
+        // Navega a la pantalla correspondiente según el rol del usuario
+        if (userRole === "admin") {
+          navigation.navigate("AdminScreen");
+        } else {
+          navigation.navigate("Welcome", { email: email });
+        }
+      } else {
+        console.log("No such document!");
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
     /*
     try {
