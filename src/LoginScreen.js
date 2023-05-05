@@ -1,9 +1,21 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Image,Alert} from 'react-native';
-import { TextInput, Button, HelperText, Title } from 'react-native-paper';
-import { getAuth, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { getFirestore, doc, setDoc, collection, query, where, getDoc } from "firebase/firestore";
-import firebaseApp from "./firebaseConfig"; // Asume que has creado un archivo de configuración de Firebase
+import React, { useState } from "react";
+import { View, StyleSheet, Image, Alert } from "react-native";
+import { TextInput, Button, HelperText, Title } from "react-native-paper";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  collection,
+  query,
+  where,
+  getDoc,
+} from "firebase/firestore";
+import firebaseApp from "./firebaseConfig";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -19,9 +31,10 @@ const LoginScreen = ({ navigation }) => {
 
     signInWithEmailAndPassword(auth, email, password)
     .then(async (userCredential) => {
-      console.log("Signed in!");
       const user = userCredential.user;
-      console.log(auth.currentUser.uid);
+      if (user.emailVerified) {
+        console.log("Signed in!");
+        console.log(auth.currentUser.uid);
   
       // Obtén el rol del usuario desde Firestore
       const db = getFirestore(firebaseApp);
@@ -41,6 +54,13 @@ const LoginScreen = ({ navigation }) => {
       } else {
         Alert.alert('Error', 'Error en la contraseña o el email');
         console.log("No such document!");
+      }
+      } else {
+        Alert.alert(
+          "Error",
+          "Por favor, verifica tu correo electrónico antes de iniciar sesión."
+        );
+        console.log("Email not verified");
       }
     })
     .catch((error) => {

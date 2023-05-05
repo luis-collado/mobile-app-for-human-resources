@@ -1,9 +1,23 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Image, Alert } from "react-native";
 import { TextInput, Button, HelperText, Title } from "react-native-paper";
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { getFirestore, doc, setDoc, collection, query, where, getDocs } from "firebase/firestore";
-import firebaseApp from "./firebaseConfig"; // Asume que has creado un archivo de configuración de Firebase
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  sendEmailVerification,
+  signOut,
+} from "firebase/auth";
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  collection,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
+import firebaseApp from "./firebaseConfig"; 
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -47,12 +61,19 @@ const RegisterScreen = ({ route}) => {
 
     createUserWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
-        console.log("Account created!");
+        console.log("Account created! User credential:", userCredential);
         const user = userCredential.user;
         updateProfile(auth.currentUser, {
           displayName: username,
-          
         });
+
+        sendEmailVerification(user)
+          .then(() => {
+            console.log("Verification email sent!");
+          })
+          .catch((error) => {
+            console.error("Error sending verification email:", error);
+          });
 
         try {
           const docRef = await setDoc(doc(db, "users", auth.currentUser.uid), {
@@ -78,7 +99,7 @@ const RegisterScreen = ({ route}) => {
                 throw new Error("Failed to save user data to MySQL" + JSON.stringify({ email, nombre, apellidos, contraseña }));
               }
           
-              Alert.alert("Exito", "La cuenta ha sido creada correctamente");
+              Alert.alert("Exito", "La cuenta ha sido creada correctamente, Verifica Cuenta con el email(puede star en el spam)");
               console.log("User data saved to MySQL successfully");
               return { success: true };
             } catch (error) {
