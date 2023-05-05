@@ -36,12 +36,12 @@ const RegisterScreen = ({ route}) => {
 
     const usernameQuery = query(
       collection(db, "users"),
-      where("username", "==", username)
+      where("email", "==", email)
     );
     const querySnapshot = await getDocs(usernameQuery);
 
     if (!querySnapshot.empty) {
-      setUsername({ ...username, error: "Username is already in use." });
+      setUsername({ ...email, error: "Email is already in use." });
       return;
     }
 
@@ -56,9 +56,9 @@ const RegisterScreen = ({ route}) => {
 
         try {
           const docRef = await setDoc(doc(db, "users", auth.currentUser.uid), {
+            id: auth.currentUser.uid,
             name: name,
             lastName: lastName,
-            username: username,
             email: email,
           });
           console.log("User written with ID: ", auth.currentUser.uid);
