@@ -5,10 +5,12 @@ import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase
 import { getFirestore, doc, setDoc, collection, query, where, getDocs } from "firebase/firestore";
 import firebaseApp from "./firebaseConfig"; // Asume que has creado un archivo de configuración de Firebase
 
+import { useNavigation } from '@react-navigation/native';
 
 
 
-const RegisterScreen = ({ route, navigation }) => {
+
+const RegisterScreen = ({ route}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -16,13 +18,19 @@ const RegisterScreen = ({ route, navigation }) => {
   const [username, setUsername] = useState("");
 
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const [passwordsMatch, setPasswordsMatch] = useState(false);
+
+  const navigation = useNavigation();
+
 
   const checkPasswordsMatch = () => {
-    setPasswordsMatch(password === confirmPassword);
+    if (password.length > 0 && confirmPassword.length > 0) {
+      setPasswordsMatch(password === confirmPassword);
+    }
   };
 
   const handleRegister = async () => {
+    console.log("handleRegister called");
     const auth = getAuth(firebaseApp); // Utiliza getAuth con la configuración de Firebase
     const db = getFirestore(firebaseApp);
 
@@ -43,6 +51,7 @@ const RegisterScreen = ({ route, navigation }) => {
         const user = userCredential.user;
         updateProfile(auth.currentUser, {
           displayName: username,
+          
         });
 
         try {
@@ -79,21 +88,13 @@ const RegisterScreen = ({ route, navigation }) => {
 
 
 
-          await saveUserDataToMySQL(
-            auth.currentUser.uid,
-            name,
-            lastName,
-            email,
-            username
-          );
+          await saveUserDataToMySQL(name, lastName, email, password);
+
         } catch (e) {
           console.error("Error adding document: ", e);
         }
 
-        navigation.reset({
-          index: 0,
-          routes: [{ name: "Dashboard" }],
-        });
+        navigation.navigate("LoginScreen");
       })
       .catch((error) => {
         if (error.code === "auth/email-already-in-use") {
