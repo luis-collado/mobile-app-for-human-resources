@@ -1,3 +1,4 @@
 # Ignorar node_modules y .expo
 node_modules/
 .expo/
+firebase-config.js
