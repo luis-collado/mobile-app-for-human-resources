@@ -78,6 +78,7 @@ const RegisterScreen = ({ route}) => {
                 throw new Error("Failed to save user data to MySQL" + JSON.stringify({ email, nombre, apellidos, contraseña }));
               }
           
+              Alert.alert("Exito", "La cuenta ha sido creada correctamente");
               console.log("User data saved to MySQL successfully");
               return { success: true };
             } catch (error) {
