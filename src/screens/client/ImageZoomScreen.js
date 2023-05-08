@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 
+import styles from '../../styles/client/ImageZoomScreenStyles';
+
 const ImageZoomScreen = ({ route }) => {
   const { imageUrl } = route.params;
 
@@ -15,17 +17,5 @@ const ImageZoomScreen = ({ route }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#000',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-  },
-});
 
 export default ImageZoomScreen;

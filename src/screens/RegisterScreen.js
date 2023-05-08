@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Image, Alert } from "react-native";
+import { View,Image, Alert } from "react-native";
 import { TextInput, Button, HelperText, Title } from "react-native-paper";
 import {
   getAuth,
@@ -20,6 +20,10 @@ import {
 import firebaseApp from "../services/firebaseConfig"; 
 
 import { useNavigation } from '@react-navigation/native';
+
+import styles from '../styles/RegisterScreenStyles';
+
+
 
 
 
@@ -249,50 +253,5 @@ const saveUserDataToMySQL = async (nombre, apellidos, email, contraseña) => {
     return {success: false, error: error.message};
   }
 };
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-  },
-  logoContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexGrow: 1,
-  },
-  logo: {
-    width: 150,
-    height: 150,
-  },
-  title: {
-    marginTop: 10,
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  formContainer: {
-    flexGrow: 2,
-    paddingHorizontal: 30,
-  },
-  input: {
-    marginBottom: 15,
-  },
-  button: {
-    marginTop: 15,
-    paddingVertical: 10,
-    backgroundColor: '#d5bf19',
-  },
-  buttonLabel: {
-    fontSize: 18,
-  },
-  backButton: {
-    marginTop: 10,
-  },
-  backButtonLabel: {
-    fontSize: 16,
-    color: '#d5bf19',
-  },
-});
 
 export default RegisterScreen;

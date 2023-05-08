@@ -7,6 +7,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import OfertasAdmin from './OfertasAdmin';
 import PerfilesAdmin from './PerfilesAdmin';
 
+import styles from '../../styles/admin/AdminScreenStyles';
+
 
 
 
@@ -67,18 +69,5 @@ const AdminScreen = (route) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#ffffff',
-  },
-  text: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-});
 
 export default AdminScreen;

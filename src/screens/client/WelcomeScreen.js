@@ -8,6 +8,8 @@ import MisOfertas from './MyOffers';
 import Ofertas from './BlankScreen';
 import MiPerfil from './PerfilScreen';
 
+import styles from '../../styles/client/WelcomeScreenStyles';
+
 const Tab = createMaterialBottomTabNavigator();
 
 
@@ -93,18 +95,6 @@ const WelcomeScreen = ({route}) => {
   );
 };
 
-const styles = StyleSheet.create({
-  welcomeContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingTop: 60,
-  },
-  welcomeText: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-});
+
 
 export default WelcomeScreen;

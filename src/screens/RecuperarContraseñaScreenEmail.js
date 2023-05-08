@@ -3,6 +3,8 @@ import { View, StyleSheet, Alert } from 'react-native';
 import { TextInput, Button, Title, IconButton } from 'react-native-paper';
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 
+import styles from '../styles/RecuperarContraseñaScreenStyle';
+
 const RecuperarContraseñaScreenEmail = ({ navigation }) => {
   const [email, setEmail] = useState('');
 
@@ -65,34 +67,5 @@ const RecuperarContraseñaScreenEmail = ({ navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-    justifyContent: 'center',
-    paddingHorizontal: 30,
-  },
-  backButton: {
-    alignSelf: 'flex-start',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
-    alignSelf: 'center',
-    marginBottom: 20,
-  },
-  input: {
-    marginBottom: 15,
-  },
-  button: {
-    marginTop: 15,
-    paddingVertical: 10,
-    backgroundColor: '#d5bf19',
-  },
-  buttonLabel: {
-    fontSize: 18,
-  },
-});
 
 export default RecuperarContraseñaScreenEmail;
