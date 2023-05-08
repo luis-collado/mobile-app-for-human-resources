@@ -1,4 +1,4 @@
 # Ignorar node_modules y .expo
 node_modules/
 .expo/
-
+src/services/firebaseConfig.js
