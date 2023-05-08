@@ -2,3 +2,4 @@
 node_modules/
 .expo/
 firebase-config.js
+src/services/firebaseConfig.js
