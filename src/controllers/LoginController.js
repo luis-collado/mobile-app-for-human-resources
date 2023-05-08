@@ -51,8 +51,9 @@ import {
         );
       }
     } catch (error) {
-      console.log(error);
-      Alert.alert("Error", error.message);
-    }
+        console.log(error);
+        return { code: error.code, message: error.message };
+       
+      }
   };
   

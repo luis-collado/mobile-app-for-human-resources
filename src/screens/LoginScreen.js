@@ -10,7 +10,31 @@ const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
-    await loginUser(email, password, navigation);
+    const error = await loginUser(email, password, navigation);
+    if (error) {
+      let alertMessage;
+      switch (error.code) {
+        case "auth/wrong-password":
+          alertMessage = "Email o contraseña incorrectos. Por favor, inténtalo de nuevo.";
+          break;
+          
+        case "auth/email-not-verified":
+          alertMessage = "Por favor, verifica tu correo electrónico antes de iniciar sesión.";
+          break;
+        
+        case "auth/invalid-email":
+          alertMessage = "La dirección de correo electrónico no es válida.";
+          break;
+        case "auth/user-not-found":
+          alertMessage = "No se encontró ningún usuario con ese correo electrónico.";
+          break;
+
+        default:
+          alertMessage = error.message; // Si no hay un mensaje personalizado, usa el mensaje de error predeterminado
+          break;
+      }
+      Alert.alert("Error", alertMessage);
+    }
   };
 
   const handleRegister = () => {
