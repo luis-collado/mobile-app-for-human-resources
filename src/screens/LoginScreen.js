@@ -1,83 +1,48 @@
 import React, { useState } from "react";
 import { View, Image, Alert } from "react-native";
 import { TextInput, Button, HelperText, Title } from "react-native-paper";
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
-import {
-  getFirestore,
-  doc,
-  setDoc,
-  collection,
-  query,
-  where,
-  getDoc,
-} from "firebase/firestore";
-import firebaseApp from "../services/firebaseConfig";
 
-import styles from '../styles/LoginScreenStyles';
+import styles from "../styles/LoginScreenStyles";
+import { loginUser } from "../controllers/LoginController";
 
 const LoginScreen = ({ navigation }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const auth = getAuth(firebaseApp);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
-    if (email !== '' && password.length >= 8) {
-    } else {
+    const error = await loginUser(email, password, navigation);
+    if (error) {
+      let alertMessage;
+      switch (error.code) {
+        case "auth/wrong-password":
+          alertMessage = "Email o contraseña incorrectos. Por favor, inténtalo de nuevo.";
+          break;
+          
+        case "auth/email-not-verified":
+          alertMessage = "Por favor, verifica tu correo electrónico antes de iniciar sesión.";
+          break;
+        
+        case "auth/invalid-email":
+          alertMessage = "La dirección de correo electrónico no es válida.";
+          break;
+        case "auth/user-not-found":
+          alertMessage = "No se encontró ningún usuario con ese correo electrónico.";
+          break;
+
+        default:
+          alertMessage = error.message; // Si no hay un mensaje personalizado, usa el mensaje de error predeterminado
+          break;
+      }
+      Alert.alert("Error", alertMessage);
     }
-    console.log('Email:', email);
-    console.log('Password:', password);
-
-    signInWithEmailAndPassword(auth, email, password)
-    .then(async (userCredential) => {
-      const user = userCredential.user;
-      if (user.emailVerified) {
-        console.log("Signed in!");
-        console.log(auth.currentUser.uid);
-  
-      // Obtén el rol del usuario desde Firestore
-      const db = getFirestore(firebaseApp);
-      const docRef = doc(db, "users", auth.currentUser.uid);
-      const docSnapshot = await getDoc(docRef);
-  
-      if (docSnapshot.exists()) {
-        const userData = docSnapshot.data();
-        const userRole = userData.role; // Asume que el rol está guardado en el campo "role"
-  
-        // Navega a la pantalla correspondiente según el rol del usuario
-        if (userRole === "admin") {
-          navigation.navigate("AdminScreen");
-        } else {
-          navigation.navigate("Welcome", { email: email });
-        }
-      } else {
-        Alert.alert('Error', 'Error en la contraseña o el email');
-        console.log("No such document!");
-      }
-      } else {
-        Alert.alert(
-          "Error",
-          "Por favor, verifica tu correo electrónico antes de iniciar sesión."
-        );
-        console.log("Email not verified");
-      }
-    })
-    .catch((error) => {
-      Alert.alert('Error', 'Error en la contraseña o el email');
-      console.log(error);
-    });
-
   };
 
   const handleRegister = () => {
-    navigation.navigate('RegisterScreen');
+    navigation.navigate("RegisterScreen");
   };
 
   const handleForgotPassword = () => {
-    navigation.navigate('RecuperarContraseñaScreenEmail');
+    navigation.navigate("RecuperarContraseñaScreenEmail");
   };
 
   return (
