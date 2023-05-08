@@ -2,20 +2,20 @@ import 'react-native-gesture-handler';
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import LoginScreen from './src/LoginScreen';
-import RegisterScreen from './src/RegisterScreen';
-import BlankScreen from './src/BlankScreen';
+import LoginScreen from './src/screens/LoginScreen';
+import RegisterScreen from './src/screens/RegisterScreen';
+import BlankScreen from './src/screens/client/BlankScreen';
 //import OfferDetailsScreen from './src/OfferDetailsScreen';
-import WelcomeScreen from './src/WelcomeScreen'; // Asegúrate de importar correctamente el archivo WelcomeScreen
-import ImageZoomScreen from './src/ImageZoomScreen';
-import ActualizarPerfilScreen from './src/ActualizarPerfilScreen'; // Importa la pantalla creada
-import PerfilScreen from './src/PerfilScreen';
-import MyoffersScreen from './src/MyOffers';
-import AdminScreen from './src/AdminScreen';
-import OfertasAdmin from './src/admin/OfertasAdmin';
-import PerfilesAdmin from './src/admin/PerfilesAdmin';
-import CrearOfertas from './src/admin/CrearOfertas';
-import RecuperarContraseñaScreenEmail from './src/RecuperarContraseñaScreenEmail';
+import WelcomeScreen from './src/screens/client/WelcomeScreen'; // Asegúrate de importar correctamente el archivo WelcomeScreen
+import ImageZoomScreen from './src/screens/client/ImageZoomScreen';
+import ActualizarPerfilScreen from './src/screens/client/ActualizarPerfilScreen'; // Importa la pantalla creada
+import PerfilScreen from './src/screens/client/PerfilScreen';
+import MyoffersScreen from './src/screens/client/MyOffers';
+import AdminScreen from './src/screens/admin/AdminScreen';
+import OfertasAdmin from './src/screens/admin/OfertasAdmin';
+import PerfilesAdmin from './src/screens/admin/PerfilesAdmin';
+import CrearOfertas from './src/screens/admin/CrearOfertas';
+import RecuperarContraseñaScreenEmail from './src/screens/RecuperarContraseñaScreenEmail';
 
 
 

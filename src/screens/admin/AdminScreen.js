@@ -4,8 +4,8 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { Provider as PaperProvider } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import OfertasAdmin from './admin/OfertasAdmin';
-import PerfilesAdmin from './admin/PerfilesAdmin';
+import OfertasAdmin from './OfertasAdmin';
+import PerfilesAdmin from './PerfilesAdmin';
 
 
 

@@ -282,7 +282,7 @@ const handleUpdateCV = async () => {
             source={
               userData && userData.foto_perfil
                 ? { uri: userData.foto_perfil}
-                : require('./logo.png') // Reemplaza con la ruta de la imagen predeterminada
+                : require('../../assets/logo.png') // Reemplaza con la ruta de la imagen predeterminada
             }
             //onError={(error) => console.log('Error al cargar la imagen:', error)}
           />

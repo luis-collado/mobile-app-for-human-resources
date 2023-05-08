@@ -17,7 +17,7 @@ import {
   where,
   getDocs,
 } from "firebase/firestore";
-import firebaseApp from "./firebaseConfig"; 
+import firebaseApp from "../services/firebaseConfig"; 
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -144,7 +144,7 @@ const RegisterScreen = ({ route}) => {
     <View style={styles.container}>
       <View style={styles.logoContainer}>
         <Image
-          source={require('./logo.png')} // Reemplaza esto con la ruta de tu logo
+          source={require('../assets/logo.png')} // Reemplaza esto con la ruta de tu logo
           style={styles.logo}
         />
         <Title style={styles.title}>Timely Talent</Title>

@@ -15,7 +15,7 @@ import {
   where,
   getDoc,
 } from "firebase/firestore";
-import firebaseApp from "./firebaseConfig";
+import firebaseApp from "../services/firebaseConfig";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -68,36 +68,6 @@ const LoginScreen = ({ navigation }) => {
       console.log(error);
     });
 
-    /*
-    try {
-      const response = await fetch('https://loginuser-2b2k6woktq-nw.a.run.app/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Inicio de sesión exitoso:', data);
-
-        if (data.rol === 'admin') {
-          navigation.navigate('AdminScreen');
-        } else {
-          navigation.navigate('Welcome', { email: email });
-        }
-      } else {
-        Alert.alert('Error', 'Error en la contraseña o el email');
-        console.error('Error al iniciar sesión:', response.statusText);
-      }
-    } catch (error) {
-      console.error('Error al iniciar sesión:', error);
-    }
-    */
   };
 
   const handleRegister = () => {
@@ -112,7 +82,7 @@ const LoginScreen = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.logoContainer}>
         <Image
-          source={require('./logo.png')} // Reemplaza esto con la ruta de tu logo
+          source={require('../assets/logo.png')} // Reemplaza esto con la ruta de tu logo
           style={styles.logo}
         />
         <Title style={styles.title}>Timely Talent</Title>
@@ -217,4 +187,3 @@ const styles = StyleSheet.create({
 });
 
 export default LoginScreen;
-
