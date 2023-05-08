@@ -1,5 +1,3 @@
-// src/firebase-config.js
-import { initializeApp } from 'firebase/app';
 const firebaseConfig = {
   apiKey: "AIzaSyD-pRpOQzPaTxt6XMuS8Ae7qLbgjgYUKEc",
   authDomain: "tim-consulting.firebaseapp.com",
@@ -9,7 +7,3 @@ const firebaseConfig = {
   appId: "1:671150873240:web:5a912e59a4768aacc3ceed",
   measurementId: "G-HNJR61QHGV"
 };
-
-  const firebaseApp = initializeApp(firebaseConfig);
-
-export default firebaseApp;
