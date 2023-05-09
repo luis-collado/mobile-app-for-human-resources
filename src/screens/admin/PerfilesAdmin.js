@@ -1,38 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, ScrollView, Image,Linking  } from 'react-native';
+import React from 'react';
+import { View, StyleSheet, Text, TouchableOpacity, ScrollView, Image, Linking } from 'react-native';
 import { Button, FAB } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
 import styles from '../../styles/admin/PerfilesAdminScreenStyles';
+import usePerfilesAdmin from '../../controllers/admin/PerfilesAdminController';
 
 const PerfilesAdmin = () => {
-  const [users, setUsers] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(null);
+  const {
+    users,
+    selectedUser,
+    handleSelectUser,
+    handleGoBack,
+    handleOpenCv,
+  } = usePerfilesAdmin();
+
   const navigation = useNavigation();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          'https://readapplicants-2b2k6woktq-nw.a.run.app/readApplicants'
-        );
-        const data = await response.json();
-        setUsers(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  const handleSelectUser = (user) => {
-    setSelectedUser(user);
-  };
-
-  const handleGoBack = () => {
-    setSelectedUser(null);
-  };
 
   const handleLogout = () => {
     navigation.reset({
@@ -41,9 +24,6 @@ const PerfilesAdmin = () => {
     });
   };
 
-  const handleOpenCv = (CV) => {
-    Linking.openURL(CV);
-  };
 
   if (selectedUser) {
     return (

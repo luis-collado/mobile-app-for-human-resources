@@ -79,7 +79,7 @@ const CrearOfertas = ({ route }) => {
   };
 
   const handleSubmit = async () => {
-    const email = 'admin@gmail.com';
+    const email = 'teresaiglesiastim@gmail.com';
     try {
       const response = await fetch(
         'https://createoffer-2b2k6woktq-nw.a.run.app/createOffer',
