@@ -41,7 +41,7 @@ const BlankScreen = ({route,navigation}) => {
   
       console.log('Enviando JSON al servidor:', JSON.stringify(requestBody)); // Agrega esta línea
   
-      const response = await fetch('https://applyoffers-2b2k6woktq-nw.a.run.app/applyOffers', {
+      const response = await fetch('https://applyoffers-5eplrc7dka-nw.a.run.app/applyOffers', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
