@@ -230,7 +230,7 @@ const handleUpdateCV = async () => {
         }
       }
 
-      console.log('Leyendo archivo como base64 ');
+      console.log('Leyendo archivo como  base64 ');
       let base64;
 
       if (Platform.OS === 'android') {
