@@ -1,66 +1,22 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView,Alert} from 'react-native';
+import React from 'react';
+import {View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView, Alert} from 'react-native';
 import {Button} from 'react-native-paper';
 
 import styles from '../../styles/client/BlankScreenStyles';
+import BlankScreenController from '../../controllers/client/BlankScreenController';
 
-const BlankScreen = ({route,navigation}) => {
-  const [offers, setOffers] = useState([]);
-  const [selectedOffer, setSelectedOffer] = useState(null);
+const BlankScreen = ({route, navigation}) => {
   const {email} = route.params;
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          'https://readoffers-2b2k6woktq-nw.a.run.app/readOffers',
-        );
-        const data = await response.json();
-        setOffers(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const { offers, selectedOffer, handleSelectOffer, handleApplyOffer, handleGoBack } = BlankScreenController(email);
 
-    fetchData();
-  }, []);
-
-  const handleGoBack = () => {
-    setSelectedOffer(null);
-  };
-
-  const handleSelectOffer = (offer) => {
-    setSelectedOffer(offer);
-  };
-
-  const handleApplyOffer = async (email, offerId) => {
-    try {
-      const requestBody = {
-        email: email,
-        ofertaId: offerId,
-      };
-  
-      console.log('Enviando JSON al servidor:', JSON.stringify(requestBody)); // Agrega esta línea
-  
-      const response = await fetch('https://applyoffers-5eplrc7dka-nw.a.run.app/applyOffers', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestBody),
-      });
-      if (response.ok) {
-        Alert.alert(
-          '¡Aplicación exitosa!',
-          'Has aplicado correctamente a la oferta',
-          [{ text: 'OK', onPress: () => setSelectedOffer(null) }],
-        );
-      } else {
-        const errorText = await response.text();
-        throw new Error(` ${errorText}`);
-      }
-    } catch (error) {
-      console.error(error);
-      alert(`Error: ${error.message}`);
+  const applyOffer = async (offerId) => {
+    const success = await handleApplyOffer(offerId);
+    if (success) {
+      Alert.alert(
+        '¡Aplicación exitosa!',
+        'Has aplicado correctamente a la oferta',
+        [{ text: 'OK', onPress: () => handleGoBack() }],
+      );
     }
   };
   
@@ -70,12 +26,12 @@ const BlankScreen = ({route,navigation}) => {
     return (
       <View style={styles.container}>
         <ScrollView>
-            <Button
-              style={styles.applyButtonColor}
-              onPress={() => handleApplyOffer(email, selectedOffer.Codigo)}
-            >
-              Aplicar
-            </Button>
+        <Button
+          style={styles.applyButtonColor}
+          onPress={() => applyOffer(selectedOffer.Codigo)}
+        >
+          Aplicar
+        </Button>
           {/* Detalles de la oferta seleccionada */}
           <Text style={styles.title}>{selectedOffer.Oferta}</Text>
           <Text style={styles.description}>{selectedOffer.Empresa}</Text>
