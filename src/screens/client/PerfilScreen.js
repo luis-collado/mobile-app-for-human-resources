@@ -11,6 +11,7 @@ import * as MediaLibrary from 'expo-media-library';
 //import * as Permissions from 'expo-permissions';
 
 import styles from '../../styles/client/PerfilScreenStyles';
+import { Alert } from 'react-native';
 
 
 
@@ -59,8 +60,8 @@ const MiPerfilScreen = ({route, navigation}) => {
     }
   
     console.log(uri);
-    const apiUrl = 'https://uploadphotos-2b2k6woktq-nw.a.run.app/uploadPhotos';
-    const email = 'test@gmail.com'; 
+    const apiUrl = 'https://uploadphotos-5eplrc7dka-nw.a.run.app/uploadPhotos';
+    //const email = 'test@gmail.com'; 
   
     const formData = new FormData();
     formData.append('email', email);
@@ -148,7 +149,7 @@ const MiPerfilScreen = ({route, navigation}) => {
   
       const updateProfilePhoto = async (email, base64Image) => {
         const response = await fetch(
-          "https://uploadphotos-2b2k6woktq-nw.a.run.app/uploadPhotos",
+          "https://uploadphotos-5eplrc7dka-nw.a.run.app/uploadPhotos",
           {
             method: "PUT",
             headers: {
@@ -193,7 +194,7 @@ const MiPerfilScreen = ({route, navigation}) => {
 
  // Actualizar CV
  const updateCV = async (email, base64PDF) => {
-  const response = await fetch('https://uploadcv-2b2k6woktq-nw.a.run.app/uploadCV', {
+  const response = await fetch('https://uploadcv-5eplrc7dka-nw.a.run.app/uploadCV', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -229,7 +230,7 @@ const handleUpdateCV = async () => {
         }
       }
 
-      console.log('Leyendo archivo como base64');
+      console.log('Leyendo archivo como    base64 ');
       let base64;
 
       if (Platform.OS === 'android') {
@@ -244,6 +245,7 @@ const handleUpdateCV = async () => {
             resolve();
           };
         });
+        console.log('Archivo leído por android');
       } else {
         // Leer el archivo en iOS utilizando expo-file-system
         base64 = await FileSystem.readAsStringAsync(result.uri, {
@@ -257,6 +259,7 @@ const handleUpdateCV = async () => {
 
       await updateCV(email, base64PDF);
       await fetchData();
+      Alert.alert("Su CV se ha actualizado con exito")
     } catch (error) {
       console.error('Error al actualizar el CV:', error);
       if (error.response) {
