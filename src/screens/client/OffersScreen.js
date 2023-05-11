@@ -60,17 +60,32 @@ const OffersScreen = ({route, navigation}) => {
       <View style={styles.container}>
         <Text style={styles.pageTitle}>Ofertas</Text>
         <FlatList
-          data={offers}
-          renderItem={({item}) => (
-            <TouchableOpacity
-              onPress={() => handleSelectOffer(item)}
-              style={styles.offerContainer}
-            >
-              <Text style={styles.title}>{item.Oferta}</Text>
-            </TouchableOpacity>
-          )}
-          keyExtractor={(item, index) => index.toString()}
-        />
+  data={offers}
+  renderItem={({item}) => (
+    <TouchableOpacity
+      onPress={() => handleSelectOffer(item)}
+      style={styles.offerContainer}
+    >
+      <Text 
+  style={[
+    styles.title, 
+    { 
+      color: item.Estado === 'Abierta' ? 'green' : 
+      item.Estado === 'Cerrada' ? 'red' : 
+      item.Estado === 'En elaboración' ? 'yellow' : 
+      'black' 
+    }
+  ]}
+>
+  {item.Oferta}
+</Text>
+
+    </TouchableOpacity>
+  )}
+  keyExtractor={(item, index) => index.toString()}
+/>
+
+
       </View>
     );
   }
