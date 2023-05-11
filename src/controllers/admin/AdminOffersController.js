@@ -1,10 +1,10 @@
-// src/controllers/admin/OfertasAdminController.js
+// src/controllers/admin/AdminOffersScreenController.js
 
 import { useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import { Alert } from 'react-native';
 
-const useOfertasAdmin = () => {
+const useAdminOffersController = () => {
   const [offers, setOffers] = useState([]);
   const [selectedOffer, setSelectedOffer] = useState(null);
   const [refreshOffers, setRefreshOffers] = useState(false);
@@ -111,4 +111,4 @@ const useOfertasAdmin = () => {
   };
 };
 
-export default useOfertasAdmin;
+export default useAdminOffersController;

@@ -4,10 +4,10 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { Provider as PaperProvider } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import OfertasAdmin from './OfertasAdmin';
-import PerfilesAdmin from './PerfilesAdmin';
+import AdminOffersScreen from './AdminOffersScreen';
+import AdminProfilesScreen from './AdminProfilesScreen';
 
-import styles from '../../styles/admin/AdminScreenStyles';
+import styles from '../../styles/admin/AdminStyles';
 
 
 
@@ -19,7 +19,7 @@ const AdminScreen = (route) => {
   return (
     <PaperProvider>
       <Tab.Navigator
-        initialRouteName="OfertasAdmin"
+        initialRouteName="AdminOffersScreen"
         activeColor="#fff"
         inactiveColor="#A1A1A1"
         //initialParams={{email: email}}
@@ -36,11 +36,11 @@ const AdminScreen = (route) => {
         }}
         shifting={false}>
         <Tab.Screen
-          name="OfertasAdmin"
-          component={OfertasAdmin}
+          name="AdminOffersScreen"
+          component={AdminOffersScreen}
           //initialParams={{email: email}}
           options={{
-            tabBarLabel: 'OfertasAdmin',
+            tabBarLabel: 'AdminOffersScreen',
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons
                 name="sale"
@@ -51,10 +51,10 @@ const AdminScreen = (route) => {
           }}
         />
         <Tab.Screen
-          name="PerfilesAdmin"
-          component={PerfilesAdmin}
+          name="AdminProfilesScreen"
+          component={AdminProfilesScreen}
           options={{
-            tabBarLabel: 'PerfilesAdmin',
+            tabBarLabel: 'AdminProfilesScreen',
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons
                 name="account"

@@ -7,7 +7,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { Alert } from 'react-native';
 
 
-export const usePerfilScreenController = (route, navigation) => {
+export const useProfileScreenController = (route, navigation) => {
   const {email} = route.params;
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);

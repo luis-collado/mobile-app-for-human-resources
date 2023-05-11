@@ -3,10 +3,10 @@ import { View, StyleSheet, Text, TouchableOpacity, ScrollView, Alert } from 'rea
 import { Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
-import styles from '../../styles/admin/OfertasAdminScreenStyles';
-import useOfertasAdmin from '../../controllers/admin/OfertasAdminController';
+import styles from '../../styles/admin/AdminOffersStyles';
+import useAdminOffersController from '../../controllers/admin/AdminOffersController';
 
-const OfertasAdmin = () => {
+const AdminOffersScreen = () => {
   const {
     offers,
     selectedOffer,
@@ -15,7 +15,7 @@ const OfertasAdmin = () => {
     handleGoBack,
     handleDeleteOffer,
     parseJsonOrReturnText,
-  } = useOfertasAdmin();
+  } = useAdminOffersController();
 
   const navigation = useNavigation();
   
@@ -62,7 +62,7 @@ const OfertasAdmin = () => {
       <View style={styles.header}>
       <Text style={styles.pageTitle}>Ofertas</Text>
       <Button
-      onPress={() => navigation.navigate('CrearOfertas')}
+      onPress={() => navigation.navigate('CreateOffersScreen')}
       style={styles.createButton}
       >
       Crear
@@ -85,4 +85,4 @@ const OfertasAdmin = () => {
 
       
 
-export default OfertasAdmin;
+export default AdminOffersScreen;

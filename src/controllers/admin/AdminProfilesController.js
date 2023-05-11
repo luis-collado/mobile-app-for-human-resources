@@ -1,8 +1,10 @@
-// src/controllers/admin/PerfilesAdminController.js
+// src/controllers/admin/AdminProfilesScreenController.js
 
 import { useState, useEffect } from 'react';
+import { Linking } from 'react-native';
 
-const usePerfilesAdmin = () => {
+
+const useAdminProfilesController = () => {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
 
@@ -43,4 +45,4 @@ const usePerfilesAdmin = () => {
   };
 };
 
-export default usePerfilesAdmin;
+export default useAdminProfilesController;

@@ -3,17 +3,18 @@ import { View, StyleSheet, Text, TouchableOpacity, ScrollView, Image, Linking } 
 import { Button, FAB } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
-import styles from '../../styles/admin/PerfilesAdminScreenStyles';
-import usePerfilesAdmin from '../../controllers/admin/PerfilesAdminController';
+import styles from '../../styles/admin/AdminProfilesStyles';
 
-const PerfilesAdmin = () => {
+import useAdminProfilesController from '../../controllers/admin/AdminProfilesController';
+
+const AdminProfilesScreen = () => {
   const {
     users,
     selectedUser,
     handleSelectUser,
     handleGoBack,
     handleOpenCv,
-  } = usePerfilesAdmin();
+  } = useAdminProfilesController();
 
   const navigation = useNavigation();
 
@@ -82,4 +83,4 @@ const PerfilesAdmin = () => {
 
 
     
-    export default PerfilesAdmin;
+    export default AdminProfilesScreen;

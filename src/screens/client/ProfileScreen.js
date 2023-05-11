@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Linking, RefreshControl } from 'react-native';
 import { FAB, Button } from 'react-native-paper';
-import styles from '../../styles/client/PerfilScreenStyles';
+import styles from '../../styles/client/ProfileStyles';
 import { Alert } from 'react-native';
 import { WebView } from 'react-native-webview';
-import { usePerfilScreenController } from '../../controllers/client/PerfilScreenController';
+import { useProfileScreenController } from '../../controllers/client/ProfileController';
 
-const MiPerfilScreen = ({ route, navigation }) => {
+const MiProfileScreen = ({ route, navigation }) => {
   const {
     userData,
     loading,
@@ -23,7 +23,7 @@ const MiPerfilScreen = ({ route, navigation }) => {
     updateCV,
     handleUpdateCV,
     email,
-  } = usePerfilScreenController(route, navigation);;
+  } = useProfileScreenController(route, navigation);;
 
   // Aquí va todo tu código de renderizado JSX
   return (
@@ -205,5 +205,5 @@ const MiPerfilScreen = ({ route, navigation }) => {
   );
 };
   
-export default MiPerfilScreen;
+export default MiProfileScreen;
   

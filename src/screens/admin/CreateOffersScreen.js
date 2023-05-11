@@ -1,4 +1,4 @@
-// CrearOfertas.js
+// CreateOffersScreen.js
 import React from 'react';
 import {
   View,
@@ -14,12 +14,12 @@ import { Button } from 'react-native-paper';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { useNavigation } from '@react-navigation/native';
 
-import styles from '../../styles/admin/CrearOfertasScreenStyles';
-import CrearOfertasController from '../../controllers/admin/CrearOfertasController';
+import styles from '../../styles/admin/CreateOffersStyles';
+import CreateOffersController from '../../controllers/admin/CreateOffersController';
 
-const CrearOfertas = ({ route }) => {
+const CreateOffersScreen = ({ route }) => {
   const navigation = useNavigation();
-  const controller = CrearOfertasController(navigation);
+  const controller = CreateOffersController(navigation);
 
   return (
     <ScrollView contentContainerStyle={styles.contentContainer}>
@@ -70,4 +70,4 @@ const CrearOfertas = ({ route }) => {
   );
 };
 
-export default CrearOfertas;
+export default CreateOffersScreen;

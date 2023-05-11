@@ -9,12 +9,12 @@ import OffersScreen from './src/screens/client/OffersScreen';
 import WelcomeScreen from './src/screens/client/WelcomeScreen'; // Asegúrate de importar correctamente el archivo WelcomeScreen
 import ImageZoomScreen from './src/screens/client/ImageZoomScreen';
 import UpdateProfileScreen from './src/screens/client/UpdateProfileScreen'; // Importa la pantalla creada
-import PerfilScreen from './src/screens/client/PerfilScreen';
+import ProfileScreen from './src/screens/client/ProfileScreen';
 import MyOffersScreen from './src/screens/client/MyOffersScreen';
 import AdminScreen from './src/screens/admin/AdminScreen';
-import OfertasAdmin from './src/screens/admin/OfertasAdmin';
-import PerfilesAdmin from './src/screens/admin/PerfilesAdmin';
-import CrearOfertas from './src/screens/admin/CrearOfertas';
+import AdminOffersScreen from './src/screens/admin/AdminOffersScreen';
+import AdminProfilesScreen from './src/screens/admin/AdminProfilesScreen';
+import CreateOffersScreen from './src/screens/admin/CreateOffersScreen';
 import ResetPasswordScreen from './src/screens/ResetPasswordScreen';
 
 
@@ -50,8 +50,8 @@ function App() {
           component={ImageZoomScreen} 
         />
         <Stack.Screen
-          name="PerfilScreen"
-          component={PerfilScreen}
+          name="ProfileScreen"
+          component={ProfileScreen}
           options={{headerShown: false}}
         />
         <Stack.Screen
@@ -70,18 +70,18 @@ function App() {
           options={{ title: 'Pantalla admin' ,headerShown: false}}
         />
         <Stack.Screen
-          name="OfertasAdmin"
-          component={OfertasAdmin}
+          name="AdminOffersScreen"
+          component={AdminOffersScreen}
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="PerfilesAdmin"
-          component={PerfilesAdmin}
+          name="AdminProfilesScreen"
+          component={AdminProfilesScreen}
           options={{headerShown: false}}
         />
          <Stack.Screen
-          name="CrearOfertas"
-          component={CrearOfertas}
+          name="CreateOffersScreen"
+          component={CreateOffersScreen}
           options={{headerShown: false}}
         />
         <Stack.Screen

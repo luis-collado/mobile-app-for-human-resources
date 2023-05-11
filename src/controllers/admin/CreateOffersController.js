@@ -1,9 +1,9 @@
-// CrearOfertasController.js
+// CreateOffersScreenController.js
 
 import React,{ useState, useRef} from 'react';
 import { Alert, Keyboard } from 'react-native';
 
-const CrearOfertasController = (navigation) => {
+const CreateOffersController = (navigation) => {
   const [offerData, setOfferData] = useState({
     Codigo: '',
     Fecha: '',
@@ -77,7 +77,7 @@ const CrearOfertasController = (navigation) => {
           [
             {
               text: 'OK',
-              onPress: () => navigation.navigate('OfertasAdmin'),
+              onPress: () => navigation.navigate('AdminOffersScreen'),
             },
           ]
         );
@@ -151,4 +151,4 @@ const CrearOfertasController = (navigation) => {
   };
 };
 
-export default CrearOfertasController;
+export default CreateOffersController;

@@ -6,7 +6,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import MyOffersScreen from './MyOffersScreen';
 import OffersScreen from './OffersScreen';
-import MiPerfil from './PerfilScreen';
+import ProfileScreen from './ProfileScreen';
 
 import styles from '../../styles/client/WelcomeScreenStyles';
 
@@ -75,8 +75,8 @@ const WelcomeScreen = ({route}) => {
           }}
         />
         <Tab.Screen
-          name="MiPerfil"
-          component={MiPerfil}
+          name="ProfileScreen"
+          component={ProfileScreen}
           initialParams={{email: email}}
           options={{
             tabBarLabel: 'Mi Perfil',
