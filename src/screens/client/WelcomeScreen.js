@@ -8,7 +8,7 @@ import MyOffersScreen from './MyOffersScreen';
 import OffersScreen from './OffersScreen';
 import ProfileScreen from './ProfileScreen';
 
-import styles from '../../styles/client/WelcomeScreenStyles';
+import styles from '../../styles/client/WelcomeStyles';
 
 const Tab = createMaterialBottomTabNavigator();
 

@@ -3,7 +3,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { TextInput, Button, Title, IconButton } from 'react-native-paper';
 
-import styles from '../styles/ResetPasswordStyle';
+import styles from '../styles/resetPasswordStyles';
 import RecuperarContraseñaScreenEmailController from '../controllers/ResetPasswordController';
 
 const ResetPasswordScreen = ({ navigation }) => {
