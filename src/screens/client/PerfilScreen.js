@@ -71,7 +71,7 @@ const MiPerfilScreen = ({ route, navigation }) => {
         <Button
           style={styles.actualizarPerfilButton}
           mode="contained"
-          onPress={() => navigation.navigate('ActualizarPerfilScreen', { email, userData })}
+          onPress={() => navigation.navigate('UpdateProfileScreen', { email, userData })}
         >
           Actualizar perfil
         </Button>

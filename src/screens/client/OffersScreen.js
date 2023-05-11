@@ -2,12 +2,12 @@ import React from 'react';
 import {View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView, Alert} from 'react-native';
 import {Button} from 'react-native-paper';
 
-import styles from '../../styles/client/BlankScreenStyles';
-import BlankScreenController from '../../controllers/client/BlankScreenController';
+import styles from '../../styles/client/OfferStyles';
+import OffersScreenController from '../../controllers/client/OffersController';
 
-const BlankScreen = ({route, navigation}) => {
+const OffersScreen = ({route, navigation}) => {
   const {email} = route.params;
-  const { offers, selectedOffer, handleSelectOffer, handleApplyOffer, handleGoBack } = BlankScreenController(email);
+  const { offers, selectedOffer, handleSelectOffer, handleApplyOffer, handleGoBack } = OffersScreenController(email);
 
   const applyOffer = async (offerId) => {
     const success = await handleApplyOffer(offerId);
@@ -77,4 +77,4 @@ const BlankScreen = ({route, navigation}) => {
 };
 
 
-export default BlankScreen;      
+export default OffersScreen;      

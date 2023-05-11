@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const BlankScreenController = (email) => {
+const OffersScreenController = (email) => {
   const [offers, setOffers] = useState([]);
   const [selectedOffer, setSelectedOffer] = useState(null);
 
@@ -60,4 +60,4 @@ const BlankScreenController = (email) => {
   return { offers, selectedOffer, handleSelectOffer, handleApplyOffer, handleGoBack };
 };
 
-export default BlankScreenController;
+export default OffersScreenController;

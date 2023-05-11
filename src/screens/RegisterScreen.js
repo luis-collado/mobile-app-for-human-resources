@@ -3,7 +3,7 @@ import { View, Image, Alert } from "react-native";
 import { TextInput, Button, HelperText, Title } from "react-native-paper";
 import { useNavigation } from '@react-navigation/native';
 
-import styles from '../styles/RegisterScreenStyles';
+import styles from '../styles/RegisterStyles';
 import { handleRegister, isValidEmail, checkPasswordsMatch } from '../controllers/RegisterController';
 
 

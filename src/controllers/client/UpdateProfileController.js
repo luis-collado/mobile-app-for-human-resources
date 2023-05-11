@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Alert } from 'react-native';
 
-export const useActualizarPerfilScreenController = (route, navigation) => {
+export const useUpdateProfileController = (route, navigation) => {
   const { email, userData: initialUserData } = route.params;
   const [userData, setUserData] = useState(initialUserData);
   const [error, setError] = useState(null);
@@ -10,7 +10,7 @@ export const useActualizarPerfilScreenController = (route, navigation) => {
     setUserData(initialUserData);
   }, [initialUserData]);
 
-  const actualizarPerfil = async () => {
+  const updateProfile = async () => {
     setError(null);
 
     const { mis_ofertas, foto_perfil, CV, ...updatedUserData } = userData;
@@ -59,7 +59,7 @@ export const useActualizarPerfilScreenController = (route, navigation) => {
     setUserData,
     error,
     setError,
-    actualizarPerfil,
+    updateProfile,
     handleChange,
   };
 };

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Image, Alert } from "react-native";
 import { TextInput, Button, HelperText, Title } from "react-native-paper";
 
-import styles from "../styles/LoginScreenStyles";
+import styles from "../styles/LoginStyles";
 import { loginUser } from "../controllers/LoginController";
 
 const LoginScreen = ({ navigation }) => {
@@ -42,7 +42,7 @@ const LoginScreen = ({ navigation }) => {
   };
 
   const handleForgotPassword = () => {
-    navigation.navigate("RecuperarContraseñaScreenEmail");
+    navigation.navigate("ResetPasswordScreen");
   };
 
   return (

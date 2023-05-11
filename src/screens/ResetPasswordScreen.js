@@ -3,10 +3,10 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { TextInput, Button, Title, IconButton } from 'react-native-paper';
 
-import styles from '../styles/RecuperarContraseñaScreenStyle';
-import RecuperarContraseñaScreenEmailController from '../controllers/RecuperarContraseñaScreenEmailController';
+import styles from '../styles/ResetPasswordStyle';
+import RecuperarContraseñaScreenEmailController from '../controllers/ResetPasswordController';
 
-const RecuperarContraseñaScreenEmail = ({ navigation }) => {
+const ResetPasswordScreen = ({ navigation }) => {
   const { email, setEmail, handleGoBack, handleResetPassword } = RecuperarContraseñaScreenEmailController(navigation);
 
   return (
@@ -41,5 +41,5 @@ const RecuperarContraseñaScreenEmail = ({ navigation }) => {
 };
 
 
-export default RecuperarContraseñaScreenEmail;
+export default ResetPasswordScreen;
 

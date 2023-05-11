@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 
-import styles from '../../styles/client/ImageZoomScreenStyles';
+import styles from '../../styles/client/ImageZoomStyles';
 
 const ImageZoomScreen = ({ route }) => {
   const { imageUrl } = route.params;

@@ -4,8 +4,8 @@ import {createMaterialBottomTabNavigator} from '@react-navigation/material-botto
 import {Provider as PaperProvider} from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import MisOfertas from './MyOffers';
-import Ofertas from './BlankScreen';
+import MyOffersScreen from './MyOffersScreen';
+import OffersScreen from './OffersScreen';
 import MiPerfil from './PerfilScreen';
 
 import styles from '../../styles/client/WelcomeScreenStyles';
@@ -43,8 +43,8 @@ const WelcomeScreen = ({route}) => {
         }}
         shifting={false}>
         <Tab.Screen
-          name="MisOfertas"
-          component={MisOfertas}
+          name="MyOffersScreen"
+          component={MyOffersScreen}
           initialParams={{email: email}}
           options={{
             tabBarLabel: 'Mis Ofertas',
@@ -59,11 +59,11 @@ const WelcomeScreen = ({route}) => {
           }}
         />
         <Tab.Screen
-          name="Ofertas"
-          component={Ofertas}
+          name="OffersScreen"
+          component={OffersScreen}
           initialParams={{email: email}}
           options={{
-            tabBarLabel: 'Ofertas',
+            tabBarLabel: 'OffersScreen',
             tabBarIcon: ({color}) => (
               <MaterialCommunityIcons
                 name="sale"

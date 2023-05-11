@@ -4,18 +4,18 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import LoginScreen from './src/screens/LoginScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
-import BlankScreen from './src/screens/client/BlankScreen';
+import OffersScreen from './src/screens/client/OffersScreen';
 //import OfferDetailsScreen from './src/OfferDetailsScreen';
 import WelcomeScreen from './src/screens/client/WelcomeScreen'; // Asegúrate de importar correctamente el archivo WelcomeScreen
 import ImageZoomScreen from './src/screens/client/ImageZoomScreen';
-import ActualizarPerfilScreen from './src/screens/client/ActualizarPerfilScreen'; // Importa la pantalla creada
+import UpdateProfileScreen from './src/screens/client/UpdateProfileScreen'; // Importa la pantalla creada
 import PerfilScreen from './src/screens/client/PerfilScreen';
-import MyoffersScreen from './src/screens/client/MyOffers';
+import MyOffersScreen from './src/screens/client/MyOffersScreen';
 import AdminScreen from './src/screens/admin/AdminScreen';
 import OfertasAdmin from './src/screens/admin/OfertasAdmin';
 import PerfilesAdmin from './src/screens/admin/PerfilesAdmin';
 import CrearOfertas from './src/screens/admin/CrearOfertas';
-import RecuperarContraseñaScreenEmail from './src/screens/RecuperarContraseñaScreenEmail';
+import ResetPasswordScreen from './src/screens/ResetPasswordScreen';
 
 
 
@@ -37,8 +37,8 @@ function App() {
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="BlankScreen"
-          component={BlankScreen}
+          name="OffersScreen"
+          component={OffersScreen}
           options={{headerShown: false}}
         />
         <Stack.Screen
@@ -55,13 +55,13 @@ function App() {
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="ActualizarPerfilScreen"
-          component={ActualizarPerfilScreen}
+          name="UpdateProfileScreen"
+          component={UpdateProfileScreen}
           options={{ title: 'Pantalla actualizar perfil',headerShown: false}}
         />
         <Stack.Screen
-          name="MyoffersScreen"
-          component={MyoffersScreen}
+          name="MyOffersScreen"
+          component={MyOffersScreen}
           options={{ title: 'Mis Ofertas' }}
         />
         <Stack.Screen
@@ -85,8 +85,8 @@ function App() {
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="RecuperarContraseñaScreenEmail"
-          component={RecuperarContraseñaScreenEmail}
+          name="ResetPasswordScreen"
+          component={ResetPasswordScreen}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

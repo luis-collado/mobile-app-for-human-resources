@@ -2,11 +2,11 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-paper';
 
-import styles from '../../styles/client/ActualizarPerfilScreenStyles';
-import { useActualizarPerfilScreenController } from '../../controllers/client/ActualizarPerfilScreenController';
+import styles from '../../styles/client/UpdateProfileStyles';
+import { useUpdateProfileController } from '../../controllers/client/UpdateProfileController';
 
-const ActualizarPerfilScreen = ({ route, navigation }) => {
-  const { userData, setUserData, error, actualizarPerfil, handleChange } = useActualizarPerfilScreenController(route, navigation);
+const UpdateProfileScreen = ({ route, navigation }) => {
+  const { userData, setUserData, error, updateProfile, handleChange } = useUpdateProfileController(route, navigation);
 
 
   return (
@@ -26,7 +26,7 @@ const ActualizarPerfilScreen = ({ route, navigation }) => {
         ))}
 
       {error && <Text>Error al actualizar los datos: {error}</Text>}
-      <Button mode="contained" onPress={actualizarPerfil} style={styles.button}>
+      <Button mode="contained" onPress={updateProfile} style={styles.button}>
         Guardar cambios
       </Button>
        <Button
@@ -40,4 +40,4 @@ const ActualizarPerfilScreen = ({ route, navigation }) => {
 };
 
 
-export default ActualizarPerfilScreen;
+export default UpdateProfileScreen;

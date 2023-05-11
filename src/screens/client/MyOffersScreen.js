@@ -4,10 +4,10 @@ import { View, Text, FlatList, TouchableOpacity, ScrollView, Alert } from 'react
 import { Button } from 'react-native-paper';
 import { useIsFocused } from '@react-navigation/native';
 
-import styles from '../../styles/client/MyOffersScreenStyles';
+import styles from '../../styles/client/MyOffersStyles';
 import MyOffersController from '../../controllers/client/MyOffersController';
 
-const MyoffersScreen = ({route, navigation}) => {
+const MyOffersScreen = ({route, navigation}) => {
   const { email } = route.params;
   const isFocused = useIsFocused();
 
@@ -72,4 +72,4 @@ const MyoffersScreen = ({route, navigation}) => {
 
 
   
-  export default MyoffersScreen;
+  export default MyOffersScreen;
