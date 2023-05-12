@@ -55,7 +55,8 @@ const MiProfileScreen = ({ route, navigation }) => {
               mode="contained"
               onPress={() => Linking.openURL(userData.CV)}
             >
-              Ver CV
+             <Text style={styles.buttonText} adjustsFontSizeToFit numberOfLines={1}>Ver CV</Text>
+
             </Button>        
           )}
 
@@ -64,17 +65,20 @@ const MiProfileScreen = ({ route, navigation }) => {
             mode="contained"
             onPress={handleUpdateCV}
           >
-            <Text numberOfLines={1} ellipsizeMode='clip'>Actualizar CV</Text>
+            <Text style={styles.buttonText} adjustsFontSizeToFit numberOfLines={1}>Subir CV</Text>
           </Button>
         </View>
 
         <View style={styles.buttonRow}>
           <Button
+          
             style={styles.updateProfilePhotoButton}
             mode="contained"
             onPress={handleUpdateProfilePhoto}
           >
-            <Text numberOfLines={1} ellipsizeMode='clip'>Actualizar foto</Text>
+            <Text style={styles.buttonText} adjustsFontSizeToFit numberOfLines={1}>Actualizar foto</Text>
+
+
           </Button>
 
           <Button
@@ -82,7 +86,7 @@ const MiProfileScreen = ({ route, navigation }) => {
             mode="contained"
             onPress={() => navigation.navigate('UpdateProfileScreen', { email, userData })}
           >
-            <Text numberOfLines={1} ellipsizeMode='clip'>Actualizar pf</Text>
+            <Text style={styles.buttonText} adjustsFontSizeToFit numberOfLines={1}>Editar perfil</Text>
           </Button>
         </View>
       {loading && <Text>Cargando datos del usuario...</Text>}
