@@ -1,38 +1,46 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-    container: {
-      flexGrow: 1,
-      alignItems: 'flex-start',
-      justifyContent: 'flex-start',
-      backgroundColor: '#ffffff',
-      paddingTop: 60,
-      flexDirection: 'column',
-      paddingBottom: 80,
-      paddingHorizontal: 20,
-    },
+  mainContainer: {
+    flex: 1,
+  },
+  container: {
+    backgroundColor: '#ffffff',
+    padding: 20,
+  },
     title: {
-      fontSize: 24,
-      fontWeight: 'bold',
-      marginBottom: 20,
-      alignItems: 'flex-start',
-      textAlign: 'left',
+      fontSize: 28,
+      fontWeight: '600',
+      marginBottom: 30,
+      color: '#333',
+      top: 20,
     },
     fieldContainer: {
       flexDirection: 'column',
       borderBottomColor: '#d5bf19',
       borderBottomWidth: 1,
-      marginBottom: 15,
+      marginBottom: 20,
+      paddingTop: 10,
     },
     fieldLabel: {
-      fontSize: 20,
-      fontWeight: 'bold',
-      borderBottomColor: '#d5bf19',
-      marginRight: 10,
+      fontSize: 18,
+      fontWeight: '500',
+      color: '#666',
+      marginBottom: 10,
     },
     fieldValue: {
-      fontSize: 20,
-      borderBottomColor: '#d5bf19',
+      fontSize: 22,
+      color: '#444',
+    },
+    buttonContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      marginTop: 20,
+    },
+    buttonRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginBottom: 20,
     },
     fab: {
       position: 'absolute',
@@ -45,49 +53,57 @@ const styles = StyleSheet.create({
       alignSelf: 'flex-start',
       backgroundColor: '#d5bf19',
       marginBottom: 20,
-      width: '45%',
+      width: '50%',
       marginRight: '5%',
+      padding: 10,
+      borderRadius: 20,
     },
     updateCVButton: {
       backgroundColor: '#d5bf19',
-        width: '45%',
+      width: '50%',
+      padding: 10,
+      borderRadius: 20,
+      alignSelf: 'flex-start',
+      marginRight: '5%',
     },
     profileImageContainer: {
-      width: 104,
-      height: 104,
-      borderRadius: 52,
+      width: 120,
+      height: 120,
+      borderRadius: 60,
       borderWidth: 2,
-      borderColor: '#d5bf19', // Color del borde (cámbialo según tus necesidades)
+      borderColor: '#d5bf19', 
       justifyContent: 'center',
-      alignItems: 'flex-start',
-      marginBottom: 20,
-      alignItems: 'flex-start',
+      alignItems: 'center',
+      marginBottom: 30,
     },
     profileImage: {
-      width: 100,
-      height: 100,
-      borderRadius: 50,
+      width: 116,
+      height: 116,
+      borderRadius: 58,
     },
     pdfWebView: {
       width: '100%',
-      height: 400, // Ajusta la altura según tus necesidades
-      marginBottom: 20,
+      height: 400, 
+      marginBottom: 30,
     },
     actualizarPerfilButton: {
       alignSelf: 'flex-start',
       backgroundColor: '#d5bf19',
       marginBottom: 20,
-      right: -190,
-      top: -59,
-      
+      width: '50%',
+      marginRight: '5%',
+      padding: 10,
+      borderRadius: 20,
     },
     updateProfilePhotoButton: {
       alignSelf: 'flex-start',
       backgroundColor: '#d5bf19',
       marginBottom: 20,
-      width: '45%'
+      width: '50%',
+      marginRight: '5%',
+      padding: 10,
+      borderRadius: 20,
     },
-  });
+});
 
-  
-  export default styles;
+export default styles;

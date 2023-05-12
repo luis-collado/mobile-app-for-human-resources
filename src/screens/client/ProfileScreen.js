@@ -27,54 +27,64 @@ const MiProfileScreen = ({ route, navigation }) => {
 
   // Aquí va todo tu código de renderizado JSX
   return (
+      
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Mi Perfil</Text>
-      <View style={styles.profileImageContainer}>
-        <TouchableOpacity onPress={handleImagePress}>
-          <Image
-            style={styles.profileImage}
-            source={
-              userData && userData.foto_perfil
-                ? { uri: userData.foto_perfil}
-                : require('../../assets/logo.png') // Reemplaza con la ruta de la imagen predeterminada
-            }
-            //onError={(error) => console.log('Error al cargar la imagen:', error)}
-          />
-        </TouchableOpacity>
-      </View>
-      {userData && userData.CV && (
-        <Button style={styles.botonCV}
-          mode="contained"
-          onPress={() => Linking.openURL(userData.CV)}
-        >
-          Ver CV
-        </Button>        
-      )}
+      <FAB
+        style={styles.fab}
+        icon="logout"
+        onPress={handleLogout}
+        label="Cerrar sesión"
+      />
+        <View style={styles.profileImageContainer}>
+          <TouchableOpacity onPress={handleImagePress}>
+            <Image
+              style={styles.profileImage}
+              source={
+                userData && userData.foto_perfil
+                  ? { uri: userData.foto_perfil}
+                  : require('../../assets/logo.png') // Reemplaza con la ruta de la imagen predeterminada
+              }
+            />
+          </TouchableOpacity>
+        </View>
 
-        <Button
-          style={styles.updateProfilePhotoButton}
-          mode="contained"
-          onPress={handleUpdateProfilePhoto}
-        >
-          Actualizar foto
-        </Button>
+        <View style={styles.buttonRow}>
+          {userData && userData.CV && (
+            <Button style={styles.botonCV}
+              mode="contained"
+              onPress={() => Linking.openURL(userData.CV)}
+            >
+              Ver CV
+            </Button>        
+          )}
 
-        <Button
-          style={styles.updateCVButton}
-          mode="contained"
-          onPress={handleUpdateCV}
-        >
-          Actualizar CV
-        </Button>
+          <Button
+            style={styles.updateCVButton}
+            mode="contained"
+            onPress={handleUpdateCV}
+          >
+            <Text numberOfLines={1} ellipsizeMode='clip'>Actualizar CV</Text>
+          </Button>
+        </View>
 
+        <View style={styles.buttonRow}>
+          <Button
+            style={styles.updateProfilePhotoButton}
+            mode="contained"
+            onPress={handleUpdateProfilePhoto}
+          >
+            <Text numberOfLines={1} ellipsizeMode='clip'>Actualizar foto</Text>
+          </Button>
 
-        <Button
-          style={styles.actualizarPerfilButton}
-          mode="contained"
-          onPress={() => navigation.navigate('UpdateProfileScreen', { email, userData })}
-        >
-          Actualizar perfil
-        </Button>
+          <Button
+            style={styles.actualizarPerfilButton}
+            mode="contained"
+            onPress={() => navigation.navigate('UpdateProfileScreen', { email, userData })}
+          >
+            <Text numberOfLines={1} ellipsizeMode='clip'>Actualizar pf</Text>
+          </Button>
+        </View>
       {loading && <Text>Cargando datos del usuario...</Text>}
       {error && <Text>Error al cargar los datos del usuario: {error}</Text>}
       {userData && (
@@ -194,13 +204,6 @@ const MiProfileScreen = ({ route, navigation }) => {
         </>
       )}
       
- 
-      <FAB
-        style={styles.fab}
-        icon="logout"
-        onPress={handleLogout}
-        label="Cerrar sesión"
-      />
     </ScrollView>
   );
 };
