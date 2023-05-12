@@ -26,6 +26,7 @@ const CreateOffersScreen = ({ route }) => {
       <View style={styles.container}>
         <Text style={styles.pageTitle}>Crear Oferta</Text>
         <Button
+          labelStyle={{color: '#ffffff'}}
           onPress={() => navigation.goBack()}
           style={[styles.button, { marginTop: 10 }]}
         >
@@ -62,7 +63,7 @@ const CreateOffersScreen = ({ route }) => {
           onCancel={controller.hideDatePicker}
           display="default" // Añade esta línea
         />
-        <Button onPress={controller.handleSubmit} style={styles.button}>
+        <Button labelStyle={{color: '#ffffff'}} onPress={controller.handleSubmit} style={styles.button}>
           Enviar
         </Button>
       </View>
