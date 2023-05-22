@@ -6,6 +6,8 @@ import { useNavigation } from '@react-navigation/native';
 import styles from '../../styles/admin/AdminOffersStyles';
 import useAdminOffersController from '../../controllers/admin/AdminOffersController';
 
+
+
 const AdminOffersScreen = () => {
   const {
     offers,
@@ -39,14 +41,18 @@ const AdminOffersScreen = () => {
       </Text>
       ) : null
       ))}
-      <Text style={styles.description}>Solicitantes:</Text>
-      {isArray ? (
+     <Text style={styles.description}>Solicitantes:</Text>
+          {isArray ? (
       parsedApplicants.map((applicant, index) => (
-      <Text style={styles.info} key={index}>
-      {applicant.Nombre}
-      </Text>
+        <TouchableOpacity key={index} onPress={() => navigation.navigate('AdminProfilesScreen', {selectedUser: applicant})}>
+
+          <Text style={styles.info}>
+            {applicant.Nombre}
+          </Text>
+        </TouchableOpacity>
+
       ))
-      ) : (
+          ) : (
       <Text style={styles.info}>{parsedApplicants}</Text>
       )}
       <Button onPress={handleGoBack} style={styles.button}>

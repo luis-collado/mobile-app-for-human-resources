@@ -1,22 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, ScrollView, Image, Linking } from 'react-native';
 import { Button, FAB } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import styles from '../../styles/admin/AdminProfilesStyles';
 
 import useAdminProfilesController from '../../controllers/admin/AdminProfilesController';
 
 const AdminProfilesScreen = () => {
+  const navigation = useNavigation();
+  const route = useRoute(); // Obtiene información sobre la ruta actual
+
   const {
     users,
     selectedUser,
     handleSelectUser,
     handleGoBack,
     handleOpenCv,
-  } = useAdminProfilesController();
-
-  const navigation = useNavigation();
+  } = useAdminProfilesController(route.params?.selectedUser);
 
   const handleLogout = () => {
     navigation.reset({

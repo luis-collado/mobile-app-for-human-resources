@@ -1,13 +1,10 @@
-// src/controllers/admin/AdminProfilesScreenController.js
-
 import { useState, useEffect } from 'react';
 import { Linking } from 'react-native';
 import { Alert } from 'react-native';
 
-
-const useAdminProfilesController = () => {
+const useAdminProfilesController = (incomingUser) => {
   const [users, setUsers] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(incomingUser || null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,13 +31,11 @@ const useAdminProfilesController = () => {
   };
 
   const handleOpenCv = (CV) => {
-    // Comprueba si CV está vacío o es solo espacios en blanco
     if (!CV || CV.trim() === '') {
-      Alert.alert('No contiene CV', 'El candidato aun no ha subido su CV.');  // Muestra una alerta si CV está vacío
-      return;  // Sale de la función sin hacer nada más
+      Alert.alert('No contiene CV', 'El candidato aun no ha subido su CV.');
+      return;
     }
   
-    // Intenta abrir el URL
     Linking.canOpenURL(CV).then(supported => {
       if (supported) {
         Linking.openURL(CV);
@@ -49,7 +44,6 @@ const useAdminProfilesController = () => {
       }
     }).catch(err => Alert.alert('Error', 'Ocurrió un error al abrir el CV'));
   };
-  
 
   return {
     users,
