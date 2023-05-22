@@ -36,11 +36,11 @@ const AdminScreen = (route) => {
         }}
         shifting={false}>
         <Tab.Screen
-          name="AdminOffersScreen"
+          name="AdminOffers"
           component={AdminOffersScreen}
           //initialParams={{email: email}}
           options={{
-            tabBarLabel: 'AdminOffersScreen',
+            tabBarLabel: 'AdminOffers',
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons
                 name="sale"
@@ -51,10 +51,10 @@ const AdminScreen = (route) => {
           }}
         />
         <Tab.Screen
-          name="AdminProfilesScreen"
+          name="AdminProfiles"
           component={AdminProfilesScreen}
           options={{
-            tabBarLabel: 'AdminProfilesScreen',
+            tabBarLabel: 'AdminProfiles',
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons
                 name="account"

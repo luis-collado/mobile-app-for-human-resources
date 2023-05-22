@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Linking } from 'react-native';
+import { Alert } from 'react-native';
 
 
 const useAdminProfilesController = () => {
@@ -33,8 +34,22 @@ const useAdminProfilesController = () => {
   };
 
   const handleOpenCv = (CV) => {
-    Linking.openURL(CV);
+    // Comprueba si CV está vacío o es solo espacios en blanco
+    if (!CV || CV.trim() === '') {
+      Alert.alert('No contiene CV', 'El candidato aun no ha subido su CV.');  // Muestra una alerta si CV está vacío
+      return;  // Sale de la función sin hacer nada más
+    }
+  
+    // Intenta abrir el URL
+    Linking.canOpenURL(CV).then(supported => {
+      if (supported) {
+        Linking.openURL(CV);
+      } else {
+        Alert.alert('Error', 'No se pudo abrir el CV: URL no válido');
+      }
+    }).catch(err => Alert.alert('Error', 'Ocurrió un error al abrir el CV'));
   };
+  
 
   return {
     users,

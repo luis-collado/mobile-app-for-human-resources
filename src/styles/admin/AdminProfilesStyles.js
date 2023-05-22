@@ -24,6 +24,19 @@ const styles = StyleSheet.create({
       padding: 10,
       marginBottom: 10,
     },
+    fieldLabel: {
+      fontSize: 16, // Reducido el tamaño de la fuente
+      fontWeight: '500',
+      color: '#666',
+      marginBottom: 10,
+    },
+    fieldContainer: {
+      flexDirection: 'column',
+      borderBottomColor: '#d5bf19',
+      borderBottomWidth: 1,
+      marginBottom: 20,
+      paddingTop: 10,
+    },
     userName: {
       fontSize: 14,
       fontWeight: 'bold',
@@ -48,17 +61,28 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         borderRadius: 10,
       },
-      profileImageContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-evenly',
-        marginBottom: 20,
-      },
-      cvButton: {
-        backgroundColor: '#d5bf19',
-        alignSelf: 'center',
-        borderRadius: 10,
-      },
+  profileImageContainer: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    borderWidth: 2,
+    borderColor: '#d5bf19', 
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop:-60,
+    marginBottom: 30,
+  },
+  cvButton: {
+    top: 60,
+    position: 'absolute',
+    backgroundColor: '#d5bf19',
+    alignSelf: 'center',
+    right: 30,
+    borderRadius: 10,
+    width: 150,  // Ancho del botón
+    height: 50,  // Alto del botón
+  },
+  
       fab: {
         position: 'absolute',
         margin: 16,
@@ -67,11 +91,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#d5bf19',
       },
       profileImage: {
-        width: 150,
-        height: 150,
-        borderRadius: 75,
-        alignSelf: 'center',
-        marginBottom: 20,
+        width: 116,
+        height: 116,
+        borderRadius: 58,
+      },
+      pageTitle: {
+        fontSize: 24,
+        fontWeight: 'bold',
       },
       });
 

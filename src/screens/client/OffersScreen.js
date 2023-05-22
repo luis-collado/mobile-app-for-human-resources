@@ -26,12 +26,19 @@ const OffersScreen = ({route, navigation}) => {
     return (
       <View style={styles.container}>
         <ScrollView>
-        <Button
-          style={styles.applyButtonColor}
-          onPress={() => applyOffer(selectedOffer.Codigo)}
-        >
-          Aplicar
-        </Button>
+            <Button
+                style={styles.applyButtonColor}
+                onPress={() => {
+                  if (selectedOffer.Estado == "Abierta") {
+                    applyOffer(selectedOffer.Codigo);
+                  } else {
+                    Alert.alert('La oferta no está abierta.'); // o maneja el error como prefieras
+                  }
+                }}
+          >
+            Aplicar
+          </Button>
+
           {/* Detalles de la oferta seleccionada */}
           <Text style={styles.title}>{selectedOffer.Oferta}</Text>
           <Text style={styles.description}>{selectedOffer.Empresa}</Text>

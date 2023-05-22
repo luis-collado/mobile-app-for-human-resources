@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/config-plugins": "^6.0.0",
     "@expo/webpack-config": "^18.0.1",
     "@react-native-community/datetimepicker": "6.7.3",
     "@react-native-firebase/app": "^17.4.3",
@@ -41,7 +42,7 @@
     "papaparse": "^5.4.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-native": "0.71.6",
+    "react-native": "^0.71.7",
     "react-native-fs": "^2.20.0",
     "react-native-image-picker": "^5.3.1",
     "react-native-modal-datetime-picker": "^15.0.0",

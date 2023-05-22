@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { View, StyleSheet, FlatList,Text, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
@@ -56,30 +56,44 @@ const AdminOffersScreen = () => {
       </View>
       );
       } else {
-      return (
-      <ScrollView contentContainerStyle={styles.contentContainer}>
-      <View style={styles.container}>
-      <View style={styles.header}>
-      <Text style={styles.pageTitle}>Ofertas</Text>
-      <Button
+        return (
+          <View style={styles.container}>
+            <Text style={styles.pageTitle}>Ofertas</Text>
+            <Button
       onPress={() => navigation.navigate('CreateOffersScreen')}
       style={styles.createButton}
       >
-      Crear
+      Crear Ofertas
       </Button>
-      </View>
-      {offers.map((item, index) => (
-      <TouchableOpacity
-      key={index}
-      style={styles.offerContainer}
-      onPress={() => handleSelectOffer(item)}
-      >
-      <Text style={styles.title}>{item.Oferta}</Text>
-      </TouchableOpacity>
-      ))}
-      </View>
-      </ScrollView>
-      );
+            <FlatList
+      data={offers}
+      renderItem={({item}) => (
+        <TouchableOpacity
+          onPress={() => handleSelectOffer(item)}
+          style={styles.offerContainer}
+        >
+          <Text 
+      style={[
+        styles.title, 
+        { 
+          color: item.Estado === 'Abierta' ? 'green' : 
+          item.Estado === 'Cerrada' ? 'red' : 
+          item.Estado === 'En elaboración' ? 'yellow' : 
+          'black' 
+        }
+      ]}
+    >
+      {item.Oferta}
+    </Text>
+    
+        </TouchableOpacity>
+      )}
+      keyExtractor={(item, index) => index.toString()}
+    />
+    
+    
+          </View>
+        );
       }
       };
 
