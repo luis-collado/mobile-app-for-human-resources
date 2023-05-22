@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop:-60,
     marginBottom: 30,
+    top: 15,
   },
   cvButton: {
     top: 60,
@@ -97,6 +98,7 @@ const styles = StyleSheet.create({
       },
       pageTitle: {
         fontSize: 24,
+        top: -20,
         fontWeight: 'bold',
       },
       });
