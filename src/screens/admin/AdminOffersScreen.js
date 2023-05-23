@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, FlatList,Text, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import styles from '../../styles/admin/AdminOffersStyles';
 import useAdminOffersController from '../../controllers/admin/AdminOffersController';
@@ -34,27 +35,31 @@ const AdminOffersScreen = () => {
       </Button>
       </View>
       <Text style={styles.description}>{selectedOffer.Empresa}</Text>
-      {Object.entries(selectedOffer).map(([key, value]) => (
-      key !== 'Oferta' && key !== 'Empresa' ? (
-      <Text style={styles.info} key={key}>
-      {key}: {value}
-      </Text>
-      ) : null
-      ))}
-     <Text style={styles.description}>Solicitantes:</Text>
-          {isArray ? (
-      parsedApplicants.map((applicant, index) => (
-        <TouchableOpacity key={index} onPress={() => navigation.navigate('AdminProfilesScreen', {selectedUser: applicant})}>
+{Object.entries(selectedOffer).map(([key, value]) => (
+  key !== 'Oferta' && key !== 'Empresa' ? (
+    <View style={styles.fieldContainer} key={key}>
+      <Text style={styles.fieldLabel}>{key}:</Text>
+      <Text style={styles.fieldValue}>{value}</Text>
+    </View>
+  ) : null
+))}
 
+<Text style={styles.description}>Solicitantes:</Text>
+    {isArray ? (
+      parsedApplicants.map((applicant, index) => (
+        <TouchableOpacity 
+          key={index} 
+          onPress={() => navigation.navigate('AdminProfilesScreen', {selectedUser: applicant})}
+          style={styles.clickableContainer}
+        >
           <Text style={styles.info}>
-            {applicant.Nombre}
+            {applicant.Nombre } {applicant.Apellido1} {applicant.Apellido2} <Icon name="chevron-forward-outline" size={15} color="blue" />
           </Text>
         </TouchableOpacity>
-
       ))
-          ) : (
-      <Text style={styles.info}>{parsedApplicants}</Text>
-      )}
+    ) : (
+  <Text style={styles.info}>{parsedApplicants}</Text>
+)}
       <Button onPress={handleGoBack} style={styles.button}>
       Volver
       </Button>

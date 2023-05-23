@@ -61,6 +61,24 @@ const styles = StyleSheet.create({
       borderRadius: 10,
       color: 'white', // Cambiar el color del texto a blanco
     }
+    ,
+    fieldContainer: {
+      flexDirection: 'column',
+      borderBottomColor: '#d5bf19',
+      borderBottomWidth: 1,
+      marginBottom: 20,
+      paddingTop: 10,
+    },
+    fieldLabel: {
+      fontSize: 16, // Reducido el tamaño de la fuente
+      fontWeight: '500',
+      color: '#666',
+      marginBottom: 10,
+    },
+    fieldValue: {
+      fontSize: 15, // Reducido el tamaño de la fuente
+      color: '#444',
+    },
   });
 
   export default styles;

@@ -42,20 +42,16 @@ const OffersScreen = ({route, navigation}) => {
           {/* Detalles de la oferta seleccionada */}
           <Text style={styles.title}>{selectedOffer.Oferta}</Text>
           <Text style={styles.description}>{selectedOffer.Empresa}</Text>
-          <Text style={styles.info}>Fecha: {selectedOffer.Fecha}</Text>
-          <Text style={styles.info}>Estado: {selectedOffer.Estado}</Text>
-          <Text style={styles.info}>Tipo Contrato: {selectedOffer['Tipo contrato']}</Text>
-          <Text style={styles.info}>Duración: {selectedOffer.Duración}</Text>
-          <Text style={styles.info}>Puestos: {selectedOffer.Puestos}</Text>
+
           {/* Muestra más información de la oferta aquí */}
           {Object.entries(selectedOffer).map(([key, value]) => (
-            key !== 'Oferta' && key !== 'Empresa' && key !== 'Fecha' && key !== 'Estado' &&
-            key !== 'Tipo contrato' && key !== 'Duración' && key !== 'Puestos' && key !== 'ofertaId' ? (
-              <Text style={styles.info} key={key}>
-                {key}: {value}
-              </Text>
-            ) : null
-          ))}
+            key !== 'Oferta' && key !== 'Empresa' ? (
+              <View style={styles.fieldContainer} key={key}>
+              <Text style={styles.fieldLabel}>{key}:</Text>
+              <Text style={styles.fieldValue}>{value}</Text>
+            </View>
+          ) : null
+        ))}
           <Button onPress={handleGoBack} style={styles.button}>
             Volver
           </Button>

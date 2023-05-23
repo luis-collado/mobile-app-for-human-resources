@@ -30,6 +30,10 @@ const styles = StyleSheet.create({
       color: '#666',
       marginBottom: 10,
     },
+      fieldValue: {
+    fontSize: 15, // Reducido el tamaño de la fuente
+    color: '#444',
+  },
     fieldContainer: {
       flexDirection: 'column',
       borderBottomColor: '#d5bf19',
