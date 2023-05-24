@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Linking } from 'react-native';
 import { Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const useAdminProfilesController = (incomingUser) => {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(incomingUser || null);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,11 +25,21 @@ const useAdminProfilesController = (incomingUser) => {
   }, []);
 
   const handleSelectUser = (user) => {
+
     setSelectedUser(user);
   };
 
   const handleGoBack = () => {
+
+    if(incomingUser!=null){
+    navigation.goBack();
+    //setSelectedUser(null);
+    incomingUser=null;
+    }
+    else{
     setSelectedUser(null);
+    }
+    
   };
 
   const handleOpenCv = (CV) => {
