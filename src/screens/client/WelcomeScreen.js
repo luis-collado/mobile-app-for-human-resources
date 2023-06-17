@@ -63,7 +63,7 @@ const WelcomeScreen = ({route}) => {
           component={OffersScreen}
           initialParams={{email: email}}
           options={{
-            tabBarLabel: 'OffersScreen',
+            tabBarLabel: 'Ofertas',
             tabBarIcon: ({color}) => (
               <MaterialCommunityIcons
                 name="sale"
